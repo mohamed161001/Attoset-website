@@ -63,11 +63,8 @@ export function Navbar() {
             </div>
 
             <div className="hidden items-center gap-2 md:flex">
-              <Button href="/contact" variant="ghost" size="sm">
-                Sign in
-              </Button>
               <Button href={ctaHref} variant="primary" size="sm">
-                Get started
+                Join our waitlist
                 <ArrowUpRight className="size-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </Button>
             </div>
@@ -104,11 +101,8 @@ export function Navbar() {
                 </Link>
               ))}
               <div className="mt-2 flex flex-col gap-2">
-                <Button href="/contact" variant="secondary" size="md">
-                  Sign in
-                </Button>
                 <Button href={ctaHref} variant="primary" size="md">
-                  Get started
+                  Join our waitlist
                 </Button>
               </div>
             </Container>

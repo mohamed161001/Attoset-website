@@ -43,7 +43,7 @@ export const nav = [
   { label: "Features", href: "/#features" },
   { label: "AttoForge", href: "/#autoforge" },
   { label: "Security", href: "/#security" },
-  { label: "Pricing", href: "/pricing" },
+  // { label: "Pricing", href: "/pricing" }, // hidden for now
   { label: "About", href: "/about" },
 ];
 

@@ -10,7 +10,7 @@ const columns = [
     title: "Product",
     links: [
       { label: "Features", href: "/features" },
-      { label: "Pricing", href: "/pricing" },
+      // { label: "Pricing", href: "/pricing" }, // hidden for now
       { label: "Atto AI", href: "/features#atto" },
       { label: "AI Agents", href: "/features#agents" },
       { label: "Security", href: "/features#security" },

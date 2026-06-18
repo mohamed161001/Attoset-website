@@ -45,7 +45,7 @@ export function Hero() {
               <span className="pointer-events-none absolute inset-0 bg-gradient-to-r from-white/25 via-transparent to-white/10" />
               <span className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-[900ms] ease-out group-hover:translate-x-full" />
               <span className="relative z-10 inline-flex items-center gap-2">
-                Start building free
+                Join our waitlist
                 <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
               </span>
             </Button>
