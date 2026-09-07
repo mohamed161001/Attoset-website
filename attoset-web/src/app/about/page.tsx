@@ -7,13 +7,14 @@ import { Reveal } from "@/components/ui/reveal";
 import { PageHeader } from "@/components/sections/page-header";
 import { Stats } from "@/components/sections/stats";
 import { CTA } from "@/components/sections/cta";
+import { pageMeta } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
   title: "About",
   description:
     "Attoset is on a mission to help organizations turn ideas, processes, and operations into scalable systems — powered by AI.",
-  alternates: { canonical: "/about" },
-};
+  path: "/about",
+});
 
 const values = [
   {

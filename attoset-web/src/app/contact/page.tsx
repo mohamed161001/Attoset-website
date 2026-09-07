@@ -4,13 +4,14 @@ import { Container } from "@/components/ui/container";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { Reveal } from "@/components/ui/reveal";
 import { LinkedInIcon } from "@/components/ui/social-icons";
+import { pageMeta } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
   title: "Contact",
   description:
     "Talk to the Attoset team. Get a demo, ask a question, or start building your AI-powered Work OS.",
-  alternates: { canonical: "/contact" },
-};
+  path: "/contact",
+});
 
 const channels = [
   { icon: Sparkles, title: "Get a demo", desc: "See Attoset build a system live." },

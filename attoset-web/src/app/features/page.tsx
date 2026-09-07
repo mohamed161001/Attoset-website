@@ -9,13 +9,14 @@ import { FeatureGrid } from "@/components/sections/feature-grid";
 import { SecuritySection } from "@/components/sections/security-section";
 import { CTA } from "@/components/sections/cta";
 import { ctaHref } from "@/lib/content";
+import { pageMeta } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
   title: "Product",
   description:
     "Atto AI assistant, autonomous agents, flexible tables, automation, multiple views, and enterprise security — all in one Work OS.",
-  alternates: { canonical: "/features" },
-};
+  path: "/features",
+});
 
 export default function FeaturesPage() {
   return (

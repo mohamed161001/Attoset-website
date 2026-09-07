@@ -4,7 +4,6 @@ import { m, useReducedMotion } from "framer-motion";
 import { Table2, FormInput, Workflow, PieChart } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { LogoMark } from "@/components/layout/logo";
-import { cn } from "@/lib/utils";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 

@@ -23,10 +23,6 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  useEffect(() => {
-    setOpen(false);
-  }, [pathname]);
-
   return (
     <header className="fixed inset-x-0 top-0 z-50">
       <div
@@ -95,6 +91,7 @@ export function Navbar() {
                 <Link
                   key={item.href}
                   href={item.href}
+                  onClick={() => setOpen(false)}
                   className="rounded-xl px-4 py-3 text-base font-medium text-ink hover:bg-warm"
                 >
                   {item.label}

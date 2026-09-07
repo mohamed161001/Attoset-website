@@ -36,4 +36,6 @@ Thumbs.db
 
 # Local dev artifacts (not part of the site)
 attoset-web/screenshots/
-attoset-web/scripts/
+attoset-web/scripts/*
+# ...except the screenshot tool the site-edit skill relies on
+!attoset-web/scripts/shot.mjs

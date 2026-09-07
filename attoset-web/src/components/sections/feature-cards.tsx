@@ -105,20 +105,23 @@ function AgentsVisual() {
   );
 }
 
-function WorkflowVisual() {
-  const reduce = useReducedMotion();
-  const Node = ({ icon: Icon, accent }: { icon: LucideIcon; accent?: boolean }) => (
+function WorkflowNode({ icon: Icon, accent }: { icon: LucideIcon; accent?: boolean }) {
+  return (
     <span className="flex size-9 items-center justify-center rounded-xl border border-line bg-white shadow-card">
       <Icon className={cn("size-4", accent ? "text-orange" : "text-ink-soft")} strokeWidth={1.9} />
     </span>
   );
+}
+
+function WorkflowVisual() {
+  const reduce = useReducedMotion();
   return (
     <div className="relative flex items-center gap-1.5">
-      <Node icon={Zap} accent />
+      <WorkflowNode icon={Zap} accent />
       <span className="h-px w-5 bg-line-strong" />
-      <Node icon={Check} />
+      <WorkflowNode icon={Check} />
       <span className="h-px w-5 bg-line-strong" />
-      <Node icon={ArrowRight} />
+      <WorkflowNode icon={ArrowRight} />
       {!reduce && (
         <m.span
           className="absolute top-1/2 size-1.5 -translate-y-1/2 rounded-full bg-orange shadow-orange"
@@ -154,26 +157,24 @@ function WorkspacesVisual() {
   );
 }
 
-function DatabaseVisual() {
-  const reduce = useReducedMotion();
-  const [cols, setCols] = useState(reduce ? 4 : 3);
-  useEffect(() => {
-    if (reduce) return;
-    const id = setInterval(() => setCols((c) => (c === 3 ? 4 : 3)), 2600);
-    return () => clearInterval(id);
-  }, [reduce]);
-
-  const HeaderCell = ({ accent }: { accent?: boolean }) => (
+function HeaderCell({ accent }: { accent?: boolean }) {
+  return (
     <div className="flex h-5 w-[44px] shrink-0 items-center bg-warm px-1.5">
       <span className={cn("block h-1.5 w-[68%] rounded", accent ? "bg-orange/40" : "bg-ink/25")} />
     </div>
   );
-  const DataCell = ({ accent, shimmer }: { accent?: boolean; shimmer?: boolean }) => (
+}
+
+function DataCell({ accent, shimmer }: { accent?: boolean; shimmer?: boolean }) {
+  return (
     <div className="flex h-6 w-[44px] shrink-0 items-center px-1.5">
       <span className={cn("block h-1.5 w-[62%] rounded", shimmer ? "skeleton" : accent ? "bg-orange/30" : "bg-ink/10")} />
     </div>
   );
-  const NewCol = ({ children, delay = 0 }: { children: ReactNode; delay?: number }) => (
+}
+
+function NewCol({ children, delay = 0 }: { children: ReactNode; delay?: number }) {
+  return (
     <m.div
       initial={{ width: 0, opacity: 0 }}
       animate={{ width: 44, opacity: 1 }}
@@ -184,6 +185,16 @@ function DatabaseVisual() {
       {children}
     </m.div>
   );
+}
+
+function DatabaseVisual() {
+  const reduce = useReducedMotion();
+  const [cols, setCols] = useState(reduce ? 4 : 3);
+  useEffect(() => {
+    if (reduce) return;
+    const id = setInterval(() => setCols((c) => (c === 3 ? 4 : 3)), 2600);
+    return () => clearInterval(id);
+  }, [reduce]);
 
   const rows = [0, 1, 2];
   return (
@@ -478,6 +489,17 @@ type Group = { id: string; label: string; blurb: string; icon: LucideIcon; cards
 
 const groups: Group[] = [
   {
+    id: "build",
+    label: "Build & organize",
+    blurb: "Shape workspaces, tables, and the links between them.",
+    icon: Layers,
+    cards: [
+      { title: "Custom workspaces", desc: "Shape Attoset around how your team actually works.", visual: <WorkspacesVisual /> },
+      { title: "Flexible tables", desc: "Build tables your way — add fields and edit them together in real time.", visual: <DatabaseVisual /> },
+      { title: "Linked records", desc: "Link records across tables to connect related data and keep everything in sync.", visual: <LinkedVisual /> },
+    ],
+  },
+  {
     id: "ai",
     label: "AI & Automation",
     blurb: "Assistance and agents that build and run the work.",
@@ -486,17 +508,6 @@ const groups: Group[] = [
       { title: "Atto, your AI assistant", desc: "Describe what you need and Atto designs the system for you.", visual: <AttoVisual /> },
       { title: "Custom AI agents", desc: "Proactive agents that execute tasks and run processes 24/7.", visual: <AgentsVisual /> },
       { title: "Workflow automation", desc: "Triggers, conditions, and actions that run in the background.", visual: <WorkflowVisual /> },
-    ],
-  },
-  {
-    id: "build",
-    label: "Build & organize",
-    blurb: "Shape workspaces, tables, and the links between them.",
-    icon: Layers,
-    cards: [
-      { title: "Custom workspaces", desc: "Shape Attoset around how your team actually works.", visual: <WorkspacesVisual /> },
-      { title: "Flexible tables", desc: "Build tables your way — add fields and edit them together in real time.", visual: <DatabaseVisual /> },
-      { title: "Linked records", desc: "Link records across tables — connect each deal to the company it belongs to.", visual: <LinkedVisual /> },
     ],
   },
   {
