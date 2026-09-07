@@ -27,7 +27,7 @@ export function CTA() {
               </h2>
               <p className="mt-4 max-w-md text-pretty text-[15px] leading-relaxed text-white/85">
                 Bring your operations into one flexible system, built exactly
-                the way you work — free to start.
+                the way you work.
               </p>
               <div className="mt-7 flex flex-col items-center gap-3 sm:flex-row">
                 <a
