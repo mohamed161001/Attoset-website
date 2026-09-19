@@ -21,9 +21,10 @@ type Route = {
 const routes: Route[] = [
   { path: "/", priority: 1, changeFrequency: "weekly", lastModified: "2026-06-29" },
   { path: "/features", priority: 0.9, changeFrequency: "monthly", lastModified: "2026-06-29" },
-  // { path: "/pricing", ... }, // hidden + noindex for now
+  { path: "/pricing", priority: 0.8, changeFrequency: "monthly", lastModified: "2026-09-18" },
   { path: "/about", priority: 0.6, changeFrequency: "monthly", lastModified: "2026-06-29" },
   { path: "/contact", priority: 0.6, changeFrequency: "yearly", lastModified: "2026-06-29" },
+  { path: "/privacy", priority: 0.3, changeFrequency: "yearly", lastModified: "2026-09-07" },
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

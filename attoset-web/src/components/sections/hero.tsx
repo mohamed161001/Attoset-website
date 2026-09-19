@@ -27,9 +27,9 @@ export function Hero() {
             className="anim-rise mt-5 max-w-xl text-pretty text-[17px] leading-relaxed text-muted"
             style={{ ["--anim-delay" as string]: "0.16s" }}
           >
-            Build, manage, automate, and scale your operations in one unified
-            platform — with Atto, a built-in AI assistant, and agents that
-            actually execute the work.
+            Not an ERP. Not a CRM — Attoset is where the work itself gets done.
+            Build, manage, automate and scale your operations in one platform,
+            with Atto, a built-in AI assistant.
           </p>
 
           <div

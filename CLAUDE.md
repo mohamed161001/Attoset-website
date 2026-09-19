@@ -13,10 +13,10 @@ It combines customizable databases, forms, dashboards, workflow automation, coll
 **Tagline direction:** the AI-powered platform that turns ideas, processes, and operations into scalable systems — with built-in AI assistance and autonomous agents that actually execute work.
 
 ### Key features
-- **Atto** — built-in AI assistant that helps users design, build, and improve workflows and systems.
-- **Custom AI Agents** — proactive agents that execute tasks, automate processes, monitor systems, and act on behalf of teams.
+- **Atto** — built-in AI assistant that helps users design, build, and improve workflows and systems. **Live today.**
+- **Custom AI Agents** — proactive agents that execute tasks, automate processes, monitor systems, and act on behalf of teams. **Not yet shipped — coming soon.** Only Atto is live at the moment; site copy should present agents as roadmap, never as a current capability.
 - Custom Workspaces · Flexible Databases · Workflow Automation · Forms & Data Collection · Dashboards & Analytics
-- Multiple Views (Table, Kanban, Calendar, Gantt) · Team Collaboration · Enterprise Security & Permissions
+- Multiple Views (Grid, Kanban, Calendar, Gantt) · Team Collaboration · Enterprise Security & Permissions
 
 ### Security
 Enterprise-grade: role-based access control, strict permissions, audit trails, secure data handling.

@@ -2,7 +2,7 @@
  * JSON-LD structured-data builders. Centralized so schema stays in sync
  * with site content. Consumed by the <JsonLd /> server component.
  */
-import { faqs, pricing } from "@/lib/content";
+import { faqs } from "@/lib/content";
 
 const SITE_URL = "https://attoset.com";
 
@@ -33,15 +33,10 @@ export const softwareApplicationSchema = {
   applicationCategory: "BusinessApplication",
   operatingSystem: "Web",
   description:
-    "AI-powered Work OS for building, managing, automating, and scaling operations — with a built-in AI assistant and autonomous agents.",
+    "AI-powered Work OS for building, managing, automating, and scaling operations — with a built-in AI assistant.",
   url: SITE_URL,
-  offers: pricing.map((tier) => ({
-    "@type": "Offer",
-    name: tier.name,
-    price: tier.price.replace(/[^0-9.]/g, "") || undefined,
-    priceCurrency: "USD",
-    description: tier.blurb,
-  })),
+  // No `offers` until the price list publishes with the public beta — otherwise
+  // figures we haven't announced end up in search results.
 };
 
 export const faqSchema = {

@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { m, useReducedMotion } from "framer-motion";
 import {
   Layers, Cog, BarChart3, Check, ArrowRight, Bot,
@@ -11,6 +10,7 @@ import { Container } from "@/components/ui/container";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { Reveal } from "@/components/ui/reveal";
 import { ctaHref } from "@/lib/content";
+import { Avatar, people } from "@/components/mockups/avatar";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
@@ -31,10 +31,10 @@ const assets: { label: string; icon: LucideIcon; color: string }[] = [
 
 // A few managed instances, each a full copy of the blueprint, that roll up into the portfolio.
 // `agents` = AI agents working the instance alongside the human team.
-const instances: { name: string; team: string[]; agents: number; status: string }[] = [
-  { name: "Site A", team: ["/images/avatars/p1.jpg", "/images/avatars/p2.jpg"], agents: 1, status: "On track" },
-  { name: "Site B", team: ["/images/avatars/p2.jpg"], agents: 2, status: "On track" },
-  { name: "Site C", team: ["/images/avatars/p3.jpg", "/images/avatars/p1.jpg"], agents: 1, status: "Active" },
+const instances: { name: string; team: (keyof typeof people)[]; agents: number; status: string }[] = [
+  { name: "Site A", team: ["maya", "david"], agents: 1, status: "On track" },
+  { name: "Site B", team: ["david"], agents: 2, status: "On track" },
+  { name: "Site C", team: ["sara", "maya"], agents: 1, status: "Active" },
 ];
 
 const portfolioBars = [58, 82, 46, 94, 70, 88];
@@ -192,14 +192,13 @@ function AutoForgeFlow() {
                 <span className="text-[11.5px] font-medium text-white/85">{row.name}</span>
                 {/* human teammates + AI agents working the instance together */}
                 <div className="flex -space-x-1.5">
-                  {row.team.map((src) => (
-                    <Image
-                      key={src}
-                      src={src}
-                      alt=""
-                      width={20}
-                      height={20}
-                      className="size-4 rounded-full border border-ink object-cover"
+                  {row.team.map((key) => (
+                    <Avatar
+                      key={key}
+                      name={people[key].name}
+                      color={people[key].color}
+                      size={16}
+                      className="border border-ink"
                     />
                   ))}
                   {Array.from({ length: row.agents }).map((_, a) => (

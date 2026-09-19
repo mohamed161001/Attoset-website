@@ -7,14 +7,11 @@ import { JsonLd } from "@/components/seo/json-ld";
 import { softwareApplicationSchema } from "@/lib/schema";
 import { pageMeta } from "@/lib/seo";
 
-// Hidden from nav + sitemap while pricing is not public — keep it out of the
-// index too, so the page can't be discovered and indexed via a direct link.
 export const metadata: Metadata = pageMeta({
   title: "Pricing",
   description:
-    "Simple, transparent pricing for teams of every size. Start free and scale as you grow.",
+    "Pick your capacity, add your seats, get an instant quote. Capacity and seats are priced separately, and visitors and external operators are free on every plan.",
   path: "/pricing",
-  index: false,
 });
 
 export default function PricingPage() {
@@ -22,14 +19,14 @@ export default function PricingPage() {
     <>
       <JsonLd data={softwareApplicationSchema} />
       <PageHeader
+        compact
         eyebrow="Pricing"
         title={
           <>
-            Pricing that scales{" "}
-            <span className="grad-text">with you</span>
+            Capacity and <span className="grad-text">seats</span>
           </>
         }
-        description="Start free. Upgrade when you need automation, AI agents, and enterprise controls. No surprises."
+        description="Pick your capacity, add your seats, get an instant quote."
       />
       <PricingSection />
       <FAQ />

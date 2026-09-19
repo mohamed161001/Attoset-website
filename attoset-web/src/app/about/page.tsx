@@ -25,7 +25,7 @@ const values = [
   {
     icon: Sparkles,
     title: "AI that does, not just suggests",
-    desc: "Intelligence is only useful when it takes action. Atto and agents execute real work.",
+    desc: "Intelligence is only useful when it takes action. Atto executes real work today, with custom AI agents coming next.",
   },
   {
     icon: ShieldCheck,

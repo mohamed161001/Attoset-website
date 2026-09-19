@@ -14,7 +14,7 @@ import { pageMeta } from "@/lib/seo";
 export const metadata: Metadata = pageMeta({
   title: "Product",
   description:
-    "Atto AI assistant, autonomous agents, flexible tables, automation, multiple views, and enterprise security — all in one Work OS.",
+    "Atto AI assistant, flexible tables, automation, multiple views, and enterprise security — all in one Work OS. Custom AI agents coming soon.",
   path: "/features",
 });
 

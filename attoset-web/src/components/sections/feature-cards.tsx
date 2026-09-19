@@ -2,11 +2,10 @@
 
 import type { ReactNode } from "react";
 import { useEffect, useRef, useState } from "react";
-import Image from "next/image";
 import { AnimatePresence, m, useInView, useReducedMotion } from "framer-motion";
 import {
   Bot, Boxes, Users, Database, LayoutDashboard, Zap, Check, ArrowRight,
-  Table2, KanbanSquare, Calendar, GanttChartSquare, ShieldCheck,
+  Table2, LayoutGrid, KanbanSquare, Calendar, GanttChartSquare, ShieldCheck,
   Sparkles, Layers, BarChart3, Shield,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
@@ -14,6 +13,7 @@ import { Container } from "@/components/ui/container";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { Reveal } from "@/components/ui/reveal";
 import { AttoAvatar } from "@/components/mockups/atto-avatar";
+import { Avatar } from "@/components/mockups/avatar";
 import { cn } from "@/lib/utils";
 
 const ease = [0.16, 1, 0.3, 1] as const;
@@ -230,7 +230,7 @@ function DatabaseVisual() {
 }
 
 function ViewsVisual() {
-  const icons = [Table2, KanbanSquare, Calendar, GanttChartSquare];
+  const icons = [LayoutGrid, KanbanSquare, Calendar, GanttChartSquare];
   return (
     <div className="flex flex-col items-center gap-3">
       <div className="inline-flex gap-1 rounded-full border border-line bg-white p-1 shadow-card">
@@ -265,6 +265,61 @@ function DashboardVisual() {
             transition={{ duration: 0.6, delay: i * 0.06, ease }}
           />
         ))}
+      </div>
+    </div>
+  );
+}
+
+/** A metric that opens the records behind it. */
+function DrillVisual() {
+  return (
+    <div className="w-[196px] space-y-2">
+      <div className="rounded-xl border border-line bg-white px-3 py-2.5 shadow-card">
+        <p className="text-[9.5px] text-muted">Overdue</p>
+        <p className="text-[17px] font-bold text-orange">12</p>
+      </div>
+      <div className="flex justify-center text-faint">
+        <ArrowRight className="size-3.5 rotate-90" strokeWidth={2} />
+      </div>
+      <div className="space-y-1 rounded-xl border border-line bg-white p-2 shadow-card">
+        {[72, 58, 64].map((w, i) => (
+          <span key={i} className="flex items-center gap-1.5 rounded-md px-1.5 py-1">
+            <span className="size-1.5 shrink-0 rounded-full bg-orange" />
+            <span className="skeleton block h-1.5" style={{ width: `${w}%` }} />
+            <span className="ml-auto rounded bg-warm-2 px-1.5 py-0.5 text-[8.5px] font-semibold text-ink-soft">
+              Assign
+            </span>
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/** An Atto suggestion with the accept / decline control. */
+function ReviewVisual() {
+  return (
+    <div className="w-[208px] rounded-xl border border-line bg-white p-3 shadow-card">
+      <div className="flex items-center gap-1.5">
+        <span className="flex size-5 items-center justify-center rounded-md bg-ink">
+          <Sparkles className="size-3 text-white" strokeWidth={2} />
+        </span>
+        <span className="text-[10px] font-semibold text-ink">Atto suggests</span>
+      </div>
+      <div className="mt-2 space-y-1">
+        <span className="skeleton block h-1.5 w-full" />
+        <span className="skeleton block h-1.5 w-3/5" />
+      </div>
+      <div className="mt-2.5 flex gap-1.5">
+        <span className="flex-1 rounded-md bg-ink py-1 text-center text-[9.5px] font-semibold text-white">
+          Approve
+        </span>
+        <span className="flex-1 rounded-md border border-line py-1 text-center text-[9.5px] font-semibold text-ink-soft">
+          Edit
+        </span>
+        <span className="rounded-md border border-line px-2 py-1 text-[9.5px] font-semibold text-faint">
+          ✕
+        </span>
       </div>
     </div>
   );
@@ -404,7 +459,7 @@ function CollabVisual() {
     <div ref={ref} className="flex min-h-[96px] w-[232px] flex-col justify-center gap-2.5">
       {/* Maya */}
       <div className="flex items-end gap-2">
-        <Image src="/images/avatars/p1.jpg" alt="" width={28} height={28} className="size-7 shrink-0 rounded-full object-cover" />
+        <Avatar name="Maya" color="#FF512A" size={28} />
         <AnimatePresence mode="wait" initial={false}>
           {step === 0 ? (
             <m.div key="mt" initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.25 }}>
@@ -429,7 +484,7 @@ function CollabVisual() {
         <AnimatePresence>
           {step >= 2 && (
             <m.div key="dav" initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.3 }}>
-              <Image src="/images/avatars/p2.jpg" alt="" width={28} height={28} className="size-7 shrink-0 rounded-full object-cover" />
+              <Avatar name="David" color="#3B82F6" size={28} />
             </m.div>
           )}
         </AnimatePresence>
@@ -484,7 +539,7 @@ function SecurityVisual() {
 
 /* ---------- cards ----------------------------------------------------- */
 
-type Card = { title: string; desc: string; visual: ReactNode };
+type Card = { title: string; desc: string; visual: ReactNode; comingSoon?: boolean };
 type Group = { id: string; label: string; blurb: string; icon: LucideIcon; cards: Card[] };
 
 const groups: Group[] = [
@@ -502,11 +557,12 @@ const groups: Group[] = [
   {
     id: "ai",
     label: "AI & Automation",
-    blurb: "Assistance and agents that build and run the work.",
+    blurb: "Assistance today, autonomous agents on the way.",
     icon: Sparkles,
     cards: [
       { title: "Atto, your AI assistant", desc: "Describe what you need and Atto designs the system for you.", visual: <AttoVisual /> },
-      { title: "Custom AI agents", desc: "Proactive agents that execute tasks and run processes 24/7.", visual: <AgentsVisual /> },
+      { title: "AI proposes, you decide", desc: "Every suggestion is reviewable — approve it, decline it, or edit it yourself.", visual: <ReviewVisual /> },
+      { title: "Custom AI agents", desc: "Coming soon: proactive agents that will execute tasks and run processes around the clock.", visual: <AgentsVisual />, comingSoon: true },
       { title: "Workflow automation", desc: "Triggers, conditions, and actions that run in the background.", visual: <WorkflowVisual /> },
     ],
   },
@@ -517,8 +573,9 @@ const groups: Group[] = [
     icon: BarChart3,
     cards: [
       { title: "Forms & data collection", desc: "Build a form by adding fields, then collect data straight into your tables.", visual: <FormVisual /> },
-      { title: "Multiple views", desc: "Table, Kanban, Calendar, Gantt — the same data, reshaped.", visual: <ViewsVisual /> },
+      { title: "Multiple views", desc: "Grid, Kanban, Calendar, Gantt — the same data, reshaped.", visual: <ViewsVisual /> },
       { title: "Dashboards & analytics", desc: "Turn live data into dashboards and reports, in real time.", visual: <DashboardVisual /> },
+      { title: "Act from the dashboard", desc: "Open the records behind any number and assign, approve or update them right there.", visual: <DrillVisual /> },
     ],
   },
   {
@@ -544,7 +601,14 @@ function FeatureCard({ card }: { card: Card }) {
     >
       <Stage>{card.visual}</Stage>
       <div className="px-6 pb-6 pt-1">
-        <h3 className="font-display text-[16px] font-semibold tracking-tight text-ink">{card.title}</h3>
+        <div className="flex items-center gap-2">
+          <h3 className="font-display text-[16px] font-semibold tracking-tight text-ink">{card.title}</h3>
+          {card.comingSoon && (
+            <span className="rounded-full bg-peach px-2 py-0.5 text-[11px] font-medium text-orange">
+              Coming soon
+            </span>
+          )}
+        </div>
         <p className="mt-2 text-[13.5px] leading-relaxed text-muted">{card.desc}</p>
       </div>
     </m.article>
@@ -669,7 +733,7 @@ function GroupTab({ group, active, onSelect }: { group: Group; active: boolean; 
 export function FeatureCards() {
   const [active, setActive] = useState(0);
   const group = groups[active];
-  const single = group.cards.length < 3;
+  const count = group.cards.length;
 
   return (
     <section id="features" className="relative scroll-mt-20 overflow-hidden border-b border-line bg-warm py-24 sm:py-28">
@@ -723,7 +787,8 @@ export function FeatureCards() {
             variants={{ show: { transition: { staggerChildren: 0.08 } } }}
             className={cn(
               "mt-10 grid gap-5 sm:grid-cols-2",
-              single ? "lg:mx-auto lg:max-w-3xl" : "lg:grid-cols-3",
+              // 2 or 4 cards read better as a centred pair/quad than a 3-col row with an orphan
+              count === 3 ? "lg:grid-cols-3" : "lg:mx-auto lg:max-w-3xl",
             )}
           >
             {group.cards.map((card) => (

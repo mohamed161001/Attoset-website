@@ -10,7 +10,7 @@ const columns = [
     title: "Product",
     links: [
       { label: "Features", href: "/features" },
-      // { label: "Pricing", href: "/pricing" }, // hidden for now
+      { label: "Pricing", href: "/pricing" },
       { label: "Atto AI", href: "/features#atto" },
       { label: "AI Agents", href: "/features#agents" },
       { label: "Security", href: "/features#security" },
@@ -27,7 +27,7 @@ const columns = [
   {
     title: "Legal",
     links: [
-      { label: "Privacy Policy", href: "/contact" },
+      { label: "Privacy Policy", href: "/privacy" },
       { label: "Terms of Service", href: "/contact" },
     ],
   },

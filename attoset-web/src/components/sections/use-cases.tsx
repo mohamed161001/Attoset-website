@@ -68,16 +68,17 @@ export function UseCases() {
       <Container className="relative z-10">
         <div className="flex flex-col items-center gap-4 text-center">
           <Reveal>
-            <Eyebrow>Use cases</Eyebrow>
+            <Eyebrow>Two ways in</Eyebrow>
           </Reveal>
           <Reveal delay={0.05}>
             <h2 className="font-display text-3xl font-semibold tracking-display text-balance text-white sm:text-4xl lg:text-5xl">
-              Built for orchestrating complex work
+              Start with operations. Scale to the portfolio.
             </h2>
           </Reveal>
           <Reveal delay={0.1}>
             <p className="mx-auto max-w-2xl text-pretty text-lg leading-relaxed text-white/55">
-              From service delivery to strategic execution — teams run their most demanding work on Attoset.
+              Operations and process management is what teams run on Attoset today. Project and portfolio
+              management — the same blocks deployed across every project, site and contract — is coming.
             </p>
           </Reveal>
         </div>

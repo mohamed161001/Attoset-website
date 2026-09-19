@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { AnimatePresence, m } from "framer-motion";
-import { Table2, KanbanSquare, Calendar, GanttChartSquare } from "lucide-react";
+import { LayoutGrid, KanbanSquare, Calendar, GanttChartSquare } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { Reveal } from "@/components/ui/reveal";
@@ -13,7 +13,7 @@ import { GanttView } from "@/components/mockups/gantt-view";
 import { cn } from "@/lib/utils";
 
 const tabs = [
-  { label: "Table", icon: Table2, view: <TableView /> },
+  { label: "Grid", icon: LayoutGrid, view: <TableView /> },
   { label: "Kanban", icon: KanbanSquare, view: <KanbanView /> },
   { label: "Calendar", icon: Calendar, view: <CalendarView /> },
   { label: "Gantt", icon: GanttChartSquare, view: <GanttView /> },
@@ -28,7 +28,7 @@ export function ViewsSection() {
         <SectionHeading
           eyebrow="Multiple views"
           title="See your work the way that fits"
-          description="The same data, instantly reshaped. Switch between Table, Kanban, Calendar, and Gantt without rebuilding a thing."
+          description="The same data, instantly reshaped. Switch between Grid, Kanban, Calendar, and Gantt without rebuilding a thing."
         />
 
         <Reveal delay={0.1}>
