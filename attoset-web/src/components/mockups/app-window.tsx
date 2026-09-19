@@ -3,6 +3,7 @@ import {
   Bell,
   Plus,
   Table2,
+  LayoutGrid,
   KanbanSquare,
   Calendar,
   GanttChartSquare,
@@ -31,7 +32,7 @@ const navItems = [
 export function AppWindow({
   children,
   title = "Operations",
-  tab = "Table",
+  tab = "Grid",
   className,
 }: {
   children: React.ReactNode;
@@ -40,7 +41,7 @@ export function AppWindow({
   className?: string;
 }) {
   const tabs = [
-    { label: "Table", icon: Table2 },
+    { label: "Grid", icon: LayoutGrid },
     { label: "Kanban", icon: KanbanSquare },
     { label: "Calendar", icon: Calendar },
     { label: "Gantt", icon: GanttChartSquare },

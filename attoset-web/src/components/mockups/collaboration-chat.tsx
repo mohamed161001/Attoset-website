@@ -1,14 +1,14 @@
 "use client";
 
-import Image from "next/image";
 import { useEffect, useState } from "react";
 import { AnimatePresence, m, useReducedMotion } from "framer-motion";
+import { Avatar } from "./avatar";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
 type Msg = {
   name: string;
-  avatar: string;
+  color: string;
   text: React.ReactNode;
   time: string;
   align?: "left" | "right";
@@ -17,13 +17,13 @@ type Msg = {
 const thread: Msg[] = [
   {
     name: "Maya H.",
-    avatar: "/images/avatars/p1.jpg",
+    color: "#FF512A",
     text: "Can you review the Q3 onboarding flow before we ship it?",
     time: "9:41",
   },
   {
     name: "David O.",
-    avatar: "/images/avatars/p2.jpg",
+    color: "#3B82F6",
     align: "right",
     text: (
       <>
@@ -35,7 +35,7 @@ const thread: Msg[] = [
   },
   {
     name: "Lena P.",
-    avatar: "/images/avatars/p3.jpg",
+    color: "#0EA5A0",
     text: "Added it ✓ and assigned the follow-up to an agent.",
     time: "9:43",
   },
@@ -71,13 +71,7 @@ export function CollaborationChat() {
               transition={{ duration: 0.45, ease }}
               className={`flex items-end gap-2.5 ${right ? "flex-row-reverse" : ""}`}
             >
-              <Image
-                src={msg.avatar}
-                alt=""
-                width={36}
-                height={36}
-                className="size-9 shrink-0 rounded-full object-cover shadow-card"
-              />
+              <Avatar name={msg.name} color={msg.color} size={36} className="shadow-card" />
               <div className={`max-w-[78%] ${right ? "items-end text-right" : ""}`}>
                 <div className={`mb-1 flex items-baseline gap-2 ${right ? "justify-end" : ""}`}>
                   <span className="text-[12px] font-semibold text-ink">{msg.name}</span>

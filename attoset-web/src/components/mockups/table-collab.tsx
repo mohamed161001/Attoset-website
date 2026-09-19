@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import { AnimatePresence, m, useReducedMotion } from "framer-motion";
 import {
   Table2, Plus, Filter, ArrowUpDown, Check, ChevronDown,
@@ -15,14 +14,15 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Avatar } from "./avatar";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
 // Live collaborators in the table — signature brand colors.
 const team = [
-  { name: "Maya", color: "#FF512A", from: "#FFB59E", to: "#FF512A", img: "/images/avatars/p1.jpg" },
-  { name: "David", color: "#3B82F6", from: "#93BBFF", to: "#3B82F6", img: "/images/avatars/p2.jpg" },
-  { name: "Sara", color: "#A21CE0", from: "#D29BF2", to: "#A21CE0", img: "/images/avatars/p3.jpg" },
+  { name: "Maya", color: "#FF512A", from: "#FFB59E", to: "#FF512A" },
+  { name: "David", color: "#3B82F6", from: "#93BBFF", to: "#3B82F6" },
+  { name: "Sara", color: "#A21CE0", from: "#D29BF2", to: "#A21CE0" },
 ];
 
 // Every field (column) type AttoSet supports, grouped by category.
@@ -160,13 +160,7 @@ export function TableCollab() {
           <div className="flex -space-x-2">
             {team.map((m) => (
               <span key={m.name} className="relative">
-                <Image
-                  src={m.img}
-                  alt={m.name}
-                  width={28}
-                  height={28}
-                  className="size-6 rounded-full object-cover ring-2 ring-white"
-                />
+                <Avatar name={m.name} color={m.color} size={24} ring />
                 <span className="absolute -bottom-0.5 -right-0.5 size-2 rounded-full border-2 border-white bg-emerald-500" />
               </span>
             ))}

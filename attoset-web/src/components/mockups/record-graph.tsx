@@ -1,10 +1,10 @@
 "use client";
 
-import Image from "next/image";
 import { m, useReducedMotion } from "framer-motion";
 import { Building2, CircleDollarSign, SquareCheckBig, FileText } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Avatar } from "./avatar";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
@@ -13,7 +13,7 @@ type Link = {
   y: number;
   title: string;
   sub: string;
-  avatar?: string;
+  avatarColor?: string;
   icon?: LucideIcon;
   tint?: string; // icon square bg
   color?: string; // icon color
@@ -22,7 +22,7 @@ type Link = {
 };
 
 const links: Link[] = [
-  { x: 17, y: 24, title: "Maya Hart", sub: "Primary contact", avatar: "/images/avatars/p1.jpg" },
+  { x: 17, y: 24, title: "Maya Hart", sub: "Primary contact", avatarColor: "#FF512A" },
   { x: 83, y: 24, title: "Q3 Renewal", sub: "$24,000", icon: CircleDollarSign, tint: "bg-emerald-500/10", color: "text-emerald-600" },
   { x: 17, y: 76, title: "Onboarding", sub: "In progress", icon: SquareCheckBig, tint: "bg-sky-500/10", color: "text-sky-600", status: "live", statusColor: "bg-sky-500" },
   { x: 83, y: 76, title: "INV-1042", sub: "Paid", icon: FileText, tint: "bg-violet-500/10", color: "text-violet-600" },
@@ -31,8 +31,8 @@ const links: Link[] = [
 function LinkCard({ link }: { link: Link }) {
   return (
     <div className="flex w-[164px] items-center gap-2.5 rounded-xl border border-line bg-white px-3 py-2.5 shadow-card">
-      {link.avatar ? (
-        <Image src={link.avatar} alt="" width={32} height={32} className="size-8 shrink-0 rounded-full object-cover" />
+      {link.avatarColor ? (
+        <Avatar name={link.title} color={link.avatarColor} size={32} />
       ) : (
         <span className={cn("flex size-8 shrink-0 items-center justify-center rounded-lg", link.tint)}>
           {link.icon && <link.icon className={cn("size-4", link.color)} strokeWidth={1.9} />}

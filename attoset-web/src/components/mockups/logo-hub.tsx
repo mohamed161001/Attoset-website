@@ -1,10 +1,10 @@
 "use client";
 
-import Image from "next/image";
 import { m, useReducedMotion } from "framer-motion";
 import { Table2, FormInput, Workflow, PieChart, Bot, Users, GanttChart } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { LogoMark } from "@/components/layout/logo";
+import { Avatar } from "./avatar";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 const R = 37; // asset orbit radius in 0–100 space
@@ -28,9 +28,9 @@ const nodes = baseNodes.map((n, i) => {
 
 // collaborators floating around the ecosystem (in the gaps between assets)
 const people = [
-  { src: "/images/avatars/p1.jpg", x: 97, y: 46 },
-  { src: "/images/avatars/p2.jpg", x: 20, y: 94 },
-  { src: "/images/avatars/p3.jpg", x: 18, y: 6 },
+  { name: "Maya", color: "#FF512A", x: 97, y: 46 },
+  { name: "David", color: "#3B82F6", x: 20, y: 94 },
+  { name: "Sara", color: "#A21CE0", x: 18, y: 6 },
 ];
 
 export function LogoHub() {
@@ -123,13 +123,7 @@ export function LogoHub() {
             animate={reduce ? undefined : { y: [0, -7, 0] }}
             transition={{ duration: 3.6 + i * 0.6, repeat: Infinity, ease: "easeInOut" }}
           >
-            <Image
-              src={p.src}
-              alt=""
-              width={44}
-              height={44}
-              className="size-10 rounded-full border-2 border-white object-cover shadow-float"
-            />
+            <Avatar name={p.name} color={p.color} size={40} className="border-2 border-white shadow-float" />
             <span className="absolute -bottom-0.5 -right-0.5 size-3 rounded-full border-2 border-white bg-emerald-500" />
           </m.div>
         </m.div>

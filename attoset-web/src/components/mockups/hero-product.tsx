@@ -30,7 +30,7 @@ export function HeroProduct() {
         animate={{ opacity: 1, y: 0, scale: 1 }}
         transition={{ duration: 0.9, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
       >
-        <AppWindow title="Operations" tab="Table">
+        <AppWindow title="Operations" tab="Grid">
           <TableView />
         </AppWindow>
       </m.div>
