@@ -122,10 +122,26 @@ export type ViewType = {
 };
 
 export const views: ViewType[] = [
-  { icon: LayoutGrid, label: "Grid", blurb: "Spreadsheet-grade control over every record." },
-  { icon: KanbanSquare, label: "Kanban", blurb: "Move work across stages at a glance." },
-  { icon: Calendar, label: "Calendar", blurb: "See deadlines and schedules in context." },
-  { icon: GanttChartSquare, label: "Gantt", blurb: "Plan timelines and dependencies." },
+  {
+    icon: LayoutGrid,
+    label: "Grid",
+    blurb: "Spreadsheet-grade control over every record.",
+  },
+  {
+    icon: KanbanSquare,
+    label: "Kanban",
+    blurb: "Move work across stages at a glance.",
+  },
+  {
+    icon: Calendar,
+    label: "Calendar",
+    blurb: "See deadlines and schedules in context.",
+  },
+  {
+    icon: GanttChartSquare,
+    label: "Gantt",
+    blurb: "Plan timelines and dependencies.",
+  },
 ];
 
 export const useCases = [
@@ -161,10 +177,29 @@ export const howItWorks: Step[] = [
 ];
 
 export const security = [
-  { icon: KeyRound, title: "Role-based access control", description: "Define exactly who can see and do what, down to the field." },
-  { icon: Lock, title: "Strict permissions", description: "Granular, inheritable permissions across workspaces and records." },
-  { icon: ScrollText, title: "Audit trails", description: "A complete, tamper-evident history of every change and action." },
-  { icon: Server, title: "Secure data handling", description: "Encryption in transit and at rest, designed for enterprise use." },
+  {
+    icon: KeyRound,
+    title: "Role-based access control",
+    description: "Define exactly who can see and do what, down to the field.",
+  },
+  {
+    icon: Lock,
+    title: "Strict permissions",
+    description:
+      "Granular, inheritable permissions across workspaces and records.",
+  },
+  {
+    icon: ScrollText,
+    title: "Audit trails",
+    description:
+      "A complete, tamper-evident history of every change and action.",
+  },
+  {
+    icon: Server,
+    title: "Secure data handling",
+    description:
+      "Encryption in transit and at rest, designed for enterprise use.",
+  },
 ];
 
 export type Testimonial = {
@@ -248,62 +283,78 @@ export const pricesProvisional = true;
 /** What the platform costs — the limits, security and machine work it covers. */
 export type CapacityBand = {
   name: string;
-  /** Hides the figure and takes the plan out of the estimator until it ships. */
-  comingSoon?: boolean;
   /** Monthly USD. Formatted for display and summed by the estimator. */
   amount: number;
   cadence: string;
   blurb: string;
   limits: { label: string; value: string }[];
-  tag?: string;
+  tags?: string[];
   featured?: boolean;
 };
 
 export const capacityBands: CapacityBand[] = [
   {
+    name: "Free",
+    amount: 0,
+    cadence: "/ month",
+    blurb: "No platform fee. Pay only for the people who build.",
+    limits: [
+      { label: "Rows per table", value: "1,000" },
+      { label: "Storage", value: "2 GB" },
+      { label: "Automation runs", value: "100 / mo" },
+      { label: "Record history", value: "Unlimited" },
+      { label: "Event log", value: "Core events" },
+      { label: "SSO and audit export", value: "No" },
+      { label: "AttoForge blueprints", value: "No" },
+    ],
+  },
+  {
     name: "Starter",
     amount: 39,
     cadence: "/ month",
     blurb: "For a first team running real work.",
-    tag: "30-day trial",
+    tags: ["Start here", "30-day trial"],
+    featured: true,
     limits: [
-      { label: "Rows per table", value: "10,000" },
-      { label: "Storage", value: "10 GB" },
+      { label: "Rows per table", value: "20,000" },
+      { label: "Storage", value: "100 GB" },
       { label: "Automation runs", value: "2,000 / mo" },
-      { label: "Change history", value: "12 months" },
-      { label: "SSO and audit export", value: "Yes" },
+      { label: "Record history", value: "Unlimited" },
+      { label: "Event log", value: "Core events" },
+      { label: "SSO and audit export", value: "No" },
       { label: "AttoForge blueprints", value: "No" },
     ],
   },
   {
     name: "Growth",
-    amount: 149,
+    amount: 99,
     cadence: "/ month",
     blurb: "For an organization running several processes.",
-    tag: "Most teams",
-    featured: true,
+    tags: ["Coming soon"],
     limits: [
-      { label: "Rows per table", value: "30,000" },
-      { label: "Storage", value: "250 GB" },
+      { label: "Rows per table", value: "50,000" },
+      { label: "Storage", value: "1 TB" },
       { label: "Automation runs", value: "25,000 / mo" },
-      { label: "Change history", value: "3 years" },
+      { label: "Record history", value: "Unlimited" },
+      { label: "Event log", value: "All events" },
       { label: "SSO and audit export", value: "Yes" },
       { label: "AttoForge blueprints", value: "Add-on" },
     ],
   },
   {
     name: "Scale",
-    comingSoon: true,
     amount: 500,
     cadence: "/ month",
-    blurb: "The advanced tier, for portfolios run across many teams or sites.",
+    blurb: "For advanced work requirements and full capacity.",
+    tags: ["Coming soon"],
     limits: [
       { label: "Rows per table", value: "100,000" },
-      { label: "Storage", value: "1 TB" },
+      { label: "Storage", value: "Unlimited" },
       { label: "Automation runs", value: "100,000 / mo" },
-      { label: "Change history", value: "Unlimited" },
+      { label: "Record history", value: "Unlimited" },
+      { label: "Event log", value: "All events + analytics" },
       { label: "SSO and audit export", value: "Yes" },
-      { label: "AttoForge blueprints", value: "1" },
+      { label: "AttoForge blueprints", value: "Unlimited" },
     ],
   },
 ];
@@ -313,7 +364,8 @@ export const capacityBands: CapacityBand[] = [
  * Stored amounts are the yearly rate expressed per month.
  */
 export const MONTHLY_MULTIPLIER = 1.2;
-export const monthlyRate = (yearly: number) => Math.round(yearly * MONTHLY_MULTIPLIER);
+export const monthlyRate = (yearly: number) =>
+  Math.round(yearly * MONTHLY_MULTIPLIER);
 
 /**
  * Where a quote request goes: the Attoset form that feeds the quote-requests
@@ -341,9 +393,9 @@ export type SeatType = {
 export const seatTypes: SeatType[] = [
   {
     name: "Full seat",
-    amount: 19,
+    amount: 17,
     cadence: "/ user / mo",
-    desc: "Builds the system, manages people and permissions, and works with Atto.",
+    desc: "Builds the system, manages people and permissions. Full Atto access.",
     defaultCount: 3,
     minCount: 1,
     stepBy: 1,
@@ -352,7 +404,7 @@ export const seatTypes: SeatType[] = [
     name: "Operator",
     amount: 7.5,
     cadence: "/ user / mo",
-    desc: "Updates records, answers approvals and automated requests, and works with Atto on a smaller allowance.",
+    desc: "Updates records, answers automated requests. Smaller Atto allowance.",
     defaultCount: 12,
     minCount: 0,
     stepBy: 5,
@@ -369,7 +421,7 @@ export const seatTypes: SeatType[] = [
   {
     name: "External operator",
     amount: 0,
-    desc: "Clients, suppliers and contractors get the same access as an operator, at no charge.",
+    desc: "Operator access for clients, suppliers and contractors, at no charge.",
     free: true,
     defaultCount: 5,
     minCount: 0,
@@ -377,12 +429,10 @@ export const seatTypes: SeatType[] = [
   },
 ];
 
-/** The things we deliberately don't do. */
+/** How the two axes are meant to behave, stated as commitments. */
 export const pricingRules = [
-  "No minimum users, no bundles or seat packs. Add or remove one person at a time",
-  "Seat rates are the same on every plan, so growing never reprices the people you already have",
-  "Visitors and external operators are free on every plan, with no cap on either",
-  "Rows and storage are soft limits. You get a warning, not a locked workspace",
+  "Capacity and seats are two separate lines. More capacity never forces more seats, and adding people never moves your capacity fee",
+  "No minimums, no bundles, no seat packs, no hidden fees. Every figure is on this page, so you can quote yourself in seconds",
 ];
 
 export const faqs = [
@@ -413,7 +463,20 @@ export const faqs = [
 ];
 
 export const valueProps = [
-  { icon: Zap, title: "One platform", description: "End tool sprawl. Build everything in a single, connected system." },
-  { icon: GitBranch, title: "Truly customizable", description: "Adapt Attoset to your processes — not the other way around." },
-  { icon: Plug, title: "Connected", description: "Integrates with the tools your teams already rely on." },
+  {
+    icon: Zap,
+    title: "One platform",
+    description:
+      "End tool sprawl. Build everything in a single, connected system.",
+  },
+  {
+    icon: GitBranch,
+    title: "Truly customizable",
+    description: "Adapt Attoset to your processes — not the other way around.",
+  },
+  {
+    icon: Plug,
+    title: "Connected",
+    description: "Integrates with the tools your teams already rely on.",
+  },
 ];

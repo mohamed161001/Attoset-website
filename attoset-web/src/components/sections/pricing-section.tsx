@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowRight, Check, Minus, Plus } from "lucide-react";
+import { ArrowRight, Check, ChevronDown, Minus, Plus } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { Reveal } from "@/components/ui/reveal";
 import {
@@ -22,28 +22,20 @@ const money = (n: number) =>
     maximumFractionDigits: 2,
   })}`;
 
-const plural = (n: number, name: string) => `${n} ${name.toLowerCase()}${n === 1 ? "" : "s"}`;
+const plural = (n: number, name: string) =>
+  `${n} ${name.toLowerCase()}${n === 1 ? "" : "s"}`;
 
 /** Figures are hidden entirely when showPrices is off. */
 function Price({
   amount,
   cadence,
-  comingSoon,
   suffix,
 }: {
   amount: number;
   cadence?: string;
-  comingSoon?: boolean;
   suffix?: string;
 }) {
   if (!showPrices) return null;
-  if (comingSoon) {
-    return (
-      <p className="mt-1.5 font-display text-[19px] font-bold leading-none tracking-display text-faint">
-        Coming soon
-      </p>
-    );
-  }
   return (
     <p className="mt-1.5 flex items-end gap-1.5">
       <span className="font-display text-[26px] font-bold leading-none tracking-display text-ink">
@@ -83,7 +75,9 @@ function StepHeading({
         <span className="text-[13px] text-muted">{note}</span>
         {aside && <div className="ml-auto">{aside}</div>}
       </div>
-      <p className="mt-1 max-w-3xl pl-9 text-[14px] leading-relaxed text-muted">{children}</p>
+      <p className="mt-1 max-w-3xl pl-9 text-[14px] leading-relaxed text-muted">
+        {children}
+      </p>
     </Reveal>
   );
 }
@@ -191,9 +185,11 @@ function QuoteRequest({ build }: { build: (email: string) => QuotePayload }) {
       }
     }
 
-    const body = [`Quote request from ${email}`, "", ...payload.summary].join("\n");
+    const body = [`Quote request from ${email}`, "", ...payload.summary].join(
+      "\n",
+    );
     window.location.href = `mailto:${quoteEmail}?subject=${encodeURIComponent(
-      "Official quote request"
+      "Official quote request",
     )}&body=${encodeURIComponent(body)}`;
     setSent(true);
   };
@@ -201,7 +197,7 @@ function QuoteRequest({ build }: { build: (email: string) => QuotePayload }) {
   return (
     <form onSubmit={send} className="mt-5 border-t border-white/15 pt-4">
       <label htmlFor="quote-email" className="text-[12.5px] text-white/60">
-        Want it in writing? Add your email for an official quote.
+        Add your email for an official quote.
       </label>
       <div className="mt-2 flex flex-wrap gap-2">
         <input
@@ -233,8 +229,11 @@ export function PricingSection() {
     const featured = capacityBands.findIndex((b) => b.featured);
     return featured === -1 ? 0 : featured;
   });
-  const [counts, setCounts] = useState<number[]>(() => seatTypes.map((s) => s.defaultCount));
+  const [counts, setCounts] = useState<number[]>(() =>
+    seatTypes.map((s) => s.defaultCount),
+  );
   const [term, setTerm] = useState<"yearly" | "monthly">("yearly");
+  const [showLimits, setShowLimits] = useState(false);
 
   const yearly = term === "yearly";
   const rate = (a: number) => (yearly ? a : monthlyRate(a));
@@ -255,7 +254,8 @@ export function PricingSection() {
   const summary = [
     `${plan.name} capacity: ${money(planRate)} / month`,
     ...lines.map(
-      (l) => `${plural(l.count, l.seat.name)}: ${l.seat.free ? "free" : money(l.subtotal)}`
+      (l) =>
+        `${plural(l.count, l.seat.name)}: ${l.seat.free ? "free" : money(l.subtotal)}`,
     ),
     `Total: ${money(total)} per month, USD excluding VAT, ${
       yearly ? "yearly rate billed yearly" : "monthly rate"
@@ -292,7 +292,9 @@ export function PricingSection() {
                     aria-pressed={term === t}
                     className={cn(
                       "rounded-full px-3 py-1 font-medium capitalize transition-colors",
-                      term === t ? "bg-ink text-white" : "text-muted hover:text-ink"
+                      term === t
+                        ? "bg-ink text-white"
+                        : "text-muted hover:text-ink",
                     )}
                   >
                     {t}
@@ -302,11 +304,11 @@ export function PricingSection() {
             ) : null
           }
         >
-          Covers limits, security and machine work. Adding people never moves it, and limits never
-          cost seats.
+          What the platform covers. Adding people never moves it, and limits
+          never cost seats.
         </StepHeading>
 
-        <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
           {capacityBands.map((band, i) => {
             const selected = i === planIndex;
             return (
@@ -315,61 +317,88 @@ export function PricingSection() {
                   type="button"
                   onClick={() => setPlanIndex(i)}
                   aria-pressed={selected}
-                  disabled={band.comingSoon}
                   className={cn(
                     "flex h-full w-full flex-col rounded-xl border bg-white p-4 text-left transition-colors",
-                    band.comingSoon && "cursor-default opacity-70",
-                    selected ? "border-orange shadow-card" : "border-line",
-                    !selected && !band.comingSoon && "hover:border-line-strong"
+                    selected
+                      ? "border-orange shadow-card"
+                      : "border-line hover:border-line-strong",
                   )}
                 >
                   <div className="flex w-full items-center gap-2">
                     <h3 className="font-display text-[14.5px] font-semibold text-ink">
                       {band.name}
                     </h3>
-                    {band.tag && (
+                    {band.tags?.map((t, j) => (
                       <span
+                        key={t}
                         className={cn(
                           "rounded-full px-2 py-0.5 text-[10px] font-semibold",
-                          band.featured ? "bg-peach text-orange" : "bg-warm text-muted"
+                          band.featured && j === 0
+                            ? "bg-peach text-orange"
+                            : "bg-warm text-muted",
                         )}
                       >
-                        {band.tag}
+                        {t}
                       </span>
+                    ))}
+                    {selected && (
+                      <Check
+                        className="ml-auto size-4 text-orange"
+                        strokeWidth={2.5}
+                      />
                     )}
-                    {selected && <Check className="ml-auto size-4 text-orange" strokeWidth={2.5} />}
                   </div>
 
                   <Price
                     amount={rate(band.amount)}
                     cadence={band.cadence}
-                    suffix={suffix}
-                    comingSoon={band.comingSoon}
+                    suffix={band.amount === 0 ? "" : suffix}
                   />
 
-                  <p className="mt-2 text-[13px] leading-relaxed text-muted">{band.blurb}</p>
+                  <p className="mt-2 text-[13px] leading-relaxed text-muted">
+                    {band.blurb}
+                  </p>
 
-                  <dl className="mt-3 w-full text-[12.5px]">
-                    {band.limits.map((l) => (
-                      <div
-                        key={l.label}
-                        className="flex items-baseline justify-between gap-3 border-b border-line/60 py-[2.5px] last:border-0"
-                      >
-                        <dt className="text-muted">{l.label}</dt>
-                        <dd className="font-medium text-ink">{l.value}</dd>
-                      </div>
-                    ))}
-                  </dl>
+                  {showLimits && (
+                    <dl className="mt-3 w-full text-[12.5px]">
+                      {band.limits.map((l) => (
+                        <div
+                          key={l.label}
+                          className="flex items-baseline justify-between gap-3 border-b border-line/60 py-[2.5px] last:border-0"
+                        >
+                          <dt className="text-muted">{l.label}</dt>
+                          <dd className="font-medium text-ink">{l.value}</dd>
+                        </div>
+                      ))}
+                    </dl>
+                  )}
                 </button>
               </Reveal>
             );
           })}
         </div>
 
+        <Reveal>
+          <button
+            type="button"
+            onClick={() => setShowLimits((v) => !v)}
+            aria-expanded={showLimits}
+            className="mt-2 flex w-full items-center justify-center gap-1.5 rounded-lg py-1.5 text-[12.5px] font-medium text-faint transition-colors hover:bg-warm hover:text-ink"
+          >
+            {showLimits ? "Hide limits" : "Compare limits"}
+            <ChevronDown
+              className={cn(
+                "size-3.5 transition-transform",
+                showLimits && "rotate-180",
+              )}
+            />
+          </button>
+        </Reveal>
+
         <div className="mt-6">
           <StepHeading step={2} title="Seats" note="How many people you need">
-            Full rate for anyone who changes how the system works, reduced for operators, free for
-            the rest.
+            Full rate for anyone who changes how the system works, reduced for
+            operators, free for the rest.
           </StepHeading>
         </div>
 
@@ -378,13 +407,25 @@ export function PricingSection() {
             <Reveal key={seat.name} delay={(i % 4) * 0.05}>
               <div className="flex h-full flex-col rounded-xl border border-line bg-white p-4">
                 <div className="flex flex-wrap items-baseline justify-between gap-x-2">
-                  <h3 className="font-display text-[14.5px] font-semibold text-ink">{seat.name}</h3>
+                  <h3 className="font-display text-[14.5px] font-semibold text-ink">
+                    {seat.name}
+                  </h3>
                   {seat.free && (
-                    <span className="font-display text-[14.5px] font-bold text-orange">Free</span>
+                    <span className="font-display text-[14.5px] font-bold text-orange">
+                      Free
+                    </span>
                   )}
                 </div>
-                {!seat.free && <Price amount={rate(seat.amount)} cadence={seat.cadence} suffix={suffix} />}
-                <p className="mt-2 text-[13px] leading-relaxed text-muted">{seat.desc}</p>
+                {!seat.free && (
+                  <Price
+                    amount={rate(seat.amount)}
+                    cadence={seat.cadence}
+                    suffix={suffix}
+                  />
+                )}
+                <p className="mt-2 text-[13px] leading-relaxed text-muted">
+                  {seat.desc}
+                </p>
               </div>
             </Reveal>
           ))}
@@ -398,29 +439,37 @@ export function PricingSection() {
               className="mt-6 grid scroll-mt-24 gap-6 rounded-xl bg-ink px-6 py-6 text-white sm:px-7 lg:grid-cols-[1fr_auto] lg:gap-10"
             >
               <div>
-                <h2 className="font-display text-[14.5px] font-semibold">Your quote</h2>
+                <h2 className="font-display text-[14.5px] font-semibold">
+                  Your quote
+                </h2>
                 <p className="mt-1 text-[13px] text-white/60">
-                  {plan.name} is selected above. Set your people and the total updates.
+                  {plan.name} selected. Set your people and the total updates.
                 </p>
 
-                <div className="mt-4 grid gap-x-8 gap-y-4 sm:grid-cols-2">
-                  {seatTypes.map((seat, i) => (
-                    <div key={seat.name}>
-                      <p className="mb-2 text-[12.5px] text-white/60">
-                        {seat.name}s,{" "}
-                        {seat.free ? (
-                          <span className="text-orange">free</span>
-                        ) : (
-                          `${money(rate(seat.amount))} each`
-                        )}
-                      </p>
-                      <Stepper
-                        label={`${seat.name}s`}
-                        value={counts[i]}
-                        step={seat.stepBy}
-                        min={seat.minCount}
-                        onChange={(n) => setCount(i, n)}
-                      />
+                <div className="mt-4 grid gap-x-10 gap-y-5 sm:grid-cols-2">
+                  {[false, true].map((isFree) => (
+                    <div key={String(isFree)} className="flex flex-col gap-4">
+                      {seatTypes.map((seat, i) =>
+                        Boolean(seat.free) !== isFree ? null : (
+                          <div key={seat.name}>
+                            <p className="mb-2 text-[12.5px] text-white/60">
+                              {seat.name}s,{" "}
+                              {seat.free ? (
+                                <span className="text-orange">free</span>
+                              ) : (
+                                `${money(rate(seat.amount))} each`
+                              )}
+                            </p>
+                            <Stepper
+                              label={`${seat.name}s`}
+                              value={counts[i]}
+                              step={seat.stepBy}
+                              min={seat.minCount}
+                              onChange={(n) => setCount(i, n)}
+                            />
+                          </div>
+                        ),
+                      )}
                     </div>
                   ))}
                 </div>
@@ -433,8 +482,13 @@ export function PricingSection() {
                     <dd>{money(planRate)}</dd>
                   </div>
                   {lines.map((l) => (
-                    <div key={l.seat.name} className="flex justify-between gap-4 py-1">
-                      <dt className="text-white/60">{plural(l.count, l.seat.name)}</dt>
+                    <div
+                      key={l.seat.name}
+                      className="flex justify-between gap-4 py-1"
+                    >
+                      <dt className="text-white/60">
+                        {plural(l.count, l.seat.name)}
+                      </dt>
                       <dd className={cn(l.seat.free && "text-orange")}>
                         {l.seat.free ? "Free" : money(l.subtotal)}
                       </dd>
@@ -451,17 +505,19 @@ export function PricingSection() {
                     {money(total)}
                   </span>
                 </div>
-                <p className="mt-2 text-[11.5px] text-white/40">USD, excluding VAT.</p>
+                <p className="mt-2 text-[11.5px] text-white/40">
+                  USD, excluding VAT.
+                </p>
 
                 <QuoteRequest build={buildPayload} />
               </div>
 
               <p className="text-[11.5px] leading-relaxed text-white/40 lg:col-span-2">
                 {yearly
-                  ? "Yearly rates, billed once a year. That is two months free against monthly."
-                  : "Monthly rates, billed monthly. Switch to yearly for two months free."}{" "}
-                USD, excluding VAT. Regional discounts may be available depending on where you are
-                billed.
+                  ? "Yearly rates, two months free against monthly."
+                  : "Monthly rates. Yearly saves two months."}{" "}
+                USD, excluding VAT. Regional pricing for developing markets and
+                a startup program may apply.
               </p>
             </div>
           </Reveal>
@@ -470,13 +526,18 @@ export function PricingSection() {
         <Reveal delay={0.1}>
           <div className="mt-6 rounded-xl border border-line bg-warm px-6 py-5">
             <h2 className="font-display text-[14.5px] font-semibold text-ink">
-              What we don&apos;t do
+              Our approach
             </h2>
             <ul className="mt-3 grid gap-2.5 sm:grid-cols-2">
               {pricingRules.map((r) => (
                 <li key={r} className="flex items-start gap-2.5">
-                  <Check className="mt-0.5 size-3.5 shrink-0 text-orange" strokeWidth={2.5} />
-                  <span className="text-[13px] leading-relaxed text-ink-soft">{r}</span>
+                  <Check
+                    className="mt-0.5 size-3.5 shrink-0 text-orange"
+                    strokeWidth={2.5}
+                  />
+                  <span className="text-[13px] leading-relaxed text-ink-soft">
+                    {r}
+                  </span>
                 </li>
               ))}
             </ul>
@@ -488,9 +549,9 @@ export function PricingSection() {
             <p className="mt-5 flex items-start gap-2.5 rounded-xl border border-line bg-peach-soft px-4 py-3 text-[13.5px] leading-relaxed text-ink-soft">
               <span className="mt-[7px] size-1.5 shrink-0 rounded-full bg-orange" />
               <span>
-                Attoset is in closed beta, so these prices are provisional. They are confirmed
-                with the public beta in January 2027, along with add-ons, Atto allowances and a
-                full feature comparison.
+                Prices are provisional while Attoset is in closed beta. They are
+                confirmed with the public beta in January 2027, along with
+                add-ons, Atto allowances and a full feature comparison.
               </span>
             </p>
           </Reveal>
