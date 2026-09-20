@@ -22,10 +22,16 @@ export default function Home() {
     <>
       <JsonLd data={softwareApplicationSchema} />
       <Hero />
-      <FeatureCards />
-      <ProductShowcase />
-      <AutoForge />
+      {/*
+       * How it works sits directly under the hero: the three-step story is the
+       * orientation a first-time visitor needs before any capability detail.
+       * ProductShowcase then moves down to keep AutoForge and UseCases — both
+       * dark sections — from running together into one slab.
+       */}
       <HowItWorks />
+      <FeatureCards />
+      <AutoForge />
+      <ProductShowcase />
       <UseCases />
       <SecuritySection />
       <FAQ />

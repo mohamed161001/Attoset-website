@@ -26,6 +26,7 @@ import {
   GitBranch,
   Plug,
   Paperclip,
+  Hammer,
   Headset,
   FolderKanban,
   Factory,
@@ -51,17 +52,44 @@ export const ctaHref =
  */
 export const loginHref = "";
 
-export type NavItem = { label: string; href: string; children?: NavItem[] };
+export type NavItem = {
+  label: string;
+  href: string;
+  /** Shown only in the desktop Product menu, which renders icon + blurb per item. */
+  icon?: LucideIcon;
+  desc?: string;
+  children?: NavItem[];
+};
 
 export const nav: NavItem[] = [
   {
     label: "Product",
     href: "/product",
     children: [
-      { label: "Overview", href: "/product" },
-      { label: "Atto AI", href: "/product#atto" },
-      { label: "AttoForge", href: "/#autoforge" },
-      { label: "Security", href: "/security" },
+      {
+        label: "Overview",
+        href: "/product",
+        icon: LayoutGrid,
+        desc: "The platform, end to end",
+      },
+      {
+        label: "Atto AI",
+        href: "/product#atto",
+        icon: Sparkles,
+        desc: "Built into every workspace",
+      },
+      {
+        label: "AttoForge",
+        href: "/#autoforge",
+        icon: Hammer,
+        desc: "A repeatable work engine",
+      },
+      {
+        label: "Security",
+        href: "/security",
+        icon: ShieldCheck,
+        desc: "Permissions and audit trails",
+      },
     ],
   },
   { label: "Solutions", href: "/solutions" },
@@ -277,24 +305,29 @@ export const solutionCases: SolutionCase[] = [
 
 export type Step = { n: string; title: string; description: string };
 
+/**
+ * Three stages, in dependency order: build the structure, feed it and let it
+ * act, then run on it. Keep them distinct — an earlier draft had 01 "build"
+ * and 02 "shape" doing the same job, and put dashboards under automation.
+ */
 export const howItWorks: Step[] = [
   {
     n: "01",
     title: "Build your workspace",
     description:
-      "Start blank or from a template, then create the tables, fields, and views your process needs.",
+      "Start blank or from a template, then create the tables, fields and views your process runs on — with the files and links it depends on kept beside the records.",
   },
   {
     n: "02",
-    title: "Shape & automate",
+    title: "Collect & automate",
     description:
-      "Add forms, dashboards, and no-code automations that handle the repetitive work.",
+      "Bring work in through forms, then let no-code automations route it, chase approvals and update records without anyone pushing them along.",
   },
   {
     n: "03",
     title: "Run & scale",
     description:
-      "Run your team in one system that bends to fit — no migrations, no tool sprawl.",
+      "Watch the whole operation in live dashboards, add people and processes as you grow, and reshape any part of it without starting over.",
   },
 ];
 
@@ -628,7 +661,7 @@ export const faqs = [
   },
   {
     q: "How long does it take to get started?",
-    a: "Minutes. Describe what you need to Atto and it drafts your first workspace, tables, and views. You refine from there — no migrations or rebuilds required. Attoset is in closed beta today; signup opens with the public beta in January 2027, and we onboard from the waitlist until then.",
+    a: "Minutes. Describe what you need to Atto and it drafts your first workspace, tables, and views. You refine from there. Attoset is in closed beta today; signup opens with the public beta in January 2027, and we onboard from the waitlist until then.",
   },
 ];
 

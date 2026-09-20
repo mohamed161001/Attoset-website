@@ -104,23 +104,42 @@ export function Navbar() {
                     <AnimatePresence>
                       {expanded && (
                         <m.div
-                          initial={{ opacity: 0, y: -6 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          exit={{ opacity: 0, y: -6 }}
-                          transition={{ duration: 0.15 }}
-                          className="absolute left-0 top-full w-56 pt-2"
+                          initial={{ opacity: 0, y: -6, scale: 0.985 }}
+                          animate={{ opacity: 1, y: 0, scale: 1 }}
+                          exit={{ opacity: 0, y: -6, scale: 0.985 }}
+                          transition={{ duration: 0.16, ease: [0.22, 1, 0.36, 1] }}
+                          className="absolute left-0 top-full w-[33rem] pt-3"
                         >
-                          <div className="flex flex-col gap-0.5 rounded-2xl border border-line bg-white p-2 shadow-float">
-                            {item.children.map((child) => (
-                              <Link
-                                key={child.label}
-                                href={child.href}
-                                onClick={() => setMenu(null)}
-                                className="rounded-xl px-3 py-2 text-sm text-muted transition-colors hover:bg-warm hover:text-ink"
-                              >
-                                {child.label}
-                              </Link>
-                            ))}
+                          <div className="relative overflow-hidden rounded-2xl border border-line bg-white p-2 shadow-float">
+                            <div className="grid grid-cols-2 gap-1">
+                              {item.children.map((child) => (
+                                <Link
+                                  key={child.label}
+                                  href={child.href}
+                                  onClick={() => setMenu(null)}
+                                  className="group/item flex items-start gap-3 rounded-xl p-3 transition-colors hover:bg-warm"
+                                >
+                                  {child.icon && (
+                                    <span className="mt-px flex size-9 shrink-0 items-center justify-center rounded-lg border border-line bg-white text-ink shadow-card transition-colors group-hover/item:border-orange/30 group-hover/item:bg-peach group-hover/item:text-orange">
+                                      <child.icon
+                                        className="size-[17px]"
+                                        strokeWidth={1.75}
+                                      />
+                                    </span>
+                                  )}
+                                  <span className="min-w-0">
+                                    <span className="block font-display text-[14px] font-semibold text-ink">
+                                      {child.label}
+                                    </span>
+                                    {child.desc && (
+                                      <span className="mt-0.5 block text-[12.5px] leading-snug text-muted">
+                                        {child.desc}
+                                      </span>
+                                    )}
+                                  </span>
+                                </Link>
+                              ))}
+                            </div>
                           </div>
                         </m.div>
                       )}

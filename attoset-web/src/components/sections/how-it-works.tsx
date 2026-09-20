@@ -5,12 +5,12 @@ import { howItWorks } from "@/lib/content";
 
 export function HowItWorks() {
   return (
-    <section className="bg-warm py-24 sm:py-28">
+    <section className="bg-white py-24 sm:py-28">
       <Container>
         <SectionHeading
           eyebrow="How it works"
           title="From idea to running system in minutes"
-          description="No migrations, no rebuilds. Describe what you need and shape it as you go."
+          description="Describe what you need, then keep shaping it as the process changes."
         />
 
         <div className="relative mt-16 grid gap-8 md:grid-cols-3">
