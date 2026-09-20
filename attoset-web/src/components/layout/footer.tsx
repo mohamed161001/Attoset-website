@@ -9,11 +9,12 @@ const columns = [
   {
     title: "Product",
     links: [
-      { label: "Features", href: "/features" },
+      { label: "Overview", href: "/product" },
+      { label: "Atto AI", href: "/product#atto" },
+      { label: "AI Agents", href: "/product#agents" },
+      { label: "AttoForge", href: "/#autoforge" },
+      { label: "Security", href: "/security" },
       { label: "Pricing", href: "/pricing" },
-      { label: "Atto AI", href: "/features#atto" },
-      { label: "AI Agents", href: "/features#agents" },
-      { label: "Security", href: "/features#security" },
     ],
   },
   {
@@ -28,7 +29,7 @@ const columns = [
     title: "Legal",
     links: [
       { label: "Privacy Policy", href: "/privacy" },
-      { label: "Terms of Service", href: "/contact" },
+      { label: "Security", href: "/security" },
     ],
   },
 ];
@@ -46,7 +47,11 @@ export function Footer() {
             </p>
             <div className="flex items-center gap-2">
               {[
-                { icon: LinkedInIcon, label: "LinkedIn", href: "https://www.linkedin.com/company/attoset" },
+                {
+                  icon: LinkedInIcon,
+                  label: "LinkedIn",
+                  href: "https://www.linkedin.com/company/attoset",
+                },
               ].map(({ icon: Icon, label, href }) => (
                 <a
                   key={label}

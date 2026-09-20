@@ -50,7 +50,7 @@ export function AttoSection() {
 
             <Reveal delay={0.4}>
               <div className="mt-9">
-                <Button href="/features#atto" variant="primary">
+                <Button href="/product#atto" variant="primary">
                   Explore Atto
                   <Sparkles className="size-4" />
                 </Button>

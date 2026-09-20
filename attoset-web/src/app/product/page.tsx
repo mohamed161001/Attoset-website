@@ -15,18 +15,18 @@ export const metadata: Metadata = pageMeta({
   title: "Product",
   description:
     "Atto AI assistant, flexible tables, automation, multiple views, and enterprise security — all in one Work OS. Custom AI agents coming soon.",
-  path: "/features",
+  path: "/product",
 });
 
-export default function FeaturesPage() {
+export default function ProductPage() {
   return (
     <>
       <PageHeader
         eyebrow="The platform"
         title={
           <>
-            One Work OS.{" "}
-            <span className="grad-text">Endless</span> possibilities.
+            One Work OS. <span className="grad-text">Endless</span>{" "}
+            possibilities.
           </>
         }
         description="Everything your organization needs to build, manage, automate, and scale operations — unified in a single, AI-powered platform."

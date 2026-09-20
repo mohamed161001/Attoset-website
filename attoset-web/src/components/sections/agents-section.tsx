@@ -5,14 +5,29 @@ import { Reveal } from "@/components/ui/reveal";
 import { AgentsBoard } from "@/components/mockups/agents";
 
 const capabilities = [
-  { title: "Execute tasks", icon: Zap, desc: "Agents take real actions across your workspaces — not just reminders." },
-  { title: "Automate processes", icon: Repeat, desc: "Hand off repetitive, multi-step work and let agents run it end to end." },
-  { title: "Monitor systems", icon: Radar, desc: "Watch records, thresholds, and deadlines, then act the moment something changes." },
+  {
+    title: "Execute tasks",
+    icon: Zap,
+    desc: "Agents take real actions across your workspaces — not just reminders.",
+  },
+  {
+    title: "Automate processes",
+    icon: Repeat,
+    desc: "Hand off repetitive, multi-step work and let agents run it end to end.",
+  },
+  {
+    title: "Monitor systems",
+    icon: Radar,
+    desc: "Watch records, thresholds, and deadlines, then act the moment something changes.",
+  },
 ];
 
 export function AgentsSection() {
   return (
-    <section id="agents" className="relative scroll-mt-24 overflow-hidden bg-ink py-24 text-white sm:py-28">
+    <section
+      id="agents"
+      className="relative scroll-mt-24 overflow-hidden bg-ink py-24 text-white sm:py-28"
+    >
       {/* Atmosphere — hero-style, tuned for the dark section */}
       <div className="pointer-events-none absolute inset-0 [background-image:linear-gradient(rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.05)_1px,transparent_1px)] [background-size:56px_56px] [mask-image:radial-gradient(ellipse_65%_55%_at_50%_0%,#000,transparent_78%)]" />
       <div className="pointer-events-none absolute -left-24 top-8 size-96 rounded-full bg-orange/20 blur-3xl" />
@@ -64,7 +79,9 @@ export function AgentsSection() {
                       <c.icon className="size-[18px]" strokeWidth={1.75} />
                     </span>
                     <div>
-                      <h3 className="font-display text-[17px] font-semibold">{c.title}</h3>
+                      <h3 className="font-display text-[17px] font-semibold">
+                        {c.title}
+                      </h3>
                       <p className="mt-1 text-[14.5px] leading-relaxed text-white/55">
                         {c.desc}
                       </p>
@@ -76,7 +93,7 @@ export function AgentsSection() {
 
             <Reveal delay={0.4}>
               <a
-                href="/features#agents"
+                href="/product#agents"
                 className="group mt-9 inline-flex items-center gap-2 rounded-full bg-orange px-6 py-3 text-sm font-medium text-white shadow-orange transition-all hover:-translate-y-0.5 hover:bg-orange-600"
               >
                 Build your first agent

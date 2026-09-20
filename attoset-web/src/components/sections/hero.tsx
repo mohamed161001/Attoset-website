@@ -49,7 +49,7 @@ export function Hero() {
                 <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
               </span>
             </Button>
-            <Button href="/features" variant="secondary" size="md">
+            <Button href="/product" variant="secondary" size="md">
               <Play className="size-3.5 fill-ink text-ink" />
               See how it works
             </Button>

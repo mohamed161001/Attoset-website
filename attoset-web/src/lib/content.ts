@@ -25,6 +25,10 @@ import {
   Zap,
   GitBranch,
   Plug,
+  Headset,
+  FolderKanban,
+  Factory,
+  Target,
 } from "lucide-react";
 
 export const site = {
@@ -39,12 +43,29 @@ export const site = {
 export const ctaHref =
   "https://dev.attoset.com/forms/submission/43fd4a22-8ae5-439d-9b78-21aa2cea160b";
 
-export const nav = [
-  { label: "Features", href: "/#features" },
-  { label: "AttoForge", href: "/#autoforge" },
-  { label: "Security", href: "/#security" },
+/**
+ * Sign-in URL for the app. Blank while Attoset is in closed beta: there is no
+ * public sign-in yet, so the waitlist CTA is the only way in. Set this when the
+ * public beta opens and the header grows a Log in link on its own.
+ */
+export const loginHref = "";
+
+export type NavItem = { label: string; href: string; children?: NavItem[] };
+
+export const nav: NavItem[] = [
+  {
+    label: "Product",
+    href: "/product",
+    children: [
+      { label: "Overview", href: "/product" },
+      { label: "Atto AI", href: "/product#atto" },
+      { label: "AI agents", href: "/product#agents" },
+      { label: "AttoForge", href: "/#autoforge" },
+      { label: "Security", href: "/security" },
+    ],
+  },
+  { label: "Solutions", href: "/solutions" },
   { label: "Pricing", href: "/pricing" },
-  { label: "About", href: "/about" },
 ];
 
 export type Feature = {
@@ -144,13 +165,63 @@ export const views: ViewType[] = [
   },
 ];
 
-export const useCases = [
-  "Project management",
-  "CRM",
-  "Operations",
-  "HR",
-  "Customer onboarding",
-  "Compliance",
+export type SolutionCase = {
+  /** Also names the card's photograph. */
+  id:
+    | "operations"
+    | "process"
+    | "service"
+    | "compliance"
+    | "portfolio"
+    | "strategy";
+  icon: LucideIcon;
+  title: string;
+  desc: string;
+};
+
+/**
+ * Grouped by the job being done, not by product area. Operations and process
+ * are split deliberately: one is work in the physical world, the other is the
+ * admin that surrounds it, and they are bought by different people. An industry
+ * axis belongs here too, but only once there are named customers behind it.
+ */
+export const solutionCases: SolutionCase[] = [
+  {
+    id: "operations",
+    icon: Factory,
+    title: "Operations management",
+    desc: "Sites, depots and field work kept moving. Track what is happening where, flag exceptions as they appear, and see status without chasing anyone.",
+  },
+  {
+    id: "process",
+    icon: Workflow,
+    title: "Process management",
+    desc: "The internal workflows HR, Finance, IT and Legal run on. Forms capture the request, automations route it, and dashboards show what is stuck.",
+  },
+  {
+    id: "service",
+    icon: Headset,
+    title: "Service delivery",
+    desc: "Every engagement run to the same standard. SLAs tracked, approvals routed, and a live view of where each request stands.",
+  },
+  {
+    id: "compliance",
+    icon: ScrollText,
+    title: "Compliance & audit",
+    desc: "Evidence on demand. Every change recorded, permissions enforced down to the field, and the event log exportable when someone asks.",
+  },
+  {
+    id: "portfolio",
+    icon: FolderKanban,
+    title: "Project & portfolio management",
+    desc: "One source of truth for schedules, budgets and risk. Every project rolls up into a portfolio view without rebuilding a spreadsheet to get there.",
+  },
+  {
+    id: "strategy",
+    icon: Target,
+    title: "Strategic execution",
+    desc: "Cross-team programs kept honest. Market entries and change initiatives tracked against owners, dates and dependencies in one place.",
+  },
 ];
 
 export type Step = { n: string; title: string; description: string };

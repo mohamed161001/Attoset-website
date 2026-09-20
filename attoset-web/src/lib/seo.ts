@@ -23,7 +23,7 @@ export function pageMeta({
   /** Page title without the "· Attoset" suffix (the layout template adds it). */
   title: string;
   description: string;
-  /** Absolute path, e.g. "/features". */
+  /** Absolute path, e.g. "/product". */
   path: string;
   /** Set false to keep the page out of search indexes (still followed). */
   index?: boolean;
@@ -41,7 +41,9 @@ export function pageMeta({
       title: socialTitle,
       description,
       url,
-      images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: OG_ALT }],
+      images: [
+        { url: "/opengraph-image", width: 1200, height: 630, alt: OG_ALT },
+      ],
     },
     twitter: {
       card: "summary_large_image",

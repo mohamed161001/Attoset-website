@@ -19,12 +19,54 @@ type Route = {
  * sitemap stays a generated artifact of the route model — not a stale file.
  */
 const routes: Route[] = [
-  { path: "/", priority: 1, changeFrequency: "weekly", lastModified: "2026-06-29" },
-  { path: "/features", priority: 0.9, changeFrequency: "monthly", lastModified: "2026-06-29" },
-  { path: "/pricing", priority: 0.8, changeFrequency: "monthly", lastModified: "2026-09-18" },
-  { path: "/about", priority: 0.6, changeFrequency: "monthly", lastModified: "2026-06-29" },
-  { path: "/contact", priority: 0.6, changeFrequency: "yearly", lastModified: "2026-06-29" },
-  { path: "/privacy", priority: 0.3, changeFrequency: "yearly", lastModified: "2026-09-07" },
+  {
+    path: "/",
+    priority: 1,
+    changeFrequency: "weekly",
+    lastModified: "2026-06-29",
+  },
+  {
+    path: "/product",
+    priority: 0.9,
+    changeFrequency: "monthly",
+    lastModified: "2026-09-20",
+  },
+  {
+    path: "/pricing",
+    priority: 0.8,
+    changeFrequency: "monthly",
+    lastModified: "2026-09-18",
+  },
+  {
+    path: "/solutions",
+    priority: 0.8,
+    changeFrequency: "monthly",
+    lastModified: "2026-09-20",
+  },
+  {
+    path: "/security",
+    priority: 0.7,
+    changeFrequency: "yearly",
+    lastModified: "2026-09-20",
+  },
+  {
+    path: "/about",
+    priority: 0.6,
+    changeFrequency: "monthly",
+    lastModified: "2026-06-29",
+  },
+  {
+    path: "/contact",
+    priority: 0.6,
+    changeFrequency: "yearly",
+    lastModified: "2026-06-29",
+  },
+  {
+    path: "/privacy",
+    priority: 0.3,
+    changeFrequency: "yearly",
+    lastModified: "2026-09-07",
+  },
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

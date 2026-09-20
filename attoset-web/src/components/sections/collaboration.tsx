@@ -62,7 +62,7 @@ export function Collaboration() {
 
             <Reveal delay={0.4}>
               <div className="mt-9">
-                <Button href="/features#collaboration" variant="primary">
+                <Button href="/product#collaboration" variant="primary">
                   See collaboration
                   <MessageSquare className="size-4" />
                 </Button>
