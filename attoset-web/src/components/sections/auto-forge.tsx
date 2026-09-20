@@ -73,18 +73,25 @@ const instanceCols =
   "grid grid-cols-[minmax(0,1fr)_62px_62px] items-center gap-x-2";
 const instanceRow = `${instanceCols} h-[30px] rounded-lg border border-white/5 bg-white/[0.03] px-2.5`;
 
-/** How the portfolio splits by status — the pie behind the second chart card. */
+/**
+ * How the portfolio splits by status — the donut in the second chart card.
+ * The arc geometry is resolved once, here: the ring is drawn at its final
+ * proportions and never animates, so the slices can't crawl around the circle.
+ */
+const DONUT_R = 14;
+const DONUT_C = 2 * Math.PI * DONUT_R;
 const statusSlices = (() => {
   const raw = [
     { label: "On track", value: 64, color: "#FF512A" },
     { label: "At risk", value: 24, color: "rgba(255,255,255,0.45)" },
     { label: "Blocked", value: 12, color: "rgba(255,255,255,0.18)" },
   ];
-  let offset = 0;
+  let start = 0;
   return raw.map((slice) => {
-    const start = offset;
-    offset += slice.value;
-    return { ...slice, start };
+    const length = (slice.value / 100) * DONUT_C;
+    const offset = -(start / 100) * DONUT_C;
+    start += slice.value;
+    return { ...slice, length, offset };
   });
 })();
 
@@ -173,30 +180,26 @@ function Metric({ label, value }: { label: string; value: string }) {
 }
 
 /** Donut chart card — the second shape Insights renders, with its dot legend. */
-function PieCard({ title, eased }: { title: string; eased: number }) {
-  const circumference = 2 * Math.PI * 14;
+function PieCard({ title }: { title: string }) {
   return (
     <div className="flex flex-col rounded-xl border border-white/8 bg-white/[0.03] p-2.5">
       <div className="text-[9.5px] font-medium text-white/70">{title}</div>
       <div className="flex flex-1 items-center justify-center gap-2 py-1">
         <svg viewBox="0 0 36 36" className="size-11 shrink-0 -rotate-90">
-          {statusSlices.map((slice) => {
-            const length = (slice.value / 100) * circumference * eased;
-            const offset = -(slice.start / 100) * circumference * eased;
-            return (
-              <circle
-                key={slice.label}
-                cx="18"
-                cy="18"
-                r="14"
-                fill="none"
-                stroke={slice.color}
-                strokeWidth="6"
-                strokeDasharray={`${length} ${circumference - length}`}
-                strokeDashoffset={offset}
-              />
-            );
-          })}
+          <circle cx="18" cy="18" r={DONUT_R} fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="6" />
+          {statusSlices.map((slice) => (
+            <circle
+              key={slice.label}
+              cx="18"
+              cy="18"
+              r={DONUT_R}
+              fill="none"
+              stroke={slice.color}
+              strokeWidth="6"
+              strokeDasharray={`${slice.length} ${DONUT_C - slice.length}`}
+              strokeDashoffset={slice.offset}
+            />
+          ))}
         </svg>
         <div className="flex flex-col gap-1 text-[7.5px] leading-none text-white/45">
           {statusSlices.map((slice) => (
@@ -508,7 +511,7 @@ function AutoForgeFlow() {
         <InsightsRail title="Charts" count="(2/15)" />
         <div className="mt-1.5 grid grid-cols-2 gap-2">
           <ChartCard title="By quarter" eased={eased} />
-          <PieCard title="By status" eased={eased} />
+          <PieCard title="By status" />
         </div>
       </Stage>
     </div>

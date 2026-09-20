@@ -25,6 +25,7 @@ import {
   Zap,
   GitBranch,
   Plug,
+  Paperclip,
   Headset,
   FolderKanban,
   Factory,
@@ -59,7 +60,6 @@ export const nav: NavItem[] = [
     children: [
       { label: "Overview", href: "/product" },
       { label: "Atto AI", href: "/product#atto" },
-      { label: "AI agents", href: "/product#agents" },
       { label: "AttoForge", href: "/#autoforge" },
       { label: "Security", href: "/security" },
     ],
@@ -103,6 +103,12 @@ export const features: Feature[] = [
     title: "Flexible tables",
     description:
       "Model anything with relational tables, custom fields, and linked records that stay in sync across the platform.",
+  },
+  {
+    icon: Paperclip,
+    title: "Files & links",
+    description:
+      "Store the documents a process depends on and embed the links your team keeps going back to, alongside the records.",
   },
   {
     icon: Workflow,
@@ -162,6 +168,51 @@ export const views: ViewType[] = [
     icon: GanttChartSquare,
     label: "Gantt",
     blurb: "Plan timelines and dependencies.",
+  },
+];
+
+export type Stage = {
+  icon: LucideIcon;
+  n: string;
+  title: string;
+  desc: string;
+};
+
+/**
+ * The spine of the product page: the order the platform is actually assembled
+ * in. Every later stage depends on the one before it, so the list is a chain,
+ * not a feature grid — keep it in this order.
+ */
+export const dataToDone: Stage[] = [
+  {
+    icon: Database,
+    n: "01",
+    title: "Tables",
+    desc: "Start with the data the work runs on. Relational tables with your own fields, your own records, your own structure.",
+  },
+  {
+    icon: LayoutGrid,
+    n: "02",
+    title: "Views & linked tables",
+    desc: "Reshape the same data into Grid, Kanban, Calendar or Gantt, and link records across tables so one change lands everywhere.",
+  },
+  {
+    icon: FormInput,
+    n: "03",
+    title: "Forms",
+    desc: "Collect what is missing from teams, customers and partners. Every submission arrives structured, in the right table.",
+  },
+  {
+    icon: Workflow,
+    n: "04",
+    title: "Automations",
+    desc: "Triggers, conditions and actions carry the work forward on their own — routing, approvals, updates and alerts.",
+  },
+  {
+    icon: LayoutDashboard,
+    n: "05",
+    title: "Dashboards & insights",
+    desc: "Live operational data becomes the charts and reports you analyse and decide from. That is done.",
   },
 ];
 
@@ -506,26 +557,74 @@ export const pricingRules = [
   "No minimums, no bundles, no seat packs, no hidden fees. Every figure is on this page, so you can quote yourself in seconds",
 ];
 
-export const faqs = [
+/** Pricing-page questions: the two axes, seat types, limits and billing. */
+export const pricingFaqs = [
   {
-    q: "What exactly is a Work OS?",
-    a: "A Work Operating System is a single platform where you build the tools your organization runs on — tables, workflows, dashboards, and apps — instead of stitching together separate point solutions.",
+    q: "Why price capacity and seats separately?",
+    a: "Capacity covers what the platform holds and runs for you — rows, storage, automation runs, history, security. Seat rates cover the people doing the work. Adding a colleague never moves your limits, and reaching a limit never costs you a seat.",
   },
   {
-    q: "How is Attoset different from project management tools?",
-    a: "Traditional tools force teams into predefined workflows. Attoset lets you create fully customized solutions for your unique processes — and adds AI that can build and execute work for you.",
+    q: "Are external operators really free?",
+    a: "Yes, on every plan. External operator access is for people in a genuinely separate organization — clients, suppliers, contractors — and we verify that before it is granted.",
+  },
+  {
+    q: "What counts as a full seat?",
+    a: "Anyone who creates or changes structure: tables, fields, forms, automations, dashboards, blueprints and permissions. Someone who only reads and edits records is an operator, not a full seat.",
+  },
+  {
+    q: "Can we change seat counts mid-month?",
+    a: "Yes, one seat at a time, reflected on your next invoice. No minimum, no seat packs, no end-of-term reconciliation.",
+  },
+  {
+    q: "What happens if we pass a limit?",
+    a: "Rows and storage are soft limits — you get a warning, never a lockout and never deletion. Automation runs pause at the cap until the next cycle or until you move up a band.",
+  },
+  {
+    q: "Do you adjust prices by region?",
+    a: "Yes. Regional pricing is available on request — tell us where your team sits and we will quote accordingly.",
+  },
+  {
+    q: "Do you bill monthly or annually?",
+    a: "Both. Yearly billing is the lower effective rate — two months free against the monthly rate — and the toggle above the plans shows either figure.",
+  },
+];
+
+export const faqs = [
+  {
+    q: "Why not just build this ourselves with AI?",
+    a: "AI makes the first build fast, and the first build is the easy part. What costs you is the next two years — keeping it running, patched, permissioned and in step with how the work actually changes. That upkeep is the part you hand to us.",
+  },
+  {
+    q: "What do we get that a custom-built tool doesn't have?",
+    a: "Full change history, real permissions, audit trails, and integrations we keep working as the tools on the other end change. A one-off build ships without most of that, and quietly loses the rest as it ages.",
+  },
+  {
+    q: "Is our data usable, or is it locked into the app?",
+    a: "It is yours. Everything feeding your systems is queryable, exportable and structured to make business sense — modelled around your operations, not around whatever a custom app needed to function.",
+  },
+  {
+    q: "Our teams already build their own AI tools — what's the risk?",
+    a: "Nobody governs them. There is usually no record of who changed what, no permission model, and no way to read the data outside the tool — so when the person who built it leaves, the only documentation leaves with them.",
+  },
+  {
+    q: "Isn't building in-house cheaper?",
+    a: "The build is cheap. The upkeep is not, and it is the part you cannot forecast — every fix, migration and handover lands on your team at the worst moment. A subscription turns that into one fixed, predictable line.",
+  },
+  {
+    q: "Why one platform instead of several specialized tools?",
+    a: "Because your data, workflows and reporting are connected. One system underneath means a change lands everywhere at once, and Atto — like your team — sees the whole picture rather than one slice of it. All-in-one is only a compromise when it is separate products bolted together; here there is nothing between the pieces to break.",
+  },
+  {
+    q: "Does this replace our BI tool?",
+    a: "For everyday operational reporting, yes: dashboards and analytics run on live data, with no export step in between. For advanced statistical work or research-grade analysis, you will still want a dedicated BI tool.",
+  },
+  {
+    q: "We already use Power BI or Tableau — do we have to drop it?",
+    a: "No, and most teams don't. Attoset becomes the system the numbers come from and the place day-to-day reporting lives; your BI tool keeps the deep modelling. Where you draw that line is your call, and plenty of teams move it over time.",
   },
   {
     q: "What can Atto do — and what about AI agents?",
     a: "Atto is available today: describe what you need and it designs, builds, and improves your workflows and systems. Custom AI agents — which will proactively execute tasks, automate processes, and monitor systems on their own — are coming soon.",
-  },
-  {
-    q: "Is Attoset secure enough for enterprise use?",
-    a: "Yes. Attoset is built for enterprise-level security with role-based access control, strict permissions, audit trails, and secure data handling designed for organizational use cases.",
-  },
-  {
-    q: "Can Attoset replace the tools we already use?",
-    a: "Most teams consolidate project management, CRM, operations, HR, onboarding, and compliance into Attoset — replacing several fragmented tools with one unified system.",
   },
   {
     q: "How long does it take to get started?",

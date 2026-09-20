@@ -11,7 +11,6 @@ const columns = [
     links: [
       { label: "Overview", href: "/product" },
       { label: "Atto AI", href: "/product#atto" },
-      { label: "AI Agents", href: "/product#agents" },
       { label: "AttoForge", href: "/#autoforge" },
       { label: "Security", href: "/security" },
       { label: "Pricing", href: "/pricing" },

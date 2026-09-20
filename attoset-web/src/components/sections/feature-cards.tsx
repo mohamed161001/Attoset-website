@@ -4,9 +4,26 @@ import type { ReactNode } from "react";
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, m, useInView, useReducedMotion } from "framer-motion";
 import {
-  Bot, Boxes, Users, Database, LayoutDashboard, Zap, Check, ArrowRight,
-  Table2, LayoutGrid, KanbanSquare, Calendar, GanttChartSquare, ShieldCheck,
-  Sparkles, Layers, BarChart3, Shield,
+  Bot,
+  Boxes,
+  FileText,
+  Link as LinkIcon,
+  Maximize2,
+  X as CloseIcon,
+  Users,
+  Database,
+  LayoutDashboard,
+  Zap,
+  Check,
+  ArrowRight,
+  Table2,
+  LayoutGrid,
+  KanbanSquare,
+  Calendar,
+  GanttChartSquare,
+  Sparkles,
+  Layers,
+  BarChart3,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { Container } from "@/components/ui/container";
@@ -22,24 +39,58 @@ const Bar = ({ w = 60, c = "bg-ink/10" }: { w?: number; c?: string }) => (
   <span className={cn("block h-1.5 rounded", c)} style={{ width: `${w}%` }} />
 );
 
-function CursorPointer({ className, color = "#0a0a0a" }: { className?: string; color?: string }) {
+function CursorPointer({
+  className,
+  color = "#0a0a0a",
+}: {
+  className?: string;
+  color?: string;
+}) {
   return (
-    <svg width="16" height="16" viewBox="0 0 24 24" className={className} aria-hidden="true">
-      <path d="M5 2.5 L19 11.5 L12.2 12.8 L8.7 19.5 Z" fill={color} stroke="#fff" strokeWidth="1.4" strokeLinejoin="round" />
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      className={className}
+      aria-hidden="true"
+    >
+      <path
+        d="M5 2.5 L19 11.5 L12.2 12.8 L8.7 19.5 Z"
+        fill={color}
+        stroke="#fff"
+        strokeWidth="1.4"
+        strokeLinejoin="round"
+      />
     </svg>
   );
 }
 
-function FloatingCursor({ name, color, path, delay }: { name: string; color: string; path: { x: number; y: number }[]; delay: number }) {
+function FloatingCursor({
+  name,
+  color,
+  path,
+  delay,
+}: {
+  name: string;
+  color: string;
+  path: { x: number; y: number }[];
+  delay: number;
+}) {
   return (
     <m.div
       className="absolute z-20"
       initial={{ left: `${path[0].x}%`, top: `${path[0].y}%` }}
-      animate={{ left: path.map((p) => `${p.x}%`), top: path.map((p) => `${p.y}%`) }}
+      animate={{
+        left: path.map((p) => `${p.x}%`),
+        top: path.map((p) => `${p.y}%`),
+      }}
       transition={{ duration: 5, repeat: Infinity, delay, ease: "easeInOut" }}
     >
       <CursorPointer color={color} />
-      <span className="ml-2.5 inline-block rounded-full px-1.5 py-0.5 text-[9px] font-medium text-white shadow-card" style={{ background: color }}>
+      <span
+        className="ml-2.5 inline-block rounded-full px-1.5 py-0.5 text-[9px] font-medium text-white shadow-card"
+        style={{ background: color }}
+      >
         {name}
       </span>
     </m.div>
@@ -55,8 +106,28 @@ function Stage({ children }: { children: ReactNode }) {
         aria-hidden="true"
         className="pointer-events-none absolute left-1/2 top-1/2 size-[280px] -translate-x-1/2 -translate-y-1/2 text-line-strong"
       >
-        <circle cx="100" cy="100" r="95" fill="none" stroke="currentColor" strokeWidth="1.2" strokeDasharray="0.5 7" strokeLinecap="round" opacity="0.7" />
-        <circle cx="100" cy="100" r="66" fill="none" stroke="currentColor" strokeWidth="1.2" strokeDasharray="0.5 7" strokeLinecap="round" opacity="0.4" />
+        <circle
+          cx="100"
+          cy="100"
+          r="95"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.2"
+          strokeDasharray="0.5 7"
+          strokeLinecap="round"
+          opacity="0.7"
+        />
+        <circle
+          cx="100"
+          cy="100"
+          r="66"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.2"
+          strokeDasharray="0.5 7"
+          strokeLinecap="round"
+          opacity="0.4"
+        />
       </svg>
       <div className="relative z-10">{children}</div>
     </div>
@@ -98,17 +169,32 @@ function AgentsVisual() {
             <span className="skeleton block h-1.5 w-3/4" />
             <span className="skeleton block h-1.5 w-2/5" />
           </span>
-          <span className={cn("size-1.5 rounded-full", r.dot, r.pulse && "animate-softpulse")} />
+          <span
+            className={cn(
+              "size-1.5 rounded-full",
+              r.dot,
+              r.pulse && "animate-softpulse",
+            )}
+          />
         </m.div>
       ))}
     </div>
   );
 }
 
-function WorkflowNode({ icon: Icon, accent }: { icon: LucideIcon; accent?: boolean }) {
+function WorkflowNode({
+  icon: Icon,
+  accent,
+}: {
+  icon: LucideIcon;
+  accent?: boolean;
+}) {
   return (
     <span className="flex size-9 items-center justify-center rounded-xl border border-line bg-white shadow-card">
-      <Icon className={cn("size-4", accent ? "text-orange" : "text-ink-soft")} strokeWidth={1.9} />
+      <Icon
+        className={cn("size-4", accent ? "text-orange" : "text-ink-soft")}
+        strokeWidth={1.9}
+      />
     </span>
   );
 }
@@ -127,7 +213,12 @@ function WorkflowVisual() {
           className="absolute top-1/2 size-1.5 -translate-y-1/2 rounded-full bg-orange shadow-orange"
           initial={{ left: 20, opacity: 0 }}
           animate={{ left: [20, 152], opacity: [0, 1, 1, 0] }}
-          transition={{ duration: 1.8, repeat: Infinity, repeatDelay: 0.8, ease: "easeInOut" }}
+          transition={{
+            duration: 1.8,
+            repeat: Infinity,
+            repeatDelay: 0.8,
+            ease: "easeInOut",
+          }}
         />
       )}
     </div>
@@ -137,7 +228,10 @@ function WorkflowVisual() {
 function WorkspacesVisual() {
   const reduce = useReducedMotion();
   const tiles: { i: LucideIcon; accent?: boolean }[] = [
-    { i: Boxes, accent: true }, { i: Users }, { i: Database }, { i: LayoutDashboard },
+    { i: Boxes, accent: true },
+    { i: Users },
+    { i: Database },
+    { i: LayoutDashboard },
   ];
   return (
     <div className="grid w-[150px] grid-cols-2 gap-2.5">
@@ -148,9 +242,15 @@ function WorkspacesVisual() {
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.4, delay: i * 0.08, ease }}
-          className={cn("flex aspect-square items-center justify-center rounded-xl border border-line bg-white", t.accent && "bg-orange/10")}
+          className={cn(
+            "flex aspect-square items-center justify-center rounded-xl border border-line bg-white",
+            t.accent && "bg-orange/10",
+          )}
         >
-          <t.i className={cn("size-5", t.accent ? "text-orange" : "text-ink/40")} strokeWidth={1.75} />
+          <t.i
+            className={cn("size-5", t.accent ? "text-orange" : "text-ink/40")}
+            strokeWidth={1.75}
+          />
         </m.span>
       ))}
     </div>
@@ -160,20 +260,42 @@ function WorkspacesVisual() {
 function HeaderCell({ accent }: { accent?: boolean }) {
   return (
     <div className="flex h-5 w-[44px] shrink-0 items-center bg-warm px-1.5">
-      <span className={cn("block h-1.5 w-[68%] rounded", accent ? "bg-orange/40" : "bg-ink/25")} />
+      <span
+        className={cn(
+          "block h-1.5 w-[68%] rounded",
+          accent ? "bg-orange/40" : "bg-ink/25",
+        )}
+      />
     </div>
   );
 }
 
-function DataCell({ accent, shimmer }: { accent?: boolean; shimmer?: boolean }) {
+function DataCell({
+  accent,
+  shimmer,
+}: {
+  accent?: boolean;
+  shimmer?: boolean;
+}) {
   return (
     <div className="flex h-6 w-[44px] shrink-0 items-center px-1.5">
-      <span className={cn("block h-1.5 w-[62%] rounded", shimmer ? "skeleton" : accent ? "bg-orange/30" : "bg-ink/10")} />
+      <span
+        className={cn(
+          "block h-1.5 w-[62%] rounded",
+          shimmer ? "skeleton" : accent ? "bg-orange/30" : "bg-ink/10",
+        )}
+      />
     </div>
   );
 }
 
-function NewCol({ children, delay = 0 }: { children: ReactNode; delay?: number }) {
+function NewCol({
+  children,
+  delay = 0,
+}: {
+  children: ReactNode;
+  delay?: number;
+}) {
   return (
     <m.div
       initial={{ width: 0, opacity: 0 }}
@@ -205,15 +327,33 @@ function DatabaseVisual() {
           <HeaderCell />
           <HeaderCell />
           <HeaderCell accent />
-          <AnimatePresence>{cols === 4 && <NewCol key="h"><HeaderCell /></NewCol>}</AnimatePresence>
+          <AnimatePresence>
+            {cols === 4 && (
+              <NewCol key="h">
+                <HeaderCell />
+              </NewCol>
+            )}
+          </AnimatePresence>
         </div>
         {/* data rows */}
         {rows.map((r) => (
-          <div key={r} className={cn("flex divide-x divide-line", r !== rows.length - 1 && "border-b border-line")}>
+          <div
+            key={r}
+            className={cn(
+              "flex divide-x divide-line",
+              r !== rows.length - 1 && "border-b border-line",
+            )}
+          >
             <DataCell />
             <DataCell shimmer={r === 1} />
             <DataCell accent />
-            <AnimatePresence>{cols === 4 && <NewCol key="c" delay={0.04 * r}><DataCell /></NewCol>}</AnimatePresence>
+            <AnimatePresence>
+              {cols === 4 && (
+                <NewCol key="c" delay={0.04 * r}>
+                  <DataCell />
+                </NewCol>
+              )}
+            </AnimatePresence>
           </div>
         ))}
       </div>
@@ -221,8 +361,26 @@ function DatabaseVisual() {
       {/* collaborators */}
       {!reduce && (
         <>
-          <FloatingCursor name="Maya" color="#FF512A" path={[{ x: 18, y: 22 }, { x: 60, y: 64 }, { x: 18, y: 22 }]} delay={0} />
-          <FloatingCursor name="David" color="#0A0A0A" path={[{ x: 72, y: 70 }, { x: 38, y: 28 }, { x: 72, y: 70 }]} delay={1.6} />
+          <FloatingCursor
+            name="Maya"
+            color="#FF512A"
+            path={[
+              { x: 18, y: 22 },
+              { x: 60, y: 64 },
+              { x: 18, y: 22 },
+            ]}
+            delay={0}
+          />
+          <FloatingCursor
+            name="David"
+            color="#0A0A0A"
+            path={[
+              { x: 72, y: 70 },
+              { x: 38, y: 28 },
+              { x: 72, y: 70 },
+            ]}
+            delay={1.6}
+          />
         </>
       )}
     </div>
@@ -235,13 +393,21 @@ function ViewsVisual() {
     <div className="flex flex-col items-center gap-3">
       <div className="inline-flex gap-1 rounded-full border border-line bg-white p-1 shadow-card">
         {icons.map((Icon, i) => (
-          <span key={i} className={cn("flex size-7 items-center justify-center rounded-full", i === 0 ? "bg-ink text-white" : "text-faint")}>
+          <span
+            key={i}
+            className={cn(
+              "flex size-7 items-center justify-center rounded-full",
+              i === 0 ? "bg-ink text-white" : "text-faint",
+            )}
+          >
             <Icon className="size-3.5" strokeWidth={1.75} />
           </span>
         ))}
       </div>
       <div className="w-[170px] space-y-1.5 rounded-xl border border-line bg-white p-2.5 shadow-card">
-        <Bar w={80} /><Bar w={60} /><Bar w={70} />
+        <Bar w={80} />
+        <Bar w={60} />
+        <Bar w={70} />
       </div>
     </div>
   );
@@ -258,7 +424,10 @@ function DashboardVisual() {
         {bars.map((h, i) => (
           <m.span
             key={i}
-            className={cn("flex-1 rounded-t-[2px]", i === 3 ? "bg-orange" : "bg-ink/10")}
+            className={cn(
+              "flex-1 rounded-t-[2px]",
+              i === 3 ? "bg-orange" : "bg-ink/10",
+            )}
             initial={reduce ? false : { height: "14%" }}
             whileInView={{ height: `${h}%` }}
             viewport={{ once: true }}
@@ -271,60 +440,136 @@ function DashboardVisual() {
 }
 
 /** A metric that opens the records behind it. */
+/** Clicking a metric tile opens the rows behind it, with the filter still applied. */
+const DRILL_ROWS = [
+  {
+    id: "D-020",
+    kg: "1,600",
+    tag: "Critical",
+    tone: "bg-[#fdecec] text-[#c0392b]",
+  },
+  {
+    id: "D-008",
+    kg: "1,500",
+    tag: "Urgent",
+    tone: "bg-[#fdf3e2] text-[#b9770e]",
+  },
+  {
+    id: "D-001",
+    kg: "8",
+    tag: "Priority",
+    tone: "bg-[#eaf2fd] text-[#2471a3]",
+  },
+];
+
 function DrillVisual() {
+  const reduce = useReducedMotion();
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { amount: 0.5 });
+  const [step, setStep] = useState(0);
+  const open = reduce ? true : step > 0;
+
+  useEffect(() => {
+    if (reduce || !inView) return;
+    const id = setInterval(() => setStep((v) => (v + 1) % 2), 2600);
+    return () => clearInterval(id);
+  }, [reduce, inView]);
+
   return (
-    <div className="w-[196px] space-y-2">
-      <div className="rounded-xl border border-line bg-white px-3 py-2.5 shadow-card">
-        <p className="text-[9.5px] text-muted">Overdue</p>
-        <p className="text-[17px] font-bold text-orange">12</p>
-      </div>
-      <div className="flex justify-center text-faint">
-        <ArrowRight className="size-3.5 rotate-90" strokeWidth={2} />
-      </div>
-      <div className="space-y-1 rounded-xl border border-line bg-white p-2 shadow-card">
-        {[72, 58, 64].map((w, i) => (
-          <span key={i} className="flex items-center gap-1.5 rounded-md px-1.5 py-1">
-            <span className="size-1.5 shrink-0 rounded-full bg-orange" />
-            <span className="skeleton block h-1.5" style={{ width: `${w}%` }} />
-            <span className="ml-auto rounded bg-warm-2 px-1.5 py-0.5 text-[8.5px] font-semibold text-ink-soft">
-              Assign
-            </span>
-          </span>
+    <div ref={ref} className="relative h-[164px] w-[214px]">
+      <div className="grid grid-cols-3 gap-1.5">
+        {[
+          { label: "Approved", value: "16,183", live: true },
+          { label: "Pending", value: "9" },
+          { label: "Rejected", value: "3" },
+        ].map((t) => (
+          <div
+            key={t.label}
+            className={cn(
+              "relative rounded-lg border px-1.5 py-1.5",
+              t.live
+                ? "border-orange/50 bg-peach-soft"
+                : "border-line bg-white shadow-card",
+            )}
+          >
+            <Maximize2
+              className={cn(
+                "absolute right-1 top-1 size-2",
+                t.live ? "text-orange" : "text-faint",
+              )}
+              strokeWidth={2.4}
+            />
+            <p className="text-[8px] font-medium text-muted">{t.label}</p>
+            <p
+              className={cn(
+                "text-[12.5px] font-bold tabular-nums",
+                t.live ? "text-orange" : "text-ink",
+              )}
+            >
+              {t.value}
+            </p>
+          </div>
         ))}
       </div>
+
+      <AnimatePresence initial={false}>
+        {open && (
+          <m.div
+            key="popup"
+            initial={reduce ? false : { opacity: 0, scale: 0.94, y: 6 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.96 }}
+            transition={{ duration: 0.28, ease }}
+            className="absolute inset-x-0 top-[46px] overflow-hidden rounded-xl border border-line bg-white shadow-float"
+          >
+            <div className="flex items-start gap-2 border-b border-line px-2.5 py-2">
+              <span>
+                <span className="block text-[10px] font-semibold text-ink">
+                  Approved
+                </span>
+                <span className="block text-[8px] text-faint">
+                  Sum of Weight (Kg) · 10 rows
+                </span>
+              </span>
+              <span className="ml-auto text-right">
+                <span className="block text-[7.5px] font-semibold uppercase tracking-[0.12em] text-faint">
+                  Sum
+                </span>
+                <span className="block text-[11px] font-bold tabular-nums text-ink">
+                  16,183
+                </span>
+              </span>
+              <span className="flex size-3.5 shrink-0 items-center justify-center rounded-full bg-warm-2 text-muted">
+                <CloseIcon className="size-2" strokeWidth={2.6} />
+              </span>
+            </div>
+            {DRILL_ROWS.slice(0, 2).map((r) => (
+              <div
+                key={r.id}
+                className="flex items-center gap-2 border-t border-line/70 px-2.5 py-1.5"
+              >
+                <span className="text-[9.5px] font-semibold tabular-nums text-ink">
+                  {r.kg}
+                </span>
+                <span className="text-[9px] text-muted">{r.id}</span>
+                <span
+                  className={cn(
+                    "ml-auto rounded px-1.5 py-0.5 text-[8px] font-semibold",
+                    r.tone,
+                  )}
+                >
+                  {r.tag}
+                </span>
+              </div>
+            ))}
+          </m.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
 
 /** An Atto suggestion with the accept / decline control. */
-function ReviewVisual() {
-  return (
-    <div className="w-[208px] rounded-xl border border-line bg-white p-3 shadow-card">
-      <div className="flex items-center gap-1.5">
-        <span className="flex size-5 items-center justify-center rounded-md bg-ink">
-          <Sparkles className="size-3 text-white" strokeWidth={2} />
-        </span>
-        <span className="text-[10px] font-semibold text-ink">Atto suggests</span>
-      </div>
-      <div className="mt-2 space-y-1">
-        <span className="skeleton block h-1.5 w-full" />
-        <span className="skeleton block h-1.5 w-3/5" />
-      </div>
-      <div className="mt-2.5 flex gap-1.5">
-        <span className="flex-1 rounded-md bg-ink py-1 text-center text-[9.5px] font-semibold text-white">
-          Approve
-        </span>
-        <span className="flex-1 rounded-md border border-line py-1 text-center text-[9.5px] font-semibold text-ink-soft">
-          Edit
-        </span>
-        <span className="rounded-md border border-line px-2 py-1 text-[9.5px] font-semibold text-faint">
-          ✕
-        </span>
-      </div>
-    </div>
-  );
-}
-
 function FormVisual() {
   const reduce = useReducedMotion();
   const [step, setStep] = useState(reduce ? 3 : 1);
@@ -340,12 +585,26 @@ function FormVisual() {
       <div className="mt-3 min-h-[68px] space-y-2">
         <AnimatePresence>
           {step >= 1 && (
-            <m.div key="f1" initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }} className="rounded-md border border-line px-2 py-2">
+            <m.div
+              key="f1"
+              initial={{ opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="rounded-md border border-line px-2 py-2"
+            >
               <Bar w={70} c="bg-ink/8" />
             </m.div>
           )}
           {step >= 2 && (
-            <m.div key="f2" initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }} className="rounded-md border border-line px-2 py-2">
+            <m.div
+              key="f2"
+              initial={{ opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="rounded-md border border-line px-2 py-2"
+            >
               <Bar w={55} c="bg-ink/8" />
             </m.div>
           )}
@@ -362,7 +621,11 @@ function FormVisual() {
         <m.div
           className="pointer-events-none absolute"
           initial={{ opacity: 0, left: 118, top: 92 }}
-          animate={step === 3 ? { opacity: 1, left: 116, top: 120 } : { opacity: 0, left: 118, top: 96 }}
+          animate={
+            step === 3
+              ? { opacity: 1, left: 116, top: 120 }
+              : { opacity: 0, left: 118, top: 96 }
+          }
           transition={{ duration: 0.4, ease }}
         >
           <CursorPointer />
@@ -377,10 +640,17 @@ function LinkedVisual() {
   return (
     <div className="relative h-[126px] w-[232px]">
       {/* connector from the linked cell → the record it points to */}
-      <svg viewBox="0 0 232 126" className="absolute inset-0 size-full" aria-hidden="true">
+      <svg
+        viewBox="0 0 232 126"
+        className="absolute inset-0 size-full"
+        aria-hidden="true"
+      >
         <m.path
           d="M96 35 C 116 35, 116 56, 134 56"
-          fill="none" stroke="#ddd9d4" strokeWidth="1.5" strokeLinecap="round"
+          fill="none"
+          stroke="#ddd9d4"
+          strokeWidth="1.5"
+          strokeLinecap="round"
           initial={reduce ? false : { pathLength: 0, opacity: 0 }}
           whileInView={{ pathLength: 1, opacity: 1 }}
           viewport={{ once: true }}
@@ -392,26 +662,40 @@ function LinkedVisual() {
           className="absolute z-30 size-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-orange shadow-orange"
           initial={{ left: 96, top: 35, opacity: 0 }}
           animate={{ left: [96, 134], top: [35, 56], opacity: [0, 1, 1, 0] }}
-          transition={{ duration: 1.8, repeat: Infinity, repeatDelay: 1.1, delay: 1, ease: "easeInOut" }}
+          transition={{
+            duration: 1.8,
+            repeat: Infinity,
+            repeatDelay: 1.1,
+            delay: 1,
+            ease: "easeInOut",
+          }}
         />
       )}
 
       {/* Table A — Deals (has a linked "Company" cell) */}
       <div className="absolute left-0 top-2 z-10 w-[104px] overflow-hidden rounded-lg border border-line bg-white shadow-card">
-        <div className="border-b border-line bg-warm px-2 py-1 text-[8.5px] font-semibold text-muted">Deals</div>
+        <div className="border-b border-line bg-warm px-2 py-1 text-[8.5px] font-semibold text-muted">
+          Deals
+        </div>
         <div className="flex items-center gap-1.5 border-b border-line px-2 py-1.5">
           <span className="size-1.5 shrink-0 rounded-full bg-ink/20" />
-          <span className="rounded bg-orange/15 px-1.5 py-0.5 text-[8.5px] font-semibold text-orange">Acme</span>
+          <span className="rounded bg-orange/15 px-1.5 py-0.5 text-[8.5px] font-semibold text-orange">
+            Acme
+          </span>
         </div>
         <div className="flex items-center gap-1.5 px-2 py-1.5">
           <span className="size-1.5 shrink-0 rounded-full bg-ink/20" />
-          <span className="rounded bg-ink/[0.06] px-1.5 py-0.5 text-[8.5px] font-medium text-muted">Globex</span>
+          <span className="rounded bg-ink/[0.06] px-1.5 py-0.5 text-[8.5px] font-medium text-muted">
+            Globex
+          </span>
         </div>
       </div>
 
       {/* Table B — Companies (the linked record lives here) */}
       <div className="absolute right-0 top-7 z-10 w-[104px] overflow-hidden rounded-lg border border-line bg-white shadow-card">
-        <div className="border-b border-line bg-warm px-2 py-1 text-[8.5px] font-semibold text-muted">Companies</div>
+        <div className="border-b border-line bg-warm px-2 py-1 text-[8.5px] font-semibold text-muted">
+          Companies
+        </div>
         <div className="flex items-center gap-1.5 border-b border-line bg-orange/[0.06] px-2 py-1.5 ring-1 ring-inset ring-orange/30">
           <span className="size-1.5 shrink-0 rounded-full bg-orange" />
           <span className="text-[8.5px] font-semibold text-ink">Acme</span>
@@ -427,13 +711,28 @@ function LinkedVisual() {
 
 function TypingDots({ dark }: { dark?: boolean }) {
   return (
-    <div className={cn("flex items-center gap-1 px-3 py-2.5 shadow-card", dark ? "rounded-2xl rounded-br-sm bg-ink" : "rounded-2xl rounded-bl-sm border border-line bg-white")}>
+    <div
+      className={cn(
+        "flex items-center gap-1 px-3 py-2.5 shadow-card",
+        dark
+          ? "rounded-2xl rounded-br-sm bg-ink"
+          : "rounded-2xl rounded-bl-sm border border-line bg-white",
+      )}
+    >
       {[0, 1, 2].map((d) => (
         <m.span
           key={d}
-          className={cn("block size-1.5 rounded-full", dark ? "bg-white/60" : "bg-faint")}
+          className={cn(
+            "block size-1.5 rounded-full",
+            dark ? "bg-white/60" : "bg-faint",
+          )}
           animate={{ opacity: [0.3, 1, 0.3], y: [0, -2, 0] }}
-          transition={{ duration: 0.9, repeat: Infinity, delay: d * 0.15, ease: "easeInOut" }}
+          transition={{
+            duration: 0.9,
+            repeat: Infinity,
+            delay: d * 0.15,
+            ease: "easeInOut",
+          }}
         />
       ))}
     </div>
@@ -456,13 +755,22 @@ function CollabVisual() {
   }, [reduce, inView, step]);
 
   return (
-    <div ref={ref} className="flex min-h-[96px] w-[232px] flex-col justify-center gap-2.5">
+    <div
+      ref={ref}
+      className="flex min-h-[96px] w-[232px] flex-col justify-center gap-2.5"
+    >
       {/* Maya */}
       <div className="flex items-end gap-2">
         <Avatar name="Maya" color="#FF512A" size={28} />
         <AnimatePresence mode="wait" initial={false}>
           {step === 0 ? (
-            <m.div key="mt" initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.25 }}>
+            <m.div
+              key="mt"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.25 }}
+            >
               <TypingDots />
             </m.div>
           ) : (
@@ -483,14 +791,25 @@ function CollabVisual() {
       <div className="flex min-h-[34px] flex-row-reverse items-end gap-2">
         <AnimatePresence>
           {step >= 2 && (
-            <m.div key="dav" initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.3 }}>
+            <m.div
+              key="dav"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.3 }}
+            >
               <Avatar name="David" color="#3B82F6" size={28} />
             </m.div>
           )}
         </AnimatePresence>
         <AnimatePresence mode="wait" initial={false}>
           {step === 2 && (
-            <m.div key="dt" initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.25 }}>
+            <m.div
+              key="dt"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.25 }}
+            >
               <TypingDots dark />
             </m.div>
           )}
@@ -502,7 +821,8 @@ function CollabVisual() {
               transition={{ duration: 0.35, ease }}
               className="max-w-[182px] rounded-2xl rounded-br-sm bg-ink px-3 py-2 text-[11px] font-medium leading-snug text-white shadow-card"
             >
-              <span className="text-orange">@Lena</span> can you add the compliance step?
+              <span className="text-orange">@Lena</span> can you add the
+              compliance step?
             </m.div>
           )}
         </AnimatePresence>
@@ -511,36 +831,135 @@ function CollabVisual() {
   );
 }
 
-function Toggle({ on }: { on?: boolean }) {
+function FilesVisual() {
   return (
-    <span className={cn("flex h-3.5 w-6 items-center rounded-full px-0.5", on ? "bg-ink" : "bg-line-strong")}>
-      <span className={cn("size-2.5 rounded-full bg-white", on && "ml-auto")} />
-    </span>
+    <div className="w-[210px] space-y-1.5">
+      {[
+        { label: "Shipments schema", meta: "PDF", accent: true },
+        { label: "Rate card", meta: "CSV" },
+        { label: "Carrier portal", meta: "Link", link: true },
+      ].map((row) => (
+        <div
+          key={row.label}
+          className="flex items-center gap-2.5 rounded-lg border border-line bg-white px-2.5 py-2 shadow-card"
+        >
+          <span
+            className={cn(
+              "flex size-6 shrink-0 items-center justify-center rounded-md",
+              row.accent ? "bg-peach-soft text-orange" : "bg-warm-2 text-muted",
+            )}
+          >
+            {row.link ? (
+              <LinkIcon className="size-3" strokeWidth={2} />
+            ) : (
+              <FileText className="size-3" strokeWidth={2} />
+            )}
+          </span>
+          <span className="text-[10.5px] font-medium text-ink">
+            {row.label}
+          </span>
+          <span className="ml-auto text-[9px] font-semibold uppercase tracking-[0.1em] text-faint">
+            {row.meta}
+          </span>
+        </div>
+      ))}
+    </div>
   );
 }
 
-function SecurityVisual() {
+/** Atto Fill: a Dropdown column tagging itself, row by row, from the text beside it. */
+const FILL_ROWS = [
+  { w: 64, tag: "Delayed", accent: true },
+  { w: 46, tag: "On time", accent: false },
+  { w: 56, tag: "At risk", accent: true },
+];
+
+function AttoFillVisual() {
+  const reduce = useReducedMotion();
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { amount: 0.5 });
+  const [step, setStep] = useState(0);
+  const filled = reduce ? FILL_ROWS.length : step;
+
+  useEffect(() => {
+    if (reduce || !inView) return;
+    const id = setInterval(
+      () => setStep((f) => (f >= FILL_ROWS.length ? 0 : f + 1)),
+      1000,
+    );
+    return () => clearInterval(id);
+  }, [reduce, inView]);
+
   return (
-    <div className="flex flex-col items-center gap-3">
-      <span className="flex size-12 items-center justify-center rounded-2xl bg-ink text-white">
-        <ShieldCheck className="size-6" strokeWidth={1.75} />
-      </span>
-      <div className="w-[180px] space-y-1.5">
-        {[true, true, false].map((on, i) => (
-          <div key={i} className="flex items-center gap-2 rounded-lg border border-line bg-white px-2.5 py-1.5 shadow-card">
-            <Bar w={55} />
-            <span className="ml-auto"><Toggle on={on} /></span>
-          </div>
-        ))}
+    <div
+      ref={ref}
+      className="w-[214px] overflow-hidden rounded-xl border border-line bg-white shadow-card"
+    >
+      <div className="grid grid-cols-[1fr_84px] border-b border-line bg-warm px-2.5 py-1.5">
+        <span className="text-[9px] font-semibold uppercase tracking-[0.12em] text-faint">
+          Update
+        </span>
+        <span className="flex items-center gap-1 text-[9px] font-semibold uppercase tracking-[0.12em] text-faint">
+          <Sparkles className="size-2.5 text-orange" strokeWidth={2.4} />
+          Status
+        </span>
       </div>
+      {FILL_ROWS.map((row, i) => (
+        <div
+          key={row.tag}
+          className="grid grid-cols-[1fr_84px] items-center gap-2 border-b border-line/70 px-2.5 py-2 last:border-0"
+        >
+          <Bar w={row.w} />
+          <span className="flex">
+            <AnimatePresence mode="wait">
+              {i < filled ? (
+                <m.span
+                  key="tag"
+                  initial={reduce ? false : { opacity: 0, y: -3 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.25, ease }}
+                  className={cn(
+                    "rounded-full px-1.5 py-0.5 text-[9px] font-semibold",
+                    row.accent
+                      ? "bg-peach text-orange"
+                      : "bg-warm-2 text-muted",
+                  )}
+                >
+                  {row.tag}
+                </m.span>
+              ) : (
+                <m.span
+                  key="empty"
+                  initial={false}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  className="h-[15px] w-10 rounded-full bg-line/70"
+                />
+              )}
+            </AnimatePresence>
+          </span>
+        </div>
+      ))}
     </div>
   );
 }
 
 /* ---------- cards ----------------------------------------------------- */
 
-type Card = { title: string; desc: string; visual: ReactNode; comingSoon?: boolean };
-type Group = { id: string; label: string; blurb: string; icon: LucideIcon; cards: Card[] };
+type Card = {
+  title: string;
+  desc: string;
+  visual: ReactNode;
+  comingSoon?: boolean;
+};
+type Group = {
+  id: string;
+  label: string;
+  blurb: string;
+  icon: LucideIcon;
+  cards: Card[];
+};
 
 const groups: Group[] = [
   {
@@ -549,43 +968,97 @@ const groups: Group[] = [
     blurb: "Shape workspaces, tables, and the links between them.",
     icon: Layers,
     cards: [
-      { title: "Custom workspaces", desc: "Shape Attoset around how your team actually works.", visual: <WorkspacesVisual /> },
-      { title: "Flexible tables", desc: "Build tables your way — add fields and edit them together in real time.", visual: <DatabaseVisual /> },
-      { title: "Linked records", desc: "Link records across tables to connect related data and keep everything in sync.", visual: <LinkedVisual /> },
+      {
+        title: "Custom workspaces",
+        desc: "Shape Attoset around how your team actually works.",
+        visual: <WorkspacesVisual />,
+      },
+      {
+        title: "Flexible tables",
+        desc: "Build tables your way — add fields and edit them together in real time.",
+        visual: <DatabaseVisual />,
+      },
+      {
+        title: "Linked records",
+        desc: "Link records across tables to connect related data and keep everything in sync.",
+        visual: <LinkedVisual />,
+      },
     ],
   },
   {
     id: "ai",
-    label: "AI & Automation",
-    blurb: "Assistance today, autonomous agents on the way.",
+    label: "Atto & AI",
+    blurb: "An assistant today, work done for you next.",
     icon: Sparkles,
     cards: [
-      { title: "Atto, your AI assistant", desc: "Describe what you need and Atto designs the system for you.", visual: <AttoVisual /> },
-      { title: "AI proposes, you decide", desc: "Every suggestion is reviewable — approve it, decline it, or edit it yourself.", visual: <ReviewVisual /> },
-      { title: "Custom AI agents", desc: "Coming soon: proactive agents that will execute tasks and run processes around the clock.", visual: <AgentsVisual />, comingSoon: true },
-      { title: "Workflow automation", desc: "Triggers, conditions, and actions that run in the background.", visual: <WorkflowVisual /> },
+      {
+        title: "Atto, your AI assistant",
+        desc: "Describe what you need and Atto designs the system for you.",
+        visual: <AttoVisual />,
+      },
+      {
+        title: "Atto Fill",
+        desc: "Coming soon: let Atto populate a column — tag, summarise, translate, extract or assign — with every value still editable by hand.",
+        visual: <AttoFillVisual />,
+        comingSoon: true,
+      },
+      {
+        title: "Skilled agents",
+        desc: "Coming soon: agents built for a specific job, carrying out work that Atto hands them.",
+        visual: <AgentsVisual />,
+        comingSoon: true,
+      },
     ],
   },
   {
-    id: "visualize",
-    label: "Capture & visualize",
-    blurb: "Collect data, reshape it, and turn it into insight.",
+    id: "automate",
+    label: "Capture & automate",
+    blurb: "Get the data in, then let the process run itself.",
+    icon: Zap,
+    cards: [
+      {
+        title: "Forms & data collection",
+        desc: "Build a form by adding fields, then collect data straight into your tables.",
+        visual: <FormVisual />,
+      },
+      {
+        title: "Files & links",
+        desc: "Keep the documents and links a process depends on in the same space as the records.",
+        visual: <FilesVisual />,
+      },
+      {
+        title: "Workflow automation",
+        desc: "Triggers, conditions, and actions that run in the background.",
+        visual: <WorkflowVisual />,
+      },
+    ],
+  },
+  {
+    id: "analyse",
+    label: "Analyse & share",
+    blurb: "Reshape the same data, and work on it together.",
     icon: BarChart3,
     cards: [
-      { title: "Forms & data collection", desc: "Build a form by adding fields, then collect data straight into your tables.", visual: <FormVisual /> },
-      { title: "Multiple views", desc: "Grid, Kanban, Calendar, Gantt — the same data, reshaped.", visual: <ViewsVisual /> },
-      { title: "Dashboards & analytics", desc: "Turn live data into dashboards and reports, in real time.", visual: <DashboardVisual /> },
-      { title: "Act from the dashboard", desc: "Open the records behind any number and assign, approve or update them right there.", visual: <DrillVisual /> },
-    ],
-  },
-  {
-    id: "secure",
-    label: "Collaborate & secure",
-    blurb: "Work together with enterprise-grade control.",
-    icon: Shield,
-    cards: [
-      { title: "Team collaboration", desc: "Comments, mentions, and assignments in one shared space.", visual: <CollabVisual /> },
-      { title: "Enterprise security", desc: "Role-based access, granular permissions, and audit trails.", visual: <SecurityVisual /> },
+      {
+        title: "Multiple views",
+        desc: "Grid, Kanban, Calendar, Gantt — the same data, reshaped.",
+        visual: <ViewsVisual />,
+      },
+      {
+        title: "Dashboards & analytics",
+        desc: "Turn live data into dashboards and reports, in real time.",
+        visual: <DashboardVisual />,
+      },
+      {
+        title: "Drill down",
+        desc: "Open any number on a dashboard and see exactly which rows produced it.",
+        visual: <DrillVisual />,
+      },
+      {
+        title: "Team collaboration",
+        desc: "Comments, mentions, and assignments in one shared space.",
+        visual: <CollabVisual />,
+      },
     ],
   },
 ];
@@ -602,14 +1075,18 @@ function FeatureCard({ card }: { card: Card }) {
       <Stage>{card.visual}</Stage>
       <div className="px-6 pb-6 pt-1">
         <div className="flex items-center gap-2">
-          <h3 className="font-display text-[16px] font-semibold tracking-tight text-ink">{card.title}</h3>
+          <h3 className="font-display text-[16px] font-semibold tracking-tight text-ink">
+            {card.title}
+          </h3>
           {card.comingSoon && (
             <span className="rounded-full bg-peach px-2 py-0.5 text-[11px] font-medium text-orange">
               Coming soon
             </span>
           )}
         </div>
-        <p className="mt-2 text-[13.5px] leading-relaxed text-muted">{card.desc}</p>
+        <p className="mt-2 text-[13.5px] leading-relaxed text-muted">
+          {card.desc}
+        </p>
       </div>
     </m.article>
   );
@@ -632,12 +1109,62 @@ type FloaterDef = {
 // without crowding it. Icons match the ones used in the feature cards.
 // Hidden on small screens where there are no gutters.
 const FLOATERS: FloaterDef[] = [
-  { icon: Zap, className: "left-[3%] top-[16%]", size: 54, drift: 22, dur: 13, delay: 0, rotate: -8, accent: true },
-  { icon: Database, className: "left-[6%] top-[56%]", size: 50, drift: 18, dur: 15, delay: 1.2, rotate: 7 },
-  { icon: Table2, className: "left-[2%] top-[83%]", size: 44, drift: 26, dur: 12, delay: 0.6, rotate: 6 },
-  { icon: LayoutDashboard, className: "right-[4%] top-[14%]", size: 50, drift: 20, dur: 14, delay: 0.4, rotate: 9, accent: true },
-  { icon: KanbanSquare, className: "right-[2.5%] top-[48%]", size: 46, drift: 24, dur: 16, delay: 1.6, rotate: -6 },
-  { icon: Users, className: "right-[6%] top-[82%]", size: 42, drift: 18, dur: 13, delay: 0.9, rotate: 8 },
+  {
+    icon: Zap,
+    className: "left-[3%] top-[16%]",
+    size: 54,
+    drift: 22,
+    dur: 13,
+    delay: 0,
+    rotate: -8,
+    accent: true,
+  },
+  {
+    icon: Database,
+    className: "left-[6%] top-[56%]",
+    size: 50,
+    drift: 18,
+    dur: 15,
+    delay: 1.2,
+    rotate: 7,
+  },
+  {
+    icon: Table2,
+    className: "left-[2%] top-[83%]",
+    size: 44,
+    drift: 26,
+    dur: 12,
+    delay: 0.6,
+    rotate: 6,
+  },
+  {
+    icon: LayoutDashboard,
+    className: "right-[4%] top-[14%]",
+    size: 50,
+    drift: 20,
+    dur: 14,
+    delay: 0.4,
+    rotate: 9,
+    accent: true,
+  },
+  {
+    icon: KanbanSquare,
+    className: "right-[2.5%] top-[48%]",
+    size: 46,
+    drift: 24,
+    dur: 16,
+    delay: 1.6,
+    rotate: -6,
+  },
+  {
+    icon: Users,
+    className: "right-[6%] top-[82%]",
+    size: 42,
+    drift: 18,
+    dur: 13,
+    delay: 0.9,
+    rotate: 8,
+  },
 ];
 
 function Floater({ def }: { def: FloaterDef }) {
@@ -646,8 +1173,16 @@ function Floater({ def }: { def: FloaterDef }) {
     <m.div
       className={cn("absolute", def.className)}
       initial={{ y: 0, rotate: def.rotate }}
-      animate={{ y: [0, -def.drift, 0], rotate: [def.rotate, -def.rotate, def.rotate] }}
-      transition={{ duration: def.dur, delay: def.delay, repeat: Infinity, ease: "easeInOut" }}
+      animate={{
+        y: [0, -def.drift, 0],
+        rotate: [def.rotate, -def.rotate, def.rotate],
+      }}
+      transition={{
+        duration: def.dur,
+        delay: def.delay,
+        repeat: Infinity,
+        ease: "easeInOut",
+      }}
     >
       <span
         className="flex items-center justify-center rounded-[28%] border border-line bg-white/55 shadow-card backdrop-blur-sm"
@@ -674,18 +1209,38 @@ function LivingBackdrop() {
       {/* slow-drifting aurora — gives the whole panel quiet motion */}
       <m.div
         className="absolute -left-48 top-1/4 size-[34rem] rounded-full bg-orange/[0.07] blur-3xl"
-        animate={reduce ? undefined : { x: [0, 60, 0], y: [0, 40, 0], scale: [1, 1.12, 1] }}
+        animate={
+          reduce
+            ? undefined
+            : { x: [0, 60, 0], y: [0, 40, 0], scale: [1, 1.12, 1] }
+        }
         transition={{ duration: 22, repeat: Infinity, ease: "easeInOut" }}
       />
       <m.div
         className="absolute -right-48 bottom-1/4 size-[32rem] rounded-full bg-[#ff8a3d]/[0.06] blur-3xl"
-        animate={reduce ? undefined : { x: [0, -50, 0], y: [0, -50, 0], scale: [1, 1.15, 1] }}
-        transition={{ duration: 26, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+        animate={
+          reduce
+            ? undefined
+            : { x: [0, -50, 0], y: [0, -50, 0], scale: [1, 1.15, 1] }
+        }
+        transition={{
+          duration: 26,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: 2,
+        }}
       />
       <m.div
         className="absolute left-1/2 top-1/3 size-[24rem] -translate-x-1/2 rounded-full bg-peach/40 blur-3xl"
-        animate={reduce ? undefined : { y: [0, 30, 0], opacity: [0.5, 0.8, 0.5] }}
-        transition={{ duration: 18, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+        animate={
+          reduce ? undefined : { y: [0, 30, 0], opacity: [0.5, 0.8, 0.5] }
+        }
+        transition={{
+          duration: 18,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: 1,
+        }}
       />
 
       {/* floating product tokens (only where there are gutters) */}
@@ -702,7 +1257,15 @@ function LivingBackdrop() {
 
 /* ---------- top tab switcher ----------------------------------------- */
 
-function GroupTab({ group, active, onSelect }: { group: Group; active: boolean; onSelect: () => void }) {
+function GroupTab({
+  group,
+  active,
+  onSelect,
+}: {
+  group: Group;
+  active: boolean;
+  onSelect: () => void;
+}) {
   const Icon = group.icon;
   return (
     <button
@@ -723,7 +1286,13 @@ function GroupTab({ group, active, onSelect }: { group: Group; active: boolean; 
         />
       )}
       <span className="relative z-10 flex items-center gap-2 whitespace-nowrap">
-        <Icon className={cn("size-4 transition-colors", active ? "text-orange" : "text-faint")} strokeWidth={2} />
+        <Icon
+          className={cn(
+            "size-4 transition-colors",
+            active ? "text-orange" : "text-faint",
+          )}
+          strokeWidth={2}
+        />
         <span className="font-display tracking-tight">{group.label}</span>
       </span>
     </button>
@@ -736,7 +1305,10 @@ export function FeatureCards() {
   const count = group.cards.length;
 
   return (
-    <section id="features" className="relative scroll-mt-20 overflow-hidden border-b border-line bg-warm py-24 sm:py-28">
+    <section
+      id="features"
+      className="relative scroll-mt-20 overflow-hidden border-b border-line bg-warm py-24 sm:py-28"
+    >
       <LivingBackdrop />
 
       <Container className="relative z-10">
@@ -755,7 +1327,12 @@ export function FeatureCards() {
               className="-mx-4 flex max-w-full gap-1 overflow-x-auto px-4 pb-1 sm:mx-0 sm:overflow-visible sm:rounded-full sm:border sm:border-line sm:bg-white/70 sm:p-1.5 sm:shadow-card sm:backdrop-blur-md"
             >
               {groups.map((g, i) => (
-                <GroupTab key={g.id} group={g} active={i === active} onSelect={() => setActive(i)} />
+                <GroupTab
+                  key={g.id}
+                  group={g}
+                  active={i === active}
+                  onSelect={() => setActive(i)}
+                />
               ))}
             </div>
           </div>

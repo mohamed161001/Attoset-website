@@ -5,7 +5,7 @@ import { RecordGraph } from "@/components/mockups/record-graph";
 
 export function LinkedRecords() {
   return (
-    <section className="overflow-hidden py-24 sm:py-28">
+    <section className="overflow-hidden bg-warm py-24 sm:py-28">
       <Container>
         <SectionHeading
           eyebrow="Linked records"

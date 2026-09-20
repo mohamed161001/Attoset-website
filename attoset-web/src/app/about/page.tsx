@@ -60,7 +60,7 @@ export default function AboutPage() {
             <Reveal>
               <p className="text-balance text-center font-display text-2xl font-medium leading-snug text-ink sm:text-[2rem] sm:leading-[1.3]">
                 Traditional tools force teams into someone else&apos;s workflow.
-                Attoset flips that — a unified, AI-powered Work OS where you
+                Attoset flips that — one intelligent Work Platform where you
                 build, automate, and scale operations{" "}
                 <span className="text-orange">your way</span>.
               </p>
@@ -112,7 +112,7 @@ export default function AboutPage() {
                 </h3>
                 <p className="mt-2 max-w-md text-pretty text-muted">
                   We&apos;re a small, ambitious team. If you want to shape an
-                  AI-powered Work OS, we&apos;d love to hear from you.
+                  intelligent Work Platform, we&apos;d love to hear from you.
                 </p>
               </div>
               <a

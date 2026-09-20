@@ -6,6 +6,7 @@ import { CTA } from "@/components/sections/cta";
 import { JsonLd } from "@/components/seo/json-ld";
 import { softwareApplicationSchema } from "@/lib/schema";
 import { pageMeta } from "@/lib/seo";
+import { pricingFaqs } from "@/lib/content";
 
 export const metadata: Metadata = pageMeta({
   title: "Pricing",
@@ -29,7 +30,11 @@ export default function PricingPage() {
         description="Pick your capacity, add your seats, get an instant quote."
       />
       <PricingSection />
-      <FAQ />
+      <FAQ
+        items={pricingFaqs}
+        title="Pricing, answered"
+        description="How the two axes behave, who pays for what, and what happens at a limit."
+      />
       <CTA />
     </>
   );

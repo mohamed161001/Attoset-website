@@ -1,4 +1,5 @@
-import { ShieldCheck } from "lucide-react";
+import Link from "next/link";
+import { ArrowRight, ShieldCheck } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { Reveal } from "@/components/ui/reveal";
@@ -35,6 +36,15 @@ export function SecuritySection() {
                     <p className="text-[13px] text-muted">RBAC · Permissions · Audit · Encryption</p>
                   </div>
                 </div>
+              </Reveal>
+              <Reveal delay={0.2}>
+                <Link
+                  href="/security"
+                  className="group mt-6 inline-flex items-center gap-2 text-sm font-semibold text-ink transition-colors hover:text-orange"
+                >
+                  How Attoset secures your data
+                  <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
+                </Link>
               </Reveal>
             </div>
 

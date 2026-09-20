@@ -40,10 +40,10 @@ export const metadata: Metadata = {
     template: "%s · Attoset",
   },
   description:
-    "Attoset is the AI-powered Work OS that lets organizations build, manage, automate, and scale their operations in one unified platform — with Atto, a built-in AI assistant that executes work.",
+    "Attoset is the intelligent Work Platform that lets organizations build, manage, automate, and scale their operations in one unified system — with Atto, a built-in AI assistant that executes work.",
   keywords: [
-    "Work OS",
-    "AI work operating system",
+    "intelligent work platform",
+    "AI work platform",
     "workflow automation",
     "AI agents",
     "no-code platform",
@@ -54,14 +54,14 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: SITE_URL,
-    title: "Attoset — The AI-Powered Work Operating System",
+    title: "Attoset — The Intelligent Work Platform",
     description:
       "Build, manage, automate, and scale your operations in one unified, AI-powered platform.",
     siteName: "Attoset",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Attoset — The AI-Powered Work Operating System",
+    title: "Attoset — The Intelligent Work Platform",
     description:
       "Build, manage, automate, and scale your operations in one unified, AI-powered platform.",
   },

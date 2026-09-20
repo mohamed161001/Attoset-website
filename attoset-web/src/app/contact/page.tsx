@@ -9,7 +9,7 @@ import { pageMeta } from "@/lib/seo";
 export const metadata: Metadata = pageMeta({
   title: "Contact",
   description:
-    "Talk to the Attoset team. Get a demo, ask a question, or start building your AI-powered Work OS.",
+    "Talk to the Attoset team. Get a demo, ask a question, or start building on the intelligent Work Platform.",
   path: "/contact",
 });
 
@@ -34,7 +34,7 @@ export default function ContactPage() {
           <Reveal delay={0.05}>
             <h1 className="mt-5 font-display text-[clamp(2.4rem,5vw,3.75rem)] font-bold leading-[1.03] tracking-display text-balance">
               Let&apos;s build your{" "}
-              <span className="grad-text">Work OS</span>
+              <span className="grad-text">Work Platform</span>
             </h1>
           </Reveal>
           <Reveal delay={0.1}>

@@ -12,7 +12,7 @@ import type { Metadata } from "next";
  */
 export const SITE_URL = "https://attoset.com";
 
-const OG_ALT = "Attoset — The AI-powered Work Operating System";
+const OG_ALT = "Attoset — The Intelligent Work Platform";
 
 export function pageMeta({
   title,

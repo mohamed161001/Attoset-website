@@ -13,7 +13,7 @@ export const organizationSchema = {
   url: SITE_URL,
   logo: `${SITE_URL}/attoset-logo.png`,
   description:
-    "The AI-powered Work OS that lets organizations build, manage, automate, and scale operations in one unified platform.",
+    "The intelligent Work Platform that lets organizations build, manage, automate, and scale operations in one unified system.",
   email: "contact@attoset.com",
   sameAs: ["https://www.linkedin.com/company/attoset"],
 };
@@ -33,18 +33,21 @@ export const softwareApplicationSchema = {
   applicationCategory: "BusinessApplication",
   operatingSystem: "Web",
   description:
-    "AI-powered Work OS for building, managing, automating, and scaling operations — with a built-in AI assistant.",
+    "The intelligent Work Platform for building, managing, automating, and scaling operations — with a built-in AI assistant.",
   url: SITE_URL,
   // No `offers` until the price list publishes with the public beta — otherwise
   // figures we haven't announced end up in search results.
 };
 
-export const faqSchema = {
+/** FAQPage for whichever question set a page renders. */
+export const makeFaqSchema = (items: { q: string; a: string }[]) => ({
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  mainEntity: faqs.map((f) => ({
+  mainEntity: items.map((f) => ({
     "@type": "Question",
     name: f.q,
     acceptedAnswer: { "@type": "Answer", text: f.a },
   })),
-};
+});
+
+export const faqSchema = makeFaqSchema(faqs);

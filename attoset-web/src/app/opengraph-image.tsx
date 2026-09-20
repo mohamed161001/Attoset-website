@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "Attoset — The AI-powered Work Operating System";
+export const alt = "Attoset — The Intelligent Work Platform";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 

@@ -9,23 +9,36 @@ import { Reveal } from "@/components/ui/reveal";
 import { faqs } from "@/lib/content";
 import { cn } from "@/lib/utils";
 import { JsonLd } from "@/components/seo/json-ld";
-import { faqSchema } from "@/lib/schema";
+import { makeFaqSchema } from "@/lib/schema";
 
-export function FAQ() {
+type FAQProps = {
+  /** Question set to render. Defaults to the general site FAQ. */
+  items?: { q: string; a: string }[];
+  eyebrow?: string;
+  title?: string;
+  description?: string;
+};
+
+export function FAQ({
+  items = faqs,
+  eyebrow = "FAQ",
+  title = "Questions, answered",
+  description = "The questions teams ask before they commit to a platform.",
+}: FAQProps = {}) {
   const [open, setOpen] = useState<number | null>(0);
 
   return (
     <section className="bg-warm py-24 sm:py-28">
-      <JsonLd data={faqSchema} />
+      <JsonLd data={makeFaqSchema(items)} />
       <Container>
         <SectionHeading
-          eyebrow="FAQ"
-          title="Questions, answered"
-          description="Everything you need to know about building on Attoset."
+          eyebrow={eyebrow}
+          title={title}
+          description={description}
         />
 
         <div className="mx-auto mt-12 max-w-3xl">
-          {faqs.map((f, i) => {
+          {items.map((f, i) => {
             const isOpen = open === i;
             return (
               <Reveal key={f.q} delay={(i % 4) * 0.04}>

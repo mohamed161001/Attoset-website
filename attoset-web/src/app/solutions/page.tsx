@@ -23,7 +23,7 @@ export default function SolutionsPage() {
             Built around the work <span className="grad-text">you run</span>
           </>
         }
-        description="One platform, shaped to the job in front of you. Every process below is built from the same blocks, so nothing has to be stitched together afterwards."
+        description="The jobs teams run on Attoset, from field operations to portfolio reporting."
       />
 
       <section className="relative overflow-hidden bg-ink py-20 sm:py-24">

@@ -2,10 +2,10 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "Attoset — AI-powered Work OS",
+    name: "Attoset — Intelligent Work Platform",
     short_name: "Attoset",
     description:
-      "The AI-powered Work OS that lets organizations build, manage, automate, and scale operations in one unified platform.",
+      "The intelligent Work Platform that lets organizations build, manage, automate, and scale operations in one unified system.",
     start_url: "/",
     display: "standalone",
     background_color: "#ffffff",

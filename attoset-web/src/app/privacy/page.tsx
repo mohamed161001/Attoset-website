@@ -7,7 +7,7 @@ import { pageMeta } from "@/lib/seo";
 export const metadata: Metadata = pageMeta({
   title: "Privacy Policy",
   description:
-    "How Attoset collects, uses, and protects your data across our AI-powered Work Operating System.",
+    "How Attoset collects, uses, and protects your data across our intelligent Work Platform.",
   path: "/privacy",
 });
 
@@ -22,7 +22,7 @@ const sections: { id: string; title: string; body: React.ReactNode }[] = [
         This Privacy Policy explains how Attoset (&ldquo;Attoset,&rdquo;
         &ldquo;we,&rdquo; &ldquo;us,&rdquo; or &ldquo;our&rdquo;) collects,
         uses, discloses, and safeguards information when you visit
-        attoset.com or use the Attoset Work Operating System, including Atto
+        attoset.com or use the Attoset Work Platform, including Atto
         and any AI agents built on the platform (together, the
         &ldquo;Service&rdquo;). By using the Service, you agree to the
         collection and use of information as described here.
