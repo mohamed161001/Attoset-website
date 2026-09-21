@@ -25,13 +25,14 @@ export default function Home() {
       {/*
        * How it works sits directly under the hero: the three-step story is the
        * orientation a first-time visitor needs before any capability detail.
-       * ProductShowcase then moves down to keep AutoForge and UseCases — both
-       * dark sections — from running together into one slab.
+       * AttoForge follows the product showcase — scale comes after you have seen
+       * the platform itself. Note this puts AutoForge and UseCases, both dark,
+       * back to back.
        */}
       <HowItWorks />
       <FeatureCards />
-      <AutoForge />
       <ProductShowcase />
+      <AutoForge />
       <UseCases />
       <SecuritySection />
       <FAQ />
