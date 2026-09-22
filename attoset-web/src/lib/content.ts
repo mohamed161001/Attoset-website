@@ -26,7 +26,7 @@ import {
   GitBranch,
   Plug,
   Paperclip,
-  Hammer,
+  Stamp,
   Headset,
   FolderKanban,
   Factory,
@@ -81,7 +81,7 @@ export const nav: NavItem[] = [
       {
         label: "AttoForge",
         href: "/#autoforge",
-        icon: Hammer,
+        icon: Stamp,
         desc: "A repeatable work engine",
       },
       {
@@ -467,8 +467,8 @@ export const capacityBands: CapacityBand[] = [
     name: "Starter",
     amount: 39,
     cadence: "/ month",
-    blurb: "For a first team running real work.",
-    tags: ["Start here", "30-day trial"],
+    blurb: "No platform fee for 12 months. You pay only for the people who build.",
+    tags: ["Start here", "12 months free"],
     featured: true,
     limits: [
       { label: "Rows per table", value: "20,000" },
@@ -500,7 +500,7 @@ export const capacityBands: CapacityBand[] = [
     name: "Scale",
     amount: 500,
     cadence: "/ month",
-    blurb: "For advanced work requirements and full capacity.",
+    blurb: "Full capabilities and capacity, including unlimited AttoForge blueprints.",
     tags: ["Coming soon"],
     limits: [
       { label: "Rows per table", value: "100,000" },
@@ -611,6 +611,10 @@ export const pricingFaqs = [
   {
     q: "What happens if we pass a limit?",
     a: "Rows and storage are soft limits — you get a warning, never a lockout and never deletion. Automation runs pause at the cap until the next cycle or until you move up a band.",
+  },
+  {
+    q: "What does the first 12 months free actually cover?",
+    a: "The Starter platform fee — the capacity side, covering rows, storage and automation runs — is waived for your first twelve months. Seats are billed from the start, so you pay for the people who build from day one. After twelve months the Starter platform fee begins.",
   },
   {
     q: "Do you adjust prices by region?",

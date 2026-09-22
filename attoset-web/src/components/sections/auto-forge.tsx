@@ -71,7 +71,7 @@ const agentsFor = (n: number) => (n % 2 === 0 ? 2 : 1);
 // the Team / Agents columns stay aligned.
 const instanceCols =
   "grid grid-cols-[minmax(0,1fr)_62px_62px] items-center gap-x-2";
-const instanceRow = `${instanceCols} h-[30px] rounded-lg border border-white/5 bg-white/[0.03] px-2.5`;
+const instanceRow = `${instanceCols} h-[30px] rounded-lg border border-line bg-white px-2.5`;
 
 /**
  * How the portfolio splits by status — the donut in the second chart card.
@@ -83,8 +83,8 @@ const DONUT_C = 2 * Math.PI * DONUT_R;
 const statusSlices = (() => {
   const raw = [
     { label: "On track", value: 64, color: "#FF512A" },
-    { label: "At risk", value: 24, color: "rgba(255,255,255,0.45)" },
-    { label: "Blocked", value: 12, color: "rgba(255,255,255,0.18)" },
+    { label: "At risk", value: 24, color: "rgba(10,10,10,0.38)" },
+    { label: "Blocked", value: 12, color: "rgba(10,10,10,0.15)" },
   ];
   let start = 0;
   return raw.map((slice) => {
@@ -107,7 +107,7 @@ const chartGroups = [
 function InstanceRow({ n }: { n: number }) {
   return (
     <>
-      <span className="truncate text-[11.5px] font-medium text-white/85">
+      <span className="truncate text-[11.5px] font-medium text-ink">
         {instanceName(n)}
       </span>
       {/* human teammates, with the rest of the instance's people as a count */}
@@ -118,10 +118,10 @@ function InstanceRow({ n }: { n: number }) {
             name={people[key].name}
             color={people[key].color}
             size={16}
-            className="border border-ink"
+            className="border border-white"
           />
         ))}
-        <span className="flex h-4 items-center rounded-full border border-ink bg-white/12 px-1 text-[8.5px] font-semibold tabular-nums text-white/70">
+        <span className="flex h-4 items-center rounded-full border border-line bg-warm-2 px-1 text-[8.5px] font-semibold tabular-nums text-muted">
           +{teamSizeFor(n) - 2}
         </span>
       </span>
@@ -129,7 +129,7 @@ function InstanceRow({ n }: { n: number }) {
       <span className="flex items-center justify-center gap-1">
         <span
           title="Atto"
-          className="flex size-[18px] items-center justify-center rounded-full bg-white/12"
+          className="flex size-[18px] items-center justify-center rounded-full border border-line bg-warm-2"
         >
           <AttoAvatar size={11} />
         </span>
@@ -154,11 +154,11 @@ function InstanceRow({ n }: { n: number }) {
 function InsightsRail({ title, count }: { title: string; count: string }) {
   return (
     <div className="flex items-center gap-1.5">
-      <span className="text-[10.5px] font-semibold text-white/85">{title}</span>
-      <span className="text-[9px] font-medium tabular-nums text-white/35">
+      <span className="text-[10.5px] font-semibold text-ink">{title}</span>
+      <span className="text-[9px] font-medium tabular-nums text-faint">
         {count}
       </span>
-      <span className="ml-auto flex size-4 items-center justify-center rounded-full border border-white/12 text-white/35">
+      <span className="ml-auto flex size-4 items-center justify-center rounded-full border border-line text-faint">
         <Plus className="size-2.5" strokeWidth={2.4} />
       </span>
     </div>
@@ -168,11 +168,11 @@ function InsightsRail({ title, count }: { title: string; count: string }) {
 /** A key-metric card, styled after the Insights metric tiles. */
 function Metric({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-xl border border-white/8 bg-white/[0.03] px-2.5 py-1.5">
-      <div className="truncate text-[9px] font-medium text-white/40">
+    <div className="rounded-xl border border-line bg-white px-2.5 py-1.5">
+      <div className="truncate text-[9px] font-medium text-faint">
         {label}
       </div>
-      <div className="text-[15px] font-bold leading-tight tabular-nums text-white">
+      <div className="text-[15px] font-bold leading-tight tabular-nums text-ink">
         {value}
       </div>
     </div>
@@ -182,11 +182,11 @@ function Metric({ label, value }: { label: string; value: string }) {
 /** Donut chart card — the second shape Insights renders, with its dot legend. */
 function PieCard({ title }: { title: string }) {
   return (
-    <div className="flex flex-col rounded-xl border border-white/8 bg-white/[0.03] p-2.5">
-      <div className="text-[9.5px] font-medium text-white/70">{title}</div>
+    <div className="flex flex-col rounded-xl border border-line bg-white p-2.5">
+      <div className="text-[9.5px] font-medium text-muted">{title}</div>
       <div className="flex flex-1 items-center justify-center gap-2 py-1">
         <svg viewBox="0 0 36 36" className="size-11 shrink-0 -rotate-90">
-          <circle cx="18" cy="18" r={DONUT_R} fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="6" />
+          <circle cx="18" cy="18" r={DONUT_R} fill="none" stroke="rgba(10,10,10,0.07)" strokeWidth="6" />
           {statusSlices.map((slice) => (
             <circle
               key={slice.label}
@@ -201,7 +201,7 @@ function PieCard({ title }: { title: string }) {
             />
           ))}
         </svg>
-        <div className="flex flex-col gap-1 text-[7.5px] leading-none text-white/45">
+        <div className="flex flex-col gap-1 text-[7.5px] leading-none text-faint">
           {statusSlices.map((slice) => (
             <span key={slice.label} className="flex items-center gap-1">
               <span
@@ -221,11 +221,11 @@ function PieCard({ title }: { title: string }) {
 function ChartCard({ title, eased }: { title: string; eased: number }) {
   const grow = (peak: number) => 8 + (peak - 8) * eased;
   return (
-    <div className="rounded-xl border border-white/8 bg-white/[0.03] p-2.5">
-      <div className="text-[9.5px] font-medium text-white/70">{title}</div>
+    <div className="rounded-xl border border-line bg-white p-2.5">
+      <div className="text-[9.5px] font-medium text-muted">{title}</div>
       <div className="mt-2 flex gap-1.5">
         {/* y axis */}
-        <div className="flex h-[42px] w-3.5 flex-col justify-between py-px text-right text-[7px] leading-none tabular-nums text-white/25">
+        <div className="flex h-[42px] w-3.5 flex-col justify-between py-px text-right text-[7px] leading-none tabular-nums text-faint">
           <span>60</span>
           <span>30</span>
           <span>0</span>
@@ -234,7 +234,7 @@ function ChartCard({ title, eased }: { title: string; eased: number }) {
           {[0, 50, 100].map((top) => (
             <span
               key={top}
-              className="absolute inset-x-0 h-px bg-white/8"
+              className="absolute inset-x-0 h-px bg-line"
               style={{ top: `${top}%` }}
             />
           ))}
@@ -251,7 +251,7 @@ function ChartCard({ title, eased }: { title: string; eased: number }) {
                   transition={{ duration: 0.6, ease }}
                 />
                 <m.span
-                  className="w-[5px] rounded-[2px] bg-white/35"
+                  className="w-[5px] rounded-[2px] bg-ink/35"
                   initial={false}
                   animate={{ height: `${grow(g.active)}%` }}
                   transition={{ duration: 0.6, ease }}
@@ -261,27 +261,27 @@ function ChartCard({ title, eased }: { title: string; eased: number }) {
           </div>
         </div>
       </div>
-      <div className="mt-1 flex pl-5 text-[7.5px] text-white/30">
+      <div className="mt-1 flex pl-5 text-[7.5px] text-faint">
         {chartGroups.map((g) => (
           <span key={g.label} className="flex-1 text-center">
             {g.label}
           </span>
         ))}
       </div>
-      <div className="mt-1.5 flex items-center justify-center gap-3 text-[8px] text-white/45">
+      <div className="mt-1.5 flex items-center justify-center gap-3 text-[8px] text-faint">
         <span className="flex items-center gap-1">
           <span className="size-1.5 rounded-full bg-orange" />
           Completed
         </span>
         <span className="flex items-center gap-1">
-          <span className="size-1.5 rounded-full bg-white/35" />
+          <span className="size-1.5 rounded-full bg-ink/35" />
           Active
         </span>
       </div>
     </div>
   );
 }
-/** One stage of the flow: a dark-glass card plus a one-line caption beneath. */
+/** One stage of the flow: a white card plus a one-line caption beneath. */
 function Stage({
   title,
   icon: Icon,
@@ -307,17 +307,17 @@ function Stage({
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay, ease }}
     >
-      <div className="flex h-full flex-col rounded-2xl border border-white/10 bg-white/[0.04] p-3.5 shadow-[0_10px_40px_-16px_rgba(0,0,0,0.6)] backdrop-blur-sm">
+      <div className="flex h-full flex-col rounded-2xl border border-line bg-white p-3.5 shadow-card">
         <div className="mb-3 flex items-center justify-center gap-2">
-          <Icon className="size-3.5 text-white/55" strokeWidth={1.9} />
-          <span className="text-[12.5px] font-semibold tracking-tight text-white">
+          <Icon className="size-3.5 text-muted" strokeWidth={1.9} />
+          <span className="text-[12.5px] font-semibold tracking-tight text-ink">
             {title}
           </span>
           {badge}
         </div>
         <div className="flex flex-1 flex-col justify-center">{children}</div>
       </div>
-      <p className="mt-3 text-center text-[11px] font-medium text-white/35">
+      <p className="mt-3 text-center text-[11px] font-medium text-faint">
         {caption}
       </p>
     </m.div>
@@ -333,15 +333,15 @@ function Connector({ reduce }: { reduce: boolean | null }) {
   return (
     <div className="relative mx-auto flex h-9 w-full items-center justify-center lg:h-auto lg:mb-[26px] lg:w-14 lg:self-center">
       {/* stacked: vertical dotted line */}
-      <span className="h-full w-px bg-[linear-gradient(to_bottom,rgba(255,255,255,0.28)_50%,transparent_0)] bg-[length:1px_6px] lg:hidden" />
+      <span className="h-full w-px bg-[linear-gradient(to_bottom,rgba(10,10,10,0.25)_50%,transparent_0)] bg-[length:1px_6px] lg:hidden" />
       <ChevronDown
-        className="absolute bottom-0 size-3 text-white/25 lg:hidden"
+        className="absolute bottom-0 size-3 text-faint lg:hidden"
         strokeWidth={2}
       />
       {/* desktop: horizontal dotted line */}
-      <span className="hidden h-px w-full bg-[linear-gradient(to_right,rgba(255,255,255,0.28)_50%,transparent_0)] bg-[length:6px_1px] lg:block" />
+      <span className="hidden h-px w-full bg-[linear-gradient(to_right,rgba(10,10,10,0.25)_50%,transparent_0)] bg-[length:6px_1px] lg:block" />
       <ChevronRight
-        className="absolute right-0 hidden size-3 text-white/25 lg:block"
+        className="absolute right-0 hidden size-3 text-faint lg:block"
         strokeWidth={2}
       />
       {!reduce && (
@@ -422,17 +422,17 @@ function AutoForgeFlow() {
           {blueprint.map((b, i) => (
             <m.div
               key={b.label}
-              className="flex items-center gap-2 rounded-lg border border-white/5 bg-white/[0.03] px-2.5 py-2"
+              className="flex items-center gap-2 rounded-lg border border-line bg-white px-2.5 py-2"
               initial={reduce ? false : { opacity: 0, x: -6 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.3, delay: 0.1 + i * 0.05, ease }}
             >
               <b.icon
-                className="size-3 shrink-0 text-white/45"
+                className="size-3 shrink-0 text-faint"
                 strokeWidth={2}
               />
-              <span className="truncate text-[11.5px] font-medium text-white/80">
+              <span className="truncate text-[11.5px] font-medium text-ink">
                 {b.label}
               </span>
             </m.div>
@@ -456,7 +456,7 @@ function AutoForgeFlow() {
         }
       >
         <div
-          className={`${instanceCols} px-2.5 pb-1.5 text-[9px] font-semibold uppercase tracking-[0.14em] text-white/35`}
+          className={`${instanceCols} px-2.5 pb-1.5 text-[9px] font-semibold uppercase tracking-[0.14em] text-faint`}
         >
           <span>Instance</span>
           <span className="text-center">Team</span>
@@ -471,7 +471,7 @@ function AutoForgeFlow() {
             <InstanceRow n={2} />
           </div>
           {/* The instances between the first two and the newest, collapsed. */}
-          <div className="py-0.5 text-center text-[10px] font-medium tabular-nums text-white/35">
+          <div className="py-0.5 text-center text-[10px] font-medium tabular-nums text-faint">
             + {count - 3} more instances
           </div>
           {/* Only the last row changes, as each new instance is forged. */}
@@ -507,7 +507,7 @@ function AutoForgeFlow() {
           <Metric label="# Projects" value={String(count)} />
           <Metric label="# On track" value={`${onTrack}%`} />
         </div>
-        <div className="my-2 h-px bg-white/8" />
+        <div className="my-2 h-px bg-line" />
         <InsightsRail title="Charts" count="(2/15)" />
         <div className="mt-1.5 grid grid-cols-2 gap-2">
           <ChartCard title="By quarter" eased={eased} />
@@ -522,12 +522,12 @@ export function AutoForge() {
   return (
     <section
       id="autoforge"
-      className="relative scroll-mt-24 overflow-hidden bg-ink py-20 text-white sm:py-24"
+      className="relative scroll-mt-24 overflow-hidden bg-warm py-20 text-ink sm:py-24"
     >
-      {/* Atmosphere — masked grid + soft white glow */}
-      <div className="pointer-events-none absolute inset-0 [background-image:linear-gradient(rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.05)_1px,transparent_1px)] [background-size:56px_56px] [mask-image:radial-gradient(ellipse_65%_55%_at_50%_0%,#000,transparent_78%)]" />
-      <span className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/15 to-transparent" />
-      <span className="pointer-events-none absolute left-1/2 top-[-140px] h-[440px] w-[820px] -translate-x-1/2 rounded-full bg-white/10 blur-[140px]" />
+      {/* Atmosphere — masked grid + soft peach glow */}
+      <div className="pointer-events-none absolute inset-0 [background-image:linear-gradient(rgba(10,10,10,0.035)_1px,transparent_1px),linear-gradient(90deg,rgba(10,10,10,0.035)_1px,transparent_1px)] [background-size:56px_56px] [mask-image:radial-gradient(ellipse_65%_55%_at_50%_0%,#000,transparent_78%)]" />
+      <span className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-line-strong to-transparent" />
+      <span className="pointer-events-none absolute left-1/2 top-[-140px] h-[440px] w-[820px] -translate-x-1/2 rounded-full bg-orange/10 blur-[140px]" />
 
       <Container className="relative">
         <div className="mx-auto max-w-2xl text-center">
@@ -540,7 +540,7 @@ export function AutoForge() {
             </h2>
           </Reveal>
           <Reveal delay={0.1}>
-            <p className="mt-5 text-pretty text-lg leading-relaxed text-white/60">
+            <p className="mt-5 text-pretty text-lg leading-relaxed text-muted">
               Run the same process across dozens of clients, teams, or
               locations. Build one blueprint, and AttoForge clones it into
               managed instances that all roll up into a single portfolio view.
@@ -556,13 +556,13 @@ export function AutoForge() {
 
         <div className="mt-12 flex flex-col items-center gap-4 text-center">
           <Reveal>
-            <p className="text-[15px] text-white/55">
+            <p className="text-[15px] text-muted">
               Your team defines the logic.{" "}
-              <span className="text-white/85">Agents will execute it.</span>
+              <span className="text-ink">Agents will execute it.</span>
             </p>
           </Reveal>
           <Reveal delay={0.05}>
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-white/15 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-white/45">
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-line px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-faint">
               <Sparkles className="size-3 text-orange" strokeWidth={2} />
               Agents coming soon
             </span>

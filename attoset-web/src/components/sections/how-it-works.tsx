@@ -19,7 +19,7 @@ export function HowItWorks() {
           {howItWorks.map((step, i) => (
             <Reveal key={step.n} delay={i * 0.1}>
               <div className="relative flex flex-col gap-4">
-                <div className="flex size-14 items-center justify-center rounded-2xl border border-line bg-white font-display text-lg font-bold text-orange shadow-card">
+                <div className="flex size-14 items-center justify-center rounded-2xl border border-line bg-white font-display text-lg font-bold text-ink shadow-card">
                   {step.n}
                 </div>
                 <h3 className="font-display text-xl font-semibold text-ink">
