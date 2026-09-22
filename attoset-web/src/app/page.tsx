@@ -3,6 +3,7 @@ import { Hero } from "@/components/sections/hero";
 import { FeatureCards } from "@/components/sections/feature-cards";
 import { ProductShowcase } from "@/components/sections/product-showcase";
 import { AutoForge } from "@/components/sections/auto-forge";
+import { TrustedBy } from "@/components/sections/trusted-by";
 import { HowItWorks } from "@/components/sections/how-it-works";
 import { UseCases } from "@/components/sections/use-cases";
 import { SecuritySection } from "@/components/sections/security-section";
@@ -22,6 +23,7 @@ export default function Home() {
     <>
       <JsonLd data={softwareApplicationSchema} />
       <Hero />
+      <TrustedBy />
       {/*
        * How it works sits directly under the hero: the three-step story is the
        * orientation a first-time visitor needs before any capability detail.

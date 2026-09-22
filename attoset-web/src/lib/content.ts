@@ -96,6 +96,28 @@ export const nav: NavItem[] = [
   { label: "Pricing", href: "/pricing" },
 ];
 
+export type Client = {
+  name: string;
+  src: string;
+  /** Intrinsic size of the asset, for next/image. */
+  w: number;
+  h: number;
+  /**
+   * Rendered height in px. Tuned per logo rather than shared: these marks have
+   * very different proportions, so a single height makes the wide ones dominate
+   * and the stacked ones vanish. Balance by eye, not by number.
+   */
+  displayH: number;
+};
+
+/** Organizations whose logos we are cleared to show. */
+export const clients: Client[] = [
+  { name: "Universal", src: "/images/logos/universal.png", w: 403, h: 276, displayH: 48 },
+  { name: "Palliser Produits Chimiques", src: "/images/logos/palliser.png", w: 431, h: 90, displayH: 30 },
+  { name: "Prestige Projects Group", src: "/images/logos/prestige.png", w: 600, h: 171, displayH: 27 },
+  { name: "Swift Logistics", src: "/images/logos/swift.png", w: 209, h: 112, displayH: 42 },
+];
+
 export type Feature = {
   icon: LucideIcon;
   title: string;
