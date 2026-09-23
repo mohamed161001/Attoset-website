@@ -474,7 +474,8 @@ export const capacityBands: CapacityBand[] = [
     name: "Free",
     amount: 0,
     cadence: "/ month",
-    blurb: "No capacity fee. Pay only for the people who build.",
+    tags: ["Forever"],
+    blurb: "Free for good. For a solo user or a small team that will not outgrow it — just buy the seats you need.",
     limits: [
       { label: "Rows per table", value: "1,000" },
       { label: "Storage", value: "2 GB" },
@@ -635,8 +636,12 @@ export const pricingFaqs = [
     a: "Rows and storage are soft limits — you get a warning, never a lockout and never deletion. Automation runs pause at the cap until the next cycle or until you move up a band.",
   },
   {
+    q: "Free or Starter — which one am I?",
+    a: "Free never ends. It fits a solo user or a small team that will stay inside 1,000 rows, and you simply buy the seats you need. Starter waives the capacity fee for twelve months and then bills it, and gives you twenty times the rows and storage in the meantime. Seats are priced the same on both, so the only question is whether you expect to grow.",
+  },
+  {
     q: "What does the first 12 months free actually cover?",
-    a: "The Starter capacity fee — what the platform holds and runs for you: rows, storage and automation runs — is waived for your first twelve months. Seats are billed from the start, so you pay for the people who build from day one. After twelve months the Starter capacity fee begins.",
+    a: "The Starter capacity fee — what the platform holds and runs for you: rows, storage and automation runs — is waived for your first twelve months. Seats are billed from the start, so you pay for the people who build from day one. At twelve months you choose: stay on Starter and the capacity fee begins, or move down to Free if you do not need that much capacity. Nothing is deleted either way — rows and storage are soft limits.",
   },
   {
     q: "Do you adjust prices by region?",
