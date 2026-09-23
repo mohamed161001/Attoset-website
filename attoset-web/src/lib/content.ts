@@ -474,7 +474,7 @@ export const capacityBands: CapacityBand[] = [
     name: "Free",
     amount: 0,
     cadence: "/ month",
-    blurb: "No platform fee. Pay only for the people who build.",
+    blurb: "No capacity fee. Pay only for the people who build.",
     limits: [
       { label: "Rows per table", value: "1,000" },
       { label: "Storage", value: "2 GB" },
@@ -489,7 +489,7 @@ export const capacityBands: CapacityBand[] = [
     name: "Starter",
     amount: 39,
     cadence: "/ month",
-    blurb: "No platform fee for 12 months. You pay only for the people who build.",
+    blurb: "No capacity fee for 12 months. You pay only for the people who build.",
     tags: ["Start here", "12 months free"],
     featured: true,
     limits: [
@@ -636,7 +636,7 @@ export const pricingFaqs = [
   },
   {
     q: "What does the first 12 months free actually cover?",
-    a: "The Starter platform fee — the capacity side, covering rows, storage and automation runs — is waived for your first twelve months. Seats are billed from the start, so you pay for the people who build from day one. After twelve months the Starter platform fee begins.",
+    a: "The Starter capacity fee — what the platform holds and runs for you: rows, storage and automation runs — is waived for your first twelve months. Seats are billed from the start, so you pay for the people who build from day one. After twelve months the Starter capacity fee begins.",
   },
   {
     q: "Do you adjust prices by region?",
