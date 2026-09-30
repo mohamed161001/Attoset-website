@@ -460,8 +460,12 @@ export const pricesProvisional = true;
 /** What the platform costs — the limits, security and machine work it covers. */
 export type CapacityBand = {
   name: string;
-  /** Monthly USD. Formatted for display and summed by the estimator. */
-  amount: number;
+  /**
+   * Monthly USD. Formatted for display and summed by the estimator.
+   * null while a plan's price is still being set: the card reads "In the works"
+   * and the estimator leaves capacity out of the total.
+   */
+  amount: number | null;
   cadence: string;
   blurb: string;
   limits: { label: string; value: string }[];
@@ -521,7 +525,7 @@ export const capacityBands: CapacityBand[] = [
   },
   {
     name: "Scale",
-    amount: 500,
+    amount: null,
     cadence: "/ month",
     blurb: "Full capabilities and capacity, including unlimited AttoForge blueprints.",
     tags: ["Coming soon"],
@@ -610,7 +614,7 @@ export const seatTypes: SeatType[] = [
 /** How the two axes are meant to behave, stated as commitments. */
 export const pricingRules = [
   "Capacity and seats are two separate lines. More capacity never forces more seats, and adding people never moves your capacity fee",
-  "No minimums, no bundles, no seat packs, no hidden fees. Every figure is on this page, so you can quote yourself in seconds",
+  "No minimums, no bundles, no seat packs, no hidden fees. Every self-serve figure is on this page, so you can quote yourself in seconds",
 ];
 
 /** Pricing-page questions: the two axes, seat types, limits and billing. */

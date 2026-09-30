@@ -25,17 +25,29 @@ const money = (n: number) =>
 const plural = (n: number, name: string) =>
   `${n} ${name.toLowerCase()}${n === 1 ? "" : "s"}`;
 
+/** Stands in for a plan whose price is not set yet. */
+const PENDING = "In the works";
+
 /** Figures are hidden entirely when showPrices is off. */
 function Price({
   amount,
   cadence,
   suffix,
 }: {
-  amount: number;
+  amount: number | null;
   cadence?: string;
   suffix?: string;
 }) {
   if (!showPrices) return null;
+  if (amount === null) {
+    return (
+      <p className="mt-1.5 flex items-end">
+        <span className="font-display text-[26px] font-bold leading-none tracking-display text-ink">
+          {PENDING}
+        </span>
+      </p>
+    );
+  }
   return (
     <p className="mt-1.5 flex items-end gap-1.5">
       <span className="font-display text-[26px] font-bold leading-none tracking-display text-ink">
@@ -137,7 +149,8 @@ type QuotePayload = {
   plan: string;
   term: string;
   currency: string;
-  capacity: number;
+  /** null when the selected plan's price is still in the works. */
+  capacity: number | null;
   total: number;
   seats: Record<string, number>;
   summary: string[];
@@ -240,24 +253,29 @@ export function PricingSection() {
   const suffix = yearly ? ", billed yearly" : "";
 
   const plan = capacityBands[planIndex];
-  const planRate = rate(plan.amount);
+  const planRate = plan.amount === null ? null : rate(plan.amount);
   const lines = seatTypes.map((seat, i) => ({
     seat,
     count: counts[i],
     subtotal: counts[i] * rate(seat.amount),
   }));
-  const total = planRate + lines.reduce((sum, l) => sum + l.subtotal, 0);
+  const total =
+    (planRate ?? 0) + lines.reduce((sum, l) => sum + l.subtotal, 0);
 
   const setCount = (i: number, n: number) =>
     setCounts((prev) => prev.map((c, j) => (j === i ? n : c)));
 
   const summary = [
-    `${plan.name} capacity: ${money(planRate)} / month`,
+    `${plan.name} capacity: ${
+      planRate === null ? PENDING.toLowerCase() : `${money(planRate)} / month`
+    }`,
     ...lines.map(
       (l) =>
         `${plural(l.count, l.seat.name)}: ${l.seat.free ? "free" : money(l.subtotal)}`,
     ),
-    `Total: ${money(total)} per month, USD excluding VAT, ${
+    `Total: ${money(total)} per month${
+      planRate === null ? " plus capacity" : ""
+    }, USD excluding VAT, ${
       yearly ? "yearly rate billed yearly" : "monthly rate"
     }`,
   ];
@@ -350,7 +368,7 @@ export function PricingSection() {
                   </div>
 
                   <Price
-                    amount={rate(band.amount)}
+                    amount={band.amount === null ? null : rate(band.amount)}
                     cadence={band.cadence}
                     suffix={band.amount === 0 ? "" : suffix}
                   />
@@ -479,7 +497,7 @@ export function PricingSection() {
                 <dl className="text-[13px]">
                   <div className="flex justify-between gap-4 py-1">
                     <dt className="text-white/60">{plan.name} capacity</dt>
-                    <dd>{money(planRate)}</dd>
+                    <dd>{planRate === null ? PENDING : money(planRate)}</dd>
                   </div>
                   {lines.map((l) => (
                     <div
@@ -500,13 +518,17 @@ export function PricingSection() {
                   aria-live="polite"
                   className="mt-3 flex items-baseline justify-between gap-4 border-t border-white/15 pt-3"
                 >
-                  <span className="text-[13px] text-white/60">Per month</span>
+                  <span className="text-[13px] text-white/60">
+                    {planRate === null ? "Seats per month" : "Per month"}
+                  </span>
                   <span className="font-display text-[30px] font-bold leading-none tracking-display">
                     {money(total)}
                   </span>
                 </div>
                 <p className="mt-2 text-[11.5px] text-white/40">
-                  USD, excluding VAT.
+                  {planRate === null
+                    ? `USD, excluding VAT. ${plan.name} capacity is priced separately; the official quote includes it.`
+                    : "USD, excluding VAT."}
                 </p>
 
                 <QuoteRequest build={buildPayload} />
