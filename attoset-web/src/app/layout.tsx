@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { Inter, Plus_Jakarta_Sans, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/layout/navbar";
@@ -32,6 +33,11 @@ const geistMono = Geist_Mono({
 });
 
 const SITE_URL = "https://attoset.com";
+
+// Apollo.io website visitor tracking. Loaded on idle so it never competes
+// with the hero for bandwidth.
+const APOLLO_APP_ID = "6aad4f7d246b4a0014b6045d";
+const apolloTracker = `(function(){var n=Math.random().toString(36).substring(7),o=document.createElement("script");o.src="https://assets.apollo.io/micro/website-tracker/tracker.iife.js?nocache="+n;o.async=true;o.defer=true;o.onload=function(){window.trackingFunctions&&window.trackingFunctions.onLoad({appId:"${APOLLO_APP_ID}"})};document.head.appendChild(o)})();`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -93,6 +99,9 @@ export default function RootLayout({
           <main className="flex-1">{children}</main>
           <Footer />
         </MotionProvider>
+        <Script id="apollo-tracker" strategy="lazyOnload">
+          {apolloTracker}
+        </Script>
       </body>
     </html>
   );
