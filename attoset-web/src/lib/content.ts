@@ -717,3 +717,15 @@ export const valueProps = [
     description: "Integrates with the tools your teams already rely on.",
   },
 ];
+
+// Cookie consent banner. Analytics (Google Analytics, Apollo) stays off until
+// the visitor accepts; the footer "Cookie settings" link reopens it.
+export const cookieConsent = {
+  title: "Cookies on attoset.com",
+  body: "We use analytics cookies (Google Analytics and Apollo) to understand how the site is used and which companies visit. They stay off unless you accept.",
+  accept: "Accept",
+  reject: "Reject",
+  policyLabel: "Privacy Policy",
+  policyHref: "/privacy#cookies",
+  settingsLabel: "Cookie settings",
+};

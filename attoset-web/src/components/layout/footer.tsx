@@ -3,6 +3,7 @@ import { ArrowRight } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { LinkedInIcon } from "@/components/ui/social-icons";
 import { ctaHref } from "@/lib/content";
+import { CookieSettingsButton } from "@/components/consent/consent-manager";
 import { Logo } from "./logo";
 
 const columns = [
@@ -109,7 +110,11 @@ export function Footer() {
         </div>
 
         <div className="mt-12 flex flex-col items-center justify-between gap-3 border-t border-line pt-8 text-sm text-faint sm:flex-row">
-          <p>© {new Date().getFullYear()} Attoset. All rights reserved.</p>
+          <p>
+            © {new Date().getFullYear()} Attoset. All rights reserved.
+            <span aria-hidden className="mx-2">·</span>
+            <CookieSettingsButton className="transition-colors hover:text-orange" />
+          </p>
           <span className="inline-flex items-center gap-2 text-sm font-medium">
             <span className="relative flex size-1.5">
               <span className="absolute inline-flex size-full animate-ping rounded-full bg-orange opacity-75" />

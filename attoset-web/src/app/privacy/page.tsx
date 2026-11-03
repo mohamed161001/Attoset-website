@@ -11,7 +11,7 @@ export const metadata: Metadata = pageMeta({
   path: "/privacy",
 });
 
-const LAST_UPDATED = "September 7, 2026";
+const LAST_UPDATED = "November 3, 2026";
 
 const sections: { id: string; title: string; body: React.ReactNode }[] = [
   {
@@ -161,11 +161,34 @@ const sections: { id: string; title: string; body: React.ReactNode }[] = [
     id: "cookies",
     title: "9. Cookies",
     body: (
-      <p>
-        We use essential and analytics cookies to operate the Service and
-        understand how it&apos;s used. You can control cookies through your
-        browser settings; disabling them may limit some functionality.
-      </p>
+      <>
+        <p>
+          attoset.com uses analytics cookies only if you accept them in the
+          cookie banner. Until then, no analytics scripts load. We treat a
+          Global Privacy Control signal from your browser as a rejection.
+        </p>
+        <ul className="mt-4 flex flex-col gap-2.5 list-disc pl-5 marker:text-orange">
+          <li>
+            <span className="font-semibold text-ink">Google Analytics</span>{" "}
+            (Google) — measures visits, pages viewed, and traffic sources.
+            Cookies: <code>_ga</code>, <code>_ga_*</code>, kept for up to 2
+            years. Advertising features are turned off.
+          </li>
+          <li>
+            <span className="font-semibold text-ink">Apollo.io</span> —
+            identifies which companies visit the site, based on IP address,
+            so we can follow up with relevant businesses. Its cookies are
+            kept for up to 1 year.
+          </li>
+        </ul>
+        <p className="mt-4">
+          Your choice is stored in your browser&apos;s local storage. You can
+          change it at any time with the &ldquo;Cookie settings&rdquo; link in
+          the site footer; withdrawing consent removes our analytics cookies.
+          The Attoset application itself uses essential cookies to keep you
+          signed in and secure.
+        </p>
+      </>
     ),
   },
   {
