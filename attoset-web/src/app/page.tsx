@@ -15,7 +15,7 @@ import { softwareApplicationSchema } from "@/lib/schema";
 export const metadata: Metadata = {
   alternates: { canonical: "/" },
   description:
-    "Attoset is the intelligent Work Platform to build, manage, automate, and scale operations in one unified system — with Atto, a built-in AI assistant, and autonomous agents on the way.",
+    "Attoset is the intelligent Work Platform where companies build their own operations systems, execute work with people and agents, and scale with full traceability.",
 };
 
 export default function Home() {

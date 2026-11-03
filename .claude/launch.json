@@ -3,8 +3,8 @@
   "configurations": [
     {
       "name": "attoset-web",
-      "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "dev", "--prefix", "attoset-web"],
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["attoset-web/node_modules/next/dist/bin/next", "dev", "attoset-web", "--port", "3000"],
       "port": 3000
     }
   ]

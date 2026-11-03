@@ -35,7 +35,7 @@ export function FeatureGrid({
                   </h3>
                   {f.comingSoon && (
                     <span className="rounded-full bg-peach px-2 py-0.5 text-[11px] font-medium text-orange">
-                      Coming soon
+                      {f.comingSoon}
                     </span>
                   )}
                 </div>

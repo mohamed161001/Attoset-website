@@ -129,7 +129,7 @@ function InstanceRow({ n }: { n: number }) {
       <span className="flex items-center justify-center gap-1">
         <span
           title="Atto"
-          className="flex size-[18px] items-center justify-center rounded-full border border-line bg-warm-2"
+          className="flex size-[18px] items-center justify-center rounded-full bg-ink"
         >
           <AttoAvatar size={11} />
         </span>
@@ -169,9 +169,7 @@ function InsightsRail({ title, count }: { title: string; count: string }) {
 function Metric({ label, value }: { label: string; value: string }) {
   return (
     <div className="rounded-xl border border-line bg-white px-2.5 py-1.5">
-      <div className="truncate text-[9px] font-medium text-faint">
-        {label}
-      </div>
+      <div className="truncate text-[9px] font-medium text-faint">{label}</div>
       <div className="text-[15px] font-bold leading-tight tabular-nums text-ink">
         {value}
       </div>
@@ -186,7 +184,14 @@ function PieCard({ title }: { title: string }) {
       <div className="text-[9.5px] font-medium text-muted">{title}</div>
       <div className="flex flex-1 items-center justify-center gap-2 py-1">
         <svg viewBox="0 0 36 36" className="size-11 shrink-0 -rotate-90">
-          <circle cx="18" cy="18" r={DONUT_R} fill="none" stroke="rgba(10,10,10,0.07)" strokeWidth="6" />
+          <circle
+            cx="18"
+            cy="18"
+            r={DONUT_R}
+            fill="none"
+            stroke="rgba(10,10,10,0.07)"
+            strokeWidth="6"
+          />
           {statusSlices.map((slice) => (
             <circle
               key={slice.label}
@@ -428,10 +433,7 @@ function AutoForgeFlow() {
               viewport={{ once: true }}
               transition={{ duration: 0.3, delay: 0.1 + i * 0.05, ease }}
             >
-              <b.icon
-                className="size-3 shrink-0 text-faint"
-                strokeWidth={2}
-              />
+              <b.icon className="size-3 shrink-0 text-faint" strokeWidth={2} />
               <span className="truncate text-[11.5px] font-medium text-ink">
                 {b.label}
               </span>
@@ -531,8 +533,11 @@ export function AutoForge() {
 
       <Container className="relative">
         <div className="mx-auto max-w-2xl text-center">
-          <Reveal>
+          <Reveal className="flex items-center justify-center gap-2">
             <Eyebrow>AttoForge</Eyebrow>
+            <span className="rounded-full border border-line bg-white px-2.5 py-1 text-[11px] font-semibold text-muted">
+              Beta in Q1 2027
+            </span>
           </Reveal>
           <Reveal delay={0.05}>
             <h2 className="mt-4 font-display text-4xl font-semibold tracking-display text-balance sm:text-[2.75rem] sm:leading-[1.05]">
@@ -544,8 +549,8 @@ export function AutoForge() {
               Run the same process across dozens of clients, teams, or
               locations. Build one blueprint, and AttoForge clones it into
               managed instances that all roll up into a single portfolio view.
-              Operations is what teams run on Attoset today. AttoForge is where
-              it scales to the portfolio.
+              Operations is what teams run on Attoset today. AttoForge, in beta
+              from Q1 2027, is where it scales to the portfolio.
             </p>
           </Reveal>
         </div>
@@ -564,7 +569,7 @@ export function AutoForge() {
           <Reveal delay={0.05}>
             <span className="inline-flex items-center gap-1.5 rounded-full border border-line px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-faint">
               <Sparkles className="size-3 text-orange" strokeWidth={2} />
-              Agents coming soon
+              AttoForge and agents · Beta Q1 2027
             </span>
           </Reveal>
           <Reveal delay={0.1}>
@@ -574,7 +579,7 @@ export function AutoForge() {
               rel="noreferrer"
               className="group mt-3 inline-flex items-center gap-2 rounded-full bg-orange px-6 py-3 text-sm font-medium text-white shadow-orange transition-all hover:-translate-y-0.5 hover:bg-orange-600"
             >
-              Scale with AttoForge
+              Join the AttoForge beta
               <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
             </a>
           </Reveal>

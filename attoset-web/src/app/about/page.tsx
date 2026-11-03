@@ -7,6 +7,7 @@ import { Reveal } from "@/components/ui/reveal";
 import { PageHeader } from "@/components/sections/page-header";
 import { Stats } from "@/components/sections/stats";
 import { CTA } from "@/components/sections/cta";
+import { careersEmail } from "@/lib/content";
 import { pageMeta } from "@/lib/seo";
 
 export const metadata: Metadata = pageMeta({
@@ -115,13 +116,16 @@ export default function AboutPage() {
                   intelligent Work Platform, we&apos;d love to hear from you.
                 </p>
               </div>
-              <a
-                href="/contact"
-                className="group inline-flex h-12 shrink-0 items-center gap-2 rounded-full bg-ink px-7 text-[15px] font-medium text-white transition-all hover:-translate-y-0.5 hover:bg-black"
-              >
-                View open roles
-                <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
-              </a>
+              <div className="flex shrink-0 flex-col items-start gap-2 sm:items-center">
+                <a
+                  href={`mailto:${careersEmail}?subject=${encodeURIComponent("Application — ")}`}
+                  className="group inline-flex h-12 items-center gap-2 rounded-full bg-ink px-7 text-[15px] font-medium text-white transition-all hover:-translate-y-0.5 hover:bg-black"
+                >
+                  Send your CV
+                  <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
+                </a>
+                <span className="text-[13px] text-muted">{careersEmail}</span>
+              </div>
             </div>
           </Reveal>
         </Container>

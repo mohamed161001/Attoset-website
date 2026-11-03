@@ -951,7 +951,7 @@ type Card = {
   title: string;
   desc: string;
   visual: ReactNode;
-  comingSoon?: boolean;
+  comingSoon?: string;
 };
 type Group = {
   id: string;
@@ -998,15 +998,15 @@ const groups: Group[] = [
       },
       {
         title: "Atto Fill",
-        desc: "Coming soon: let Atto populate a column — tag, summarise, translate, extract or assign — with every value still editable by hand.",
+        desc: "Let Atto populate a column — tag, summarise, translate, extract or assign — with every value still editable by hand.",
         visual: <AttoFillVisual />,
-        comingSoon: true,
+        comingSoon: "Beta Q4 2026",
       },
       {
         title: "Skilled agents",
-        desc: "Coming soon: agents built for a specific job, carrying out work that Atto hands them.",
+        desc: "Agents built for a specific job, carrying out work that Atto hands them.",
         visual: <AgentsVisual />,
-        comingSoon: true,
+        comingSoon: "Beta Q1 2027",
       },
     ],
   },
@@ -1041,7 +1041,7 @@ const groups: Group[] = [
     cards: [
       {
         title: "Multiple views",
-        desc: "Grid, Kanban, Calendar, Gantt — the same data, reshaped.",
+        desc: "Grid, Kanban and Calendar today, Gantt in Q1 2027 — the same data, reshaped.",
         visual: <ViewsVisual />,
       },
       {
@@ -1080,7 +1080,7 @@ function FeatureCard({ card }: { card: Card }) {
           </h3>
           {card.comingSoon && (
             <span className="rounded-full bg-peach px-2 py-0.5 text-[11px] font-medium text-orange">
-              Coming soon
+              {card.comingSoon}
             </span>
           )}
         </div>

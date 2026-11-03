@@ -11,7 +11,7 @@ import { pricingFaqs } from "@/lib/content";
 export const metadata: Metadata = pageMeta({
   title: "Pricing",
   description:
-    "Pick your capacity, add your seats, get an instant quote. Capacity and seats are priced separately, and visitors and external operators are free on every plan.",
+    "A platform fee for your workspace, plus a price per seat. You only pay for what each seat can do. AI agents, visitors and external operators are free.",
   path: "/pricing",
 });
 
@@ -24,16 +24,16 @@ export default function PricingPage() {
         eyebrow="Pricing"
         title={
           <>
-            Capacity and <span className="grad-text">seats</span>
+            Seats and <span className="grad-text">platform</span>
           </>
         }
-        description="Pick your capacity, add your seats, get an instant quote."
+        description="Add your seats, pick your platform, get an instant quote."
       />
       <PricingSection />
       <FAQ
         items={pricingFaqs}
-        title="Pricing, answered"
-        description="How the two axes behave, who pays for what, and what happens at a limit."
+        title="Questions"
+        description="AI agents, seats, Atto and API calls."
       />
       <CTA />
     </>

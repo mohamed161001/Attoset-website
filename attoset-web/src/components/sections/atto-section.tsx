@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { AttoPanel } from "@/components/mockups/atto-panel";
 
 /** What Atto does today, and what is on the way. */
-const abilities: { icon: LucideIcon; title: string; desc: string; soon?: boolean }[] = [
+const abilities: { icon: LucideIcon; title: string; desc: string; soon?: string }[] = [
   {
     icon: Hammer,
     title: "Builds",
@@ -27,13 +27,13 @@ const abilities: { icon: LucideIcon; title: string; desc: string; soon?: boolean
     icon: TableProperties,
     title: "Fills columns",
     desc: "Atto Fill populates a column instead of a person: tagging, summarising, translating, extracting a value, assigning an owner or linking a record.",
-    soon: true,
+    soon: "Beta Q4 2026",
   },
   {
     icon: Bot,
     title: "Delegates to skilled agents",
     desc: "Hand work to an agent built for a specific job, with Atto deciding which one to pass it to.",
-    soon: true,
+    soon: "Beta Q1 2027",
   },
 ];
 
@@ -72,7 +72,7 @@ export function AttoSection() {
                         <span className="text-[15px] font-semibold text-ink">{a.title}</span>
                         {a.soon && (
                           <span className="rounded-full bg-warm px-2 py-0.5 text-[10px] font-semibold text-muted">
-                            Coming soon
+                            {a.soon}
                           </span>
                         )}
                       </span>

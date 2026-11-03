@@ -22,6 +22,8 @@ import {
   ScrollText,
   KeyRound,
   Server,
+  Globe2,
+  EyeOff,
   Zap,
   GitBranch,
   Plug,
@@ -41,7 +43,7 @@ export const site = {
     "Build, manage, automate, and scale your operations in one unified platform.",
 };
 
-// Where the "Start building free" / "Get started" CTAs send the user.
+// Where the "Join our waitlist" CTAs send the user.
 export const ctaHref =
   "https://dev.attoset.com/forms/submission/43fd4a22-8ae5-439d-9b78-21aa2cea160b";
 
@@ -51,6 +53,18 @@ export const ctaHref =
  * public beta opens and the header grows a Log in link on its own.
  */
 export const loginHref = "";
+
+// Public trust center (hosted on Probo) and live system status page.
+export const trustCenterHref =
+  "https://trust.attoset.com/trust/attoset/overview";
+export const statusHref = "https://status.attoset.com";
+
+export const trustCenter = {
+  title: "See how we protect your data",
+  description:
+    "Compliance documents, the subprocessors we work with, and security updates, kept current in one place.",
+  items: ["Documents", "Subprocessors", "Updates"],
+};
 
 export type NavItem = {
   label: string;
@@ -112,9 +126,27 @@ export type Client = {
 
 /** Organizations whose logos we are cleared to show. */
 export const clients: Client[] = [
-  { name: "Universal", src: "/images/logos/universal.png", w: 403, h: 276, displayH: 48 },
-  { name: "Palliser Produits Chimiques", src: "/images/logos/palliser.png", w: 431, h: 90, displayH: 30 },
-  { name: "Swift Logistics", src: "/images/logos/swift.png", w: 209, h: 112, displayH: 42 },
+  {
+    name: "Universal",
+    src: "/images/logos/universal.png",
+    w: 403,
+    h: 276,
+    displayH: 48,
+  },
+  {
+    name: "Palliser Produits Chimiques",
+    src: "/images/logos/palliser.png",
+    w: 431,
+    h: 90,
+    displayH: 30,
+  },
+  {
+    name: "Swift Logistics",
+    src: "/images/logos/swift.png",
+    w: 209,
+    h: 112,
+    displayH: 42,
+  },
 ];
 
 export type Feature = {
@@ -122,7 +154,7 @@ export type Feature = {
   title: string;
   description: string;
   id?: string;
-  comingSoon?: boolean;
+  comingSoon?: string;
 };
 
 /** Primary capability set (Home + Features). */
@@ -137,9 +169,9 @@ export const features: Feature[] = [
     icon: Bot,
     title: "Custom AI agents",
     description:
-      "Coming soon: proactive agents that will execute tasks, automate processes, monitor systems, and take action on behalf of your teams.",
+      "Proactive agents that will execute tasks, automate processes, monitor systems, and take action on behalf of your teams.",
     id: "agents",
-    comingSoon: true,
+    comingSoon: "Beta Q1 2027",
   },
   {
     icon: Boxes,
@@ -175,7 +207,7 @@ export const features: Feature[] = [
     icon: LayoutDashboard,
     title: "Dashboards & analytics",
     description:
-      "Turn live operational data into dashboards and reports that surface what matters, in real time.",
+      "Turn live operational data into dashboards that surface what matters. Open the records behind any number and act on them: assign, approve, escalate.",
   },
   {
     icon: Users,
@@ -187,7 +219,13 @@ export const features: Feature[] = [
     icon: ShieldCheck,
     title: "Enterprise security & permissions",
     description:
-      "Role-based access control, granular permissions, and audit trails built for organizational scale.",
+      "Role-based access control, granular permissions, and every action traced, whether by a person or an AI agent.",
+  },
+  {
+    icon: Plug,
+    title: "MCP server & API",
+    description:
+      "Connect your own AI tools through our MCP server, and your ERP and CRM through our API. Both live today, on every plan.",
   },
 ];
 
@@ -216,7 +254,7 @@ export const views: ViewType[] = [
   {
     icon: GanttChartSquare,
     label: "Gantt",
-    blurb: "Plan timelines and dependencies.",
+    blurb: "Plan timelines and dependencies. Beta in Q1 2027.",
   },
 ];
 
@@ -243,7 +281,7 @@ export const dataToDone: Stage[] = [
     icon: LayoutGrid,
     n: "02",
     title: "Views & linked tables",
-    desc: "Reshape the same data into Grid, Kanban, Calendar or Gantt, and link records across tables so one change lands everywhere.",
+    desc: "Reshape the same data into Grid, Kanban or Calendar (Gantt joins in Q1 2027), and link records across tables so one change lands everywhere.",
   },
   {
     icon: FormInput,
@@ -261,7 +299,7 @@ export const dataToDone: Stage[] = [
     icon: LayoutDashboard,
     n: "05",
     title: "Dashboards & insights",
-    desc: "Live operational data becomes the charts and reports you analyse and decide from. That is done.",
+    desc: "Live data becomes the charts you decide from. Open the records behind any number and act on them: assign, approve, escalate. That is done.",
   },
 ];
 
@@ -366,15 +404,27 @@ export const security = [
   },
   {
     icon: ScrollText,
-    title: "Audit trails",
+    title: "Every action traced",
     description:
-      "A complete, tamper-evident history of every change and action.",
+      "Every cell keeps its history: who changed it, when and how, whether a person, Atto, an AI agent or a tool connected through MCP. On every plan.",
   },
   {
     icon: Server,
     title: "Secure data handling",
     description:
       "Encryption in transit and at rest, designed for enterprise use.",
+  },
+  {
+    icon: Globe2,
+    title: "Hosted in Europe",
+    description:
+      "Workspaces for EU and UK customers are hosted in Europe, so your data stays where your business is.",
+  },
+  {
+    icon: EyeOff,
+    title: "Your data stays yours",
+    description:
+      "Zero data retention by our AI providers, and we never train models on customer data.",
   },
 ];
 
@@ -456,87 +506,117 @@ export const showPrices = true;
  */
 export const pricesProvisional = true;
 
-/** What the platform costs — the limits, security and machine work it covers. */
-export type CapacityBand = {
+/** The two ways teams use Attoset. Each plan is tagged with the ones it supports. */
+export type UseCase = "operations" | "ppm";
+
+export const useCaseLabels: Record<UseCase, string> = {
+  operations: "Operations",
+  ppm: "Portfolio management",
+};
+
+/** What the workspace costs — one platform fee, which includes API and MCP usage. */
+export type PlatformPlan = {
   name: string;
+  useCases: UseCase[];
   /**
    * Monthly USD. Formatted for display and summed by the estimator.
    * null while a plan's price is still being set: the card reads "In the works"
-   * and the estimator leaves capacity out of the total.
+   * and the estimator leaves the platform fee out of the total.
    */
   amount: number | null;
   cadence: string;
+  /** Kept to two lines on the card. */
   blurb: string;
+  /** Included API calls, as shown, e.g. "50,000 / mo". null while it is being set. */
+  apiCalls: string | null;
+  /** AttoForge access, shown as the last, highlighted limit: it is what the higher prices buy. */
+  attoForge: string;
+  /** Amounts that differ by plan. API calls are appended from apiCalls. */
   limits: { label: string; value: string }[];
   tags?: string[];
   featured?: boolean;
 };
 
-export const capacityBands: CapacityBand[] = [
+export const platformPlans: PlatformPlan[] = [
   {
     name: "Free",
+    useCases: ["operations"],
     amount: 0,
-    cadence: "/ month",
-    tags: ["Forever"],
-    blurb: "Free for good. For a solo user or a small team that will not outgrow it — just buy the seats you need.",
+    cadence: "/ mo",
+    apiCalls: "1,000 / mo",
+    blurb: "Free for good. For a solo user or a small team.",
     limits: [
-      { label: "Rows per table", value: "1,000" },
-      { label: "Storage", value: "2 GB" },
-      { label: "Automation runs", value: "100 / mo" },
-      { label: "Record history", value: "Unlimited" },
-      { label: "Event log", value: "Core events" },
-      { label: "SSO and audit export", value: "No" },
-      { label: "AttoForge blueprints", value: "No" },
+      { label: "Rows per table", value: "5,000" },
+      { label: "Storage", value: "10 GB" },
+      { label: "Automation runs", value: "250 / mo" },
+      { label: "Atto credits", value: "2,500 / mo" },
     ],
+    attoForge: "No",
   },
   {
     name: "Starter",
+    useCases: ["operations"],
     amount: 39,
-    cadence: "/ month",
-    blurb: "No capacity fee for 12 months. You pay only for the people who build.",
-    tags: ["Start here", "12 months free"],
+    cadence: "/ mo",
+    apiCalls: "50,000 / mo",
+    tags: ["Start here"],
     featured: true,
+    blurb: "More rows, storage and runs for a growing team.",
     limits: [
-      { label: "Rows per table", value: "20,000" },
+      { label: "Rows per table", value: "25,000" },
       { label: "Storage", value: "100 GB" },
-      { label: "Automation runs", value: "2,000 / mo" },
-      { label: "Record history", value: "Unlimited" },
-      { label: "Event log", value: "Core events" },
-      { label: "SSO and audit export", value: "No" },
-      { label: "AttoForge blueprints", value: "No" },
+      { label: "Automation runs", value: "2,500 / mo" },
+      { label: "Atto credits", value: "20,000 / mo" },
     ],
+    attoForge: "No",
   },
   {
     name: "Growth",
-    amount: 99,
-    cadence: "/ month",
-    blurb: "For an organization running several processes.",
+    useCases: ["operations"],
+    amount: 149,
+    cadence: "/ mo",
+    apiCalls: "250,000 / mo",
     tags: ["Coming soon"],
+    blurb: "SSO, audit export and room for many processes.",
     limits: [
       { label: "Rows per table", value: "50,000" },
       { label: "Storage", value: "1 TB" },
       { label: "Automation runs", value: "25,000 / mo" },
-      { label: "Record history", value: "Unlimited" },
-      { label: "Event log", value: "All events" },
-      { label: "SSO and audit export", value: "Yes" },
-      { label: "AttoForge blueprints", value: "Add-on" },
+      { label: "Atto credits", value: "100,000 / mo" },
     ],
+    attoForge: "Add-on",
+  },
+  {
+    name: "Pro",
+    useCases: ["operations", "ppm"],
+    amount: 449,
+    cadence: "/ mo",
+    apiCalls: "500,000 / mo",
+    tags: ["Coming soon"],
+    blurb: "Run a portfolio, with AttoForge built in.",
+    limits: [
+      { label: "Rows per table", value: "75,000" },
+      { label: "Storage", value: "5 TB" },
+      { label: "Automation runs", value: "50,000 / mo" },
+      { label: "Atto credits", value: "175,000 / mo" },
+    ],
+    attoForge: "1 blueprint",
   },
   {
     name: "Scale",
-    amount: null,
-    cadence: "/ month",
-    blurb: "Full capabilities and capacity, including unlimited AttoForge blueprints.",
+    useCases: ["operations", "ppm"],
+    amount: 1000,
+    cadence: "/ mo",
+    apiCalls: "Unlimited",
     tags: ["Coming soon"],
+    blurb: "Full capacity and every app, including AttoForge.",
     limits: [
-      { label: "Rows per table", value: "100,000" },
+      { label: "Rows per table", value: "250,000" },
       { label: "Storage", value: "Unlimited" },
-      { label: "Automation runs", value: "100,000 / mo" },
-      { label: "Record history", value: "Unlimited" },
-      { label: "Event log", value: "All events + analytics" },
-      { label: "SSO and audit export", value: "Yes" },
-      { label: "AttoForge blueprints", value: "Unlimited" },
+      { label: "Automation runs", value: "Unlimited" },
+      { label: "Atto credits", value: "250,000 / mo" },
     ],
+    attoForge: "Unlimited",
   },
 ];
 
@@ -548,6 +628,10 @@ export const MONTHLY_MULTIPLIER = 1.2;
 export const monthlyRate = (yearly: number) =>
   Math.round(yearly * MONTHLY_MULTIPLIER);
 
+/** What every plan has, so it isn't repeated on each card. */
+export const platformIncludes =
+  "Every plan includes Atto, MCP and unlimited record history.";
+
 /**
  * Where a quote request goes: the Attoset form that feeds the quote-requests
  * table, whose automation emails the official quote. Paste that form's
@@ -557,7 +641,10 @@ export const monthlyRate = (yearly: number) =>
 export const quoteEndpoint = "";
 export const quoteEmail = "contact@attoset.com";
 
-/** What people cost — the same rate on every plan. */
+// Job applications and CVs: kept out of contact@ so sales enquiries aren't buried.
+export const careersEmail = "careers@attoset.com";
+
+/** What each seat costs — the same rate on every plan. AI agents don't need one. */
 export type SeatType = {
   name: string;
   /** Monthly USD per user. */
@@ -576,7 +663,7 @@ export const seatTypes: SeatType[] = [
     name: "Full seat",
     amount: 17,
     cadence: "/ user / mo",
-    desc: "Builds the system, manages people and permissions. Full Atto access.",
+    desc: "Builds the system, manages people and permissions.",
     defaultCount: 3,
     minCount: 1,
     stepBy: 1,
@@ -585,7 +672,7 @@ export const seatTypes: SeatType[] = [
     name: "Operator",
     amount: 7.5,
     cadence: "/ user / mo",
-    desc: "Updates records, answers automated requests. Smaller Atto allowance.",
+    desc: "Updates records, answers automated requests.",
     defaultCount: 12,
     minCount: 0,
     stepBy: 5,
@@ -610,49 +697,19 @@ export const seatTypes: SeatType[] = [
   },
 ];
 
-/** How the two axes are meant to behave, stated as commitments. */
-export const pricingRules = [
-  "Capacity and seats are two separate lines. More capacity never forces more seats, and adding people never moves your capacity fee",
-  "No minimums, no bundles, no seat packs, no hidden fees. Every self-serve figure is on this page, so you can quote yourself in seconds",
-];
-
-/** Pricing-page questions: the two axes, seat types, limits and billing. */
+/** Pricing-page questions: agents, seats, Atto and API calls. */
 export const pricingFaqs = [
   {
-    q: "Why price capacity and seats separately?",
-    a: "Capacity covers what the platform holds and runs for you — rows, storage, automation runs, history, security. Seat rates cover the people doing the work. Adding a colleague never moves your limits, and reaching a limit never costs you a seat.",
+    q: "Do I pay for AI agents?",
+    a: "No. Agents don't need a paid seat. They can have their own identity at no cost, and what they do counts toward your plan's API and MCP allowance.",
   },
   {
-    q: "Are external operators really free?",
-    a: "Yes, on every plan. External operator access is for people in a genuinely separate organization — clients, suppliers, contractors — and we verify that before it is granted.",
+    q: "Is Atto included?",
+    a: "Yes. Atto comes with every plan, with a monthly allowance of Atto credits that grows with your plan.",
   },
   {
-    q: "What counts as a full seat?",
-    a: "Anyone who creates or changes structure: tables, fields, forms, automations, dashboards, blueprints and permissions. Someone who only reads and edits records is an operator, not a full seat.",
-  },
-  {
-    q: "Can we change seat counts mid-month?",
-    a: "Yes, one seat at a time, reflected on your next invoice. No minimum, no seat packs, no end-of-term reconciliation.",
-  },
-  {
-    q: "What happens if we pass a limit?",
-    a: "Rows and storage are soft limits — you get a warning, never a lockout and never deletion. Automation runs pause at the cap until the next cycle or until you move up a band.",
-  },
-  {
-    q: "Free or Starter — which one am I?",
-    a: "Free never ends. It fits a solo user or a small team that will stay inside 1,000 rows, and you simply buy the seats you need. Starter waives the capacity fee for twelve months and then bills it, and gives you twenty times the rows and storage in the meantime. Seats are priced the same on both, so the only question is whether you expect to grow.",
-  },
-  {
-    q: "What does the first 12 months free actually cover?",
-    a: "The Starter capacity fee — what the platform holds and runs for you: rows, storage and automation runs — is waived for your first twelve months. Seats are billed from the start, so you pay for the people who build from day one. At twelve months you choose: stay on Starter and the capacity fee begins, or move down to Free if you do not need that much capacity. Nothing is deleted either way — rows and storage are soft limits.",
-  },
-  {
-    q: "Do you adjust prices by region?",
-    a: "Yes. Regional pricing is available on request — tell us where your team sits and we will quote accordingly.",
-  },
-  {
-    q: "Do you bill monthly or annually?",
-    a: "Both. Yearly billing is the lower effective rate — two months free against the monthly rate — and the toggle above the plans shows either figure.",
+    q: "Are API calls charged separately?",
+    a: "No. Each plan includes an API and MCP allowance. If you go over, you can upgrade or pay for add-ons.",
   },
 ];
 
@@ -691,7 +748,7 @@ export const faqs = [
   },
   {
     q: "What can Atto do — and what about AI agents?",
-    a: "Atto is available today: describe what you need and it designs, builds, and improves your workflows and systems. Custom AI agents — which will proactively execute tasks, automate processes, and monitor systems on their own — are coming soon.",
+    a: "Atto is available today: describe what you need and it designs, builds, and improves your workflows and systems. Custom AI agents — which will proactively execute tasks, automate processes, and monitor systems on their own — arrive in beta in Q1 2027.",
   },
   {
     q: "How long does it take to get started?",

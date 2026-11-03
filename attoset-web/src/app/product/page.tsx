@@ -15,7 +15,7 @@ import { pageMeta } from "@/lib/seo";
 export const metadata: Metadata = pageMeta({
   title: "Product",
   description:
-    "Tables, views and linked records, forms, workflow automation, dashboards, the Atto AI assistant and enterprise security — all in one intelligent Work Platform. Custom AI agents coming soon.",
+    "Tables, views and linked records, forms, workflow automation, dashboards, the Atto AI assistant and enterprise security — all in one intelligent Work Platform. Custom AI agents arrive in beta in Q1 2027.",
   path: "/product",
 });
 
@@ -32,7 +32,7 @@ export default function ProductPage() {
         description="Everything your organization needs to build, manage, automate, and scale operations — from the data your work runs on to the decisions it drives."
       >
         <Button href={ctaHref} variant="accent" size="lg">
-          Start building free
+          Join our waitlist
           <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
         </Button>
       </PageHeader>

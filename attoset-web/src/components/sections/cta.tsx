@@ -36,7 +36,7 @@ export function CTA() {
                   rel="noreferrer"
                   className="group inline-flex h-11 items-center gap-2 rounded-full bg-white px-6 text-sm font-semibold text-ink transition-all hover:-translate-y-0.5"
                 >
-                  Get started
+                  Join our waitlist
                   <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
                 </a>
                 <a

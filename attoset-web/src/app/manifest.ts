@@ -5,7 +5,7 @@ export default function manifest(): MetadataRoute.Manifest {
     name: "Attoset — Intelligent Work Platform",
     short_name: "Attoset",
     description:
-      "The intelligent Work Platform that lets organizations build, manage, automate, and scale operations in one unified system.",
+      "The intelligent Work Platform where companies build their own operations systems, execute work with people and agents, and scale with full traceability.",
     start_url: "/",
     display: "standalone",
     background_color: "#ffffff",

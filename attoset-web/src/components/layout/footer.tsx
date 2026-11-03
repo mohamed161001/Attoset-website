@@ -1,12 +1,14 @@
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { LinkedInIcon } from "@/components/ui/social-icons";
-import { ctaHref } from "@/lib/content";
+import { ctaHref, statusHref, trustCenterHref } from "@/lib/content";
 import { CookieSettingsButton } from "@/components/consent/consent-manager";
 import { Logo } from "./logo";
 
-const columns = [
+type FooterLink = { label: string; href: string; external?: boolean };
+
+const columns: { title: string; links: FooterLink[] }[] = [
   {
     title: "Product",
     links: [
@@ -21,15 +23,18 @@ const columns = [
     title: "Company",
     links: [
       { label: "About", href: "/about" },
+      { label: "Updates", href: "/updates" },
       { label: "Contact", href: "/contact" },
       { label: "Careers", href: "/about#careers" },
+      { label: "Status", href: statusHref, external: true },
     ],
   },
   {
-    title: "Legal",
+    title: "Trust",
     links: [
-      { label: "Privacy Policy", href: "/privacy" },
+      { label: "Trust Center", href: trustCenterHref, external: true },
       { label: "Security", href: "/security" },
+      { label: "Privacy Policy", href: "/privacy" },
     ],
   },
 ];
@@ -75,12 +80,27 @@ export function Footer() {
               <ul className="flex flex-col gap-3">
                 {col.links.map((link) => (
                   <li key={link.label}>
-                    <Link
-                      href={link.href}
-                      className="text-sm text-ink-soft transition-colors hover:text-orange"
-                    >
-                      {link.label}
-                    </Link>
+                    {link.external ? (
+                      <a
+                        href={link.href}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="group inline-flex items-center gap-1 text-sm text-ink-soft transition-colors hover:text-orange"
+                      >
+                        {link.label}
+                        <ArrowUpRight
+                          className="size-3.5 text-faint transition-colors group-hover:text-orange"
+                          strokeWidth={1.75}
+                        />
+                      </a>
+                    ) : (
+                      <Link
+                        href={link.href}
+                        className="text-sm text-ink-soft transition-colors hover:text-orange"
+                      >
+                        {link.label}
+                      </Link>
+                    )}
                   </li>
                 ))}
               </ul>
@@ -104,7 +124,7 @@ export function Footer() {
             rel="noreferrer"
             className="group inline-flex items-center gap-2 rounded-full bg-orange px-6 py-3 text-sm font-medium text-white shadow-orange transition-all hover:-translate-y-0.5 hover:bg-orange-600"
           >
-            Get started
+            Join our waitlist
             <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
           </a>
         </div>

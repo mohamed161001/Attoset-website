@@ -4,13 +4,14 @@ import { Container } from "@/components/ui/container";
 import { Reveal } from "@/components/ui/reveal";
 import { PageHeader } from "@/components/sections/page-header";
 import { CTA } from "@/components/sections/cta";
+import { TrustStatus } from "@/components/sections/trust-status";
 import { security } from "@/lib/content";
 import { pageMeta } from "@/lib/seo";
 
 export const metadata: Metadata = pageMeta({
   title: "Security",
   description:
-    "Role-based access control, granular permissions, audit trails and encrypted data handling, designed for organizational scale.",
+    "Role-based access control, granular permissions, every action traced, human or AI, and data hosted in Europe for EU and UK customers, with no training on customer data.",
   path: "/security",
 });
 
@@ -28,7 +29,7 @@ export default function SecurityPage() {
         description="Attoset is designed for enterprise-level security, so your most sensitive operations stay protected and compliant."
       />
 
-      <section className="pb-24 sm:pb-28">
+      <section className="pb-6 sm:pb-8">
         <Container>
           <Reveal>
             <div className="inline-flex items-center gap-3 rounded-2xl border border-line bg-white px-5 py-4">
@@ -40,7 +41,7 @@ export default function SecurityPage() {
                   Secure by design
                 </p>
                 <p className="text-[13px] text-muted">
-                  RBAC · Permissions · Audit · Encryption
+                  RBAC · Permissions · Full traceability · EU hosting
                 </p>
               </div>
             </div>
@@ -65,6 +66,8 @@ export default function SecurityPage() {
           </div>
         </Container>
       </section>
+
+      <TrustStatus />
 
       <CTA />
     </>

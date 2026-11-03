@@ -41,8 +41,9 @@ export const metadata: Metadata = {
     template: "%s · Attoset",
   },
   description:
-    "Attoset is the intelligent Work Platform that lets organizations build, manage, automate, and scale their operations in one unified system — with Atto, a built-in AI assistant that executes work.",
+    "Attoset is the intelligent Work Platform where companies build their own operations systems, execute work with people and agents, and scale with full traceability.",
   keywords: [
+    "Intelligent Work Platform",
     "intelligent work platform",
     "AI work platform",
     "workflow automation",

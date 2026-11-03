@@ -13,7 +13,7 @@ export const organizationSchema = {
   url: SITE_URL,
   logo: `${SITE_URL}/attoset-logo.png`,
   description:
-    "The intelligent Work Platform that lets organizations build, manage, automate, and scale operations in one unified system.",
+    "The intelligent Work Platform where companies build their own operations systems, execute work with people and agents, and scale with full traceability.",
   email: "contact@attoset.com",
   sameAs: ["https://www.linkedin.com/company/attoset"],
 };
@@ -33,7 +33,7 @@ export const softwareApplicationSchema = {
   applicationCategory: "BusinessApplication",
   operatingSystem: "Web",
   description:
-    "The intelligent Work Platform for building, managing, automating, and scaling operations — with a built-in AI assistant.",
+    "The intelligent Work Platform for building, running and scaling operations systems with people and AI agents, with every action traced.",
   url: SITE_URL,
   // No `offers` until the price list publishes with the public beta — otherwise
   // figures we haven't announced end up in search results.

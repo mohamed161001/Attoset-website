@@ -1,8 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import { AnimatePresence, m } from "framer-motion";
-import { LayoutGrid, KanbanSquare, Calendar, GanttChartSquare } from "lucide-react";
+import {
+  LayoutGrid,
+  KanbanSquare,
+  Calendar,
+  GanttChartSquare,
+} from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { Reveal } from "@/components/ui/reveal";
@@ -16,8 +21,13 @@ const tabs = [
   { label: "Grid", icon: LayoutGrid, view: <TableView /> },
   { label: "Kanban", icon: KanbanSquare, view: <KanbanView /> },
   { label: "Calendar", icon: Calendar, view: <CalendarView /> },
-  { label: "Gantt", icon: GanttChartSquare, view: <GanttView /> },
-] as const;
+  { label: "Gantt", icon: GanttChartSquare, view: <GanttView />, soon: true },
+] as {
+  label: string;
+  icon: typeof LayoutGrid;
+  view: ReactNode;
+  soon?: boolean;
+}[];
 
 export function ViewsSection() {
   const [active, setActive] = useState(0);
@@ -28,7 +38,7 @@ export function ViewsSection() {
         <SectionHeading
           eyebrow="Multiple views"
           title="See your work the way that fits"
-          description="The same data, instantly reshaped. Switch between Grid, Kanban, Calendar, and Gantt without rebuilding a thing."
+          description="The same data, instantly reshaped. Switch between Grid, Kanban and Calendar without rebuilding a thing, with Gantt arriving in beta in Q1 2027."
         />
 
         <Reveal delay={0.1}>
@@ -40,18 +50,34 @@ export function ViewsSection() {
                   onClick={() => setActive(i)}
                   className={cn(
                     "relative flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition-colors",
-                    active === i ? "text-white" : "text-muted hover:text-ink"
+                    active === i ? "text-white" : "text-muted hover:text-ink",
                   )}
                 >
                   {active === i && (
                     <m.span
                       layoutId="view-pill"
                       className="absolute inset-0 rounded-full bg-ink"
-                      transition={{ type: "spring", stiffness: 400, damping: 32 }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 400,
+                        damping: 32,
+                      }}
                     />
                   )}
                   <t.icon className="relative size-4" strokeWidth={1.75} />
                   <span className="relative">{t.label}</span>
+                  {t.soon && (
+                    <span
+                      className={cn(
+                        "relative rounded-full px-1.5 py-0.5 text-[10px] font-semibold",
+                        active === i
+                          ? "bg-white/15 text-white"
+                          : "bg-peach text-orange",
+                      )}
+                    >
+                      Q1 2027
+                    </span>
+                  )}
                 </button>
               ))}
             </div>

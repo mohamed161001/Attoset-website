@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/lib/seo";
+import { updates } from "@/lib/updates";
 
 /**
  * Stable per-route last-modified dates. Bump the relevant entry when a page's
@@ -61,6 +62,18 @@ const routes: Route[] = [
     changeFrequency: "yearly",
     lastModified: "2026-06-29",
   },
+  {
+    path: "/updates",
+    priority: 0.7,
+    changeFrequency: "weekly",
+    lastModified: updates[0]?.date ?? "2026-09-23",
+  },
+  ...updates.map((u) => ({
+    path: `/updates/${u.slug}`,
+    priority: 0.6,
+    changeFrequency: "yearly" as const,
+    lastModified: u.date,
+  })),
   {
     path: "/privacy",
     priority: 0.3,

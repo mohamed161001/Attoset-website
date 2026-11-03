@@ -5,9 +5,10 @@ import { ArrowRight, Check, ChevronDown, Minus, Plus } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { Reveal } from "@/components/ui/reveal";
 import {
-  capacityBands,
+  platformPlans,
+  platformIncludes,
+  useCaseLabels,
   seatTypes,
-  pricingRules,
   showPrices,
   pricesProvisional,
   quoteEndpoint,
@@ -33,16 +34,24 @@ function Price({
   amount,
   cadence,
   suffix,
+  small,
 }: {
   amount: number | null;
   cadence?: string;
   suffix?: string;
+  small?: boolean;
 }) {
+  const size = small ? "text-[21px]" : "text-[26px]";
   if (!showPrices) return null;
   if (amount === null) {
     return (
       <p className="mt-1.5 flex items-end">
-        <span className="font-display text-[26px] font-bold leading-none tracking-display text-ink">
+        <span
+          className={cn(
+            "font-display font-bold leading-none tracking-display text-ink",
+            size,
+          )}
+        >
           {PENDING}
         </span>
       </p>
@@ -50,7 +59,12 @@ function Price({
   }
   return (
     <p className="mt-1.5 flex items-end gap-1.5">
-      <span className="font-display text-[26px] font-bold leading-none tracking-display text-ink">
+      <span
+        className={cn(
+          "font-display font-bold leading-none tracking-display text-ink",
+          size,
+        )}
+      >
         {money(amount)}
       </span>
       {cadence && (
@@ -74,7 +88,7 @@ function StepHeading({
   step: number;
   title: string;
   note: string;
-  children: string;
+  children?: string;
   aside?: React.ReactNode;
 }) {
   return (
@@ -87,9 +101,11 @@ function StepHeading({
         <span className="text-[13px] text-muted">{note}</span>
         {aside && <div className="ml-auto">{aside}</div>}
       </div>
-      <p className="mt-1 max-w-3xl pl-9 text-[14px] leading-relaxed text-muted">
-        {children}
-      </p>
+      {children && (
+        <p className="mt-1 max-w-3xl pl-9 text-[14px] leading-relaxed text-muted">
+          {children}
+        </p>
+      )}
     </Reveal>
   );
 }
@@ -109,9 +125,9 @@ function Stepper({
 }) {
   const clamp = (n: number) => Math.max(min, Math.min(5000, n));
   const btn =
-    "flex size-8 items-center justify-center rounded-lg border border-white/20 text-white/70 transition-colors hover:border-white/50 hover:text-white";
+    "flex size-7 items-center justify-center rounded-md border border-white/20 text-white/70 transition-colors hover:border-white/50 hover:text-white";
   return (
-    <div className="flex items-center gap-2" role="group" aria-label={label}>
+    <div className="flex items-center gap-1.5" role="group" aria-label={label}>
       <button
         type="button"
         onClick={() => onChange(clamp(value - step))}
@@ -127,7 +143,7 @@ function Stepper({
         max={5000}
         aria-label={label}
         onChange={(e) => onChange(clamp(parseInt(e.target.value, 10) || min))}
-        className="w-16 rounded-lg border border-white/20 bg-transparent py-1.5 text-center font-display text-[15px] font-semibold text-white [appearance:textfield] focus:border-white/50 focus:outline-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+        className="w-12 rounded-md border border-white/20 bg-transparent py-1 text-center font-display text-[14px] font-semibold text-white [appearance:textfield] focus:border-white/50 focus:outline-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
       />
       <button
         type="button"
@@ -150,7 +166,7 @@ type QuotePayload = {
   term: string;
   currency: string;
   /** null when the selected plan's price is still in the works. */
-  capacity: number | null;
+  platform: number | null;
   total: number;
   seats: Record<string, number>;
   summary: string[];
@@ -168,7 +184,7 @@ function QuoteRequest({ build }: { build: (email: string) => QuotePayload }) {
 
   if (sent) {
     return (
-      <p className="mt-5 flex items-center gap-2 border-t border-white/15 pt-4 text-[13px] text-white/70">
+      <p className="flex items-center gap-2 text-[13px] text-white/70">
         <Check className="size-4 shrink-0 text-orange" strokeWidth={2.5} />
         On its way. We&apos;ll send the official quote to {email}.
       </p>
@@ -208,26 +224,26 @@ function QuoteRequest({ build }: { build: (email: string) => QuotePayload }) {
   };
 
   return (
-    <form onSubmit={send} className="mt-5 border-t border-white/15 pt-4">
-      <label htmlFor="quote-email" className="text-[12.5px] text-white/60">
-        Add your email for an official quote.
+    <form onSubmit={send} className="flex w-full flex-wrap gap-2 sm:w-auto">
+      <label htmlFor="quote-email" className="sr-only">
+        Email for an official quote
       </label>
-      <div className="mt-2 flex flex-wrap gap-2">
+      <div className="flex w-full flex-wrap gap-2 sm:w-auto">
         <input
           id="quote-email"
           type="email"
           required
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          placeholder="you@company.com"
-          className="h-9 min-w-[200px] flex-1 rounded-lg border border-white/20 bg-transparent px-3 text-[13.5px] text-white placeholder:text-white/35 focus:border-white/50 focus:outline-none"
+          placeholder="Email for an official quote"
+          className="h-9 min-w-[220px] flex-1 rounded-lg border border-white/20 bg-transparent px-3 text-[13.5px] text-white placeholder:text-white/35 focus:border-white/50 focus:outline-none"
         />
         <button
           type="submit"
           disabled={busy}
           className="group inline-flex h-9 items-center gap-1.5 rounded-lg bg-white px-4 text-[13px] font-semibold text-ink transition-colors hover:bg-white/90 disabled:opacity-60"
         >
-          {busy ? "Sending" : "Send it"}
+          {busy ? "Sending" : "Get quote"}
           {!busy && (
             <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-0.5" />
           )}
@@ -239,7 +255,7 @@ function QuoteRequest({ build }: { build: (email: string) => QuotePayload }) {
 
 export function PricingSection() {
   const [planIndex, setPlanIndex] = useState(() => {
-    const featured = capacityBands.findIndex((b) => b.featured);
+    const featured = platformPlans.findIndex((b) => b.featured);
     return featured === -1 ? 0 : featured;
   });
   const [counts, setCounts] = useState<number[]>(() =>
@@ -250,23 +266,29 @@ export function PricingSection() {
 
   const yearly = term === "yearly";
   const rate = (a: number) => (yearly ? a : monthlyRate(a));
-  const suffix = yearly ? ", billed yearly" : "";
 
-  const plan = capacityBands[planIndex];
+  const plan = platformPlans[planIndex];
   const planRate = plan.amount === null ? null : rate(plan.amount);
-  const lines = seatTypes.map((seat, i) => ({
-    seat,
-    count: counts[i],
-    subtotal: counts[i] * rate(seat.amount),
-  }));
-  const total =
-    (planRate ?? 0) + lines.reduce((sum, l) => sum + l.subtotal, 0);
+  // Free seats have no input on the quote, so only paid seats are counted.
+  const lines = seatTypes
+    .map((seat, i) => ({
+      seat,
+      count: counts[i],
+      subtotal: counts[i] * rate(seat.amount),
+    }))
+    .filter((l) => !l.seat.free);
+  const total = (planRate ?? 0) + lines.reduce((sum, l) => sum + l.subtotal, 0);
+
+  const freeSeatNames = seatTypes
+    .filter((s) => s.free)
+    .map((s, i) => (i === 0 ? `${s.name}s` : `${s.name.toLowerCase()}s`))
+    .join(" and ");
 
   const setCount = (i: number, n: number) =>
     setCounts((prev) => prev.map((c, j) => (j === i ? n : c)));
 
   const summary = [
-    `${plan.name} capacity: ${
+    `${plan.name} platform: ${
       planRate === null ? PENDING.toLowerCase() : `${money(planRate)} / month`
     }`,
     ...lines.map(
@@ -274,7 +296,7 @@ export function PricingSection() {
         `${plural(l.count, l.seat.name)}: ${l.seat.free ? "free" : money(l.subtotal)}`,
     ),
     `Total: ${money(total)} per month${
-      planRate === null ? " plus capacity" : ""
+      planRate === null ? " plus platform fee" : ""
     }, USD excluding VAT, ${
       yearly ? "yearly rate billed yearly" : "monthly rate"
     }`,
@@ -285,7 +307,7 @@ export function PricingSection() {
     plan: plan.name,
     term,
     currency: "USD",
-    capacity: planRate,
+    platform: planRate,
     total,
     seats: Object.fromEntries(lines.map((l) => [slug(l.seat.name), l.count])),
     summary,
@@ -294,11 +316,11 @@ export function PricingSection() {
 
   return (
     <section className="pb-4">
-      <Container>
+      <Container className="max-w-5xl">
         <StepHeading
           step={1}
-          title="Capacity"
-          note="How much machine you get"
+          title="Seats"
+          note="How many people you need"
           aside={
             showPrices ? (
               <div className="flex rounded-full border border-line bg-white p-0.5 text-[12.5px]">
@@ -321,47 +343,80 @@ export function PricingSection() {
               </div>
             ) : null
           }
-        >
-          What the platform covers. Adding people never moves it, and limits
-          never cost seats.
-        </StepHeading>
+        />
 
-        <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-          {capacityBands.map((band, i) => {
+        <div className="mt-4 grid grid-cols-2 gap-2.5 lg:grid-cols-4">
+          {seatTypes.map((seat, i) => (
+            <Reveal key={seat.name} delay={(i % 4) * 0.05}>
+              <div className="flex h-full flex-col rounded-xl border border-line bg-white p-3.5">
+                <h3 className="font-display text-[14px] font-semibold text-ink">
+                  {seat.name}
+                </h3>
+                {seat.free ? (
+                  <p className="mt-1.5 font-display text-[21px] font-bold leading-none tracking-display text-orange">
+                    Free
+                  </p>
+                ) : (
+                  <Price
+                    amount={rate(seat.amount)}
+                    cadence={seat.cadence}
+                    small
+                  />
+                )}
+                <p className="mt-1.5 text-[12px] leading-snug text-muted">
+                  {seat.desc}
+                </p>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+
+        <div className="mt-8">
+          <StepHeading
+            step={2}
+            title="Platform"
+            note="How much machine you need"
+          />
+        </div>
+
+        {/* Compact cards in one row; scrolls sideways when it does not fit. */}
+        <div className="-mx-4 mt-4 flex snap-x snap-mandatory gap-2.5 overflow-x-auto px-4 pb-2 [scrollbar-width:thin] sm:mx-0 sm:px-0">
+          {platformPlans.map((band, i) => {
             const selected = i === planIndex;
             return (
-              <Reveal key={band.name} delay={i * 0.05}>
+              <Reveal
+                key={band.name}
+                delay={i * 0.05}
+                className="w-[200px] shrink-0 snap-start xl:w-auto xl:flex-1"
+              >
                 <button
                   type="button"
                   onClick={() => setPlanIndex(i)}
                   aria-pressed={selected}
                   className={cn(
-                    "flex h-full w-full flex-col rounded-xl border bg-white p-4 text-left transition-colors",
+                    "flex h-full w-full flex-col rounded-xl border bg-white p-3.5 text-left transition-colors",
                     selected
                       ? "border-orange shadow-card"
                       : "border-line hover:border-line-strong",
                   )}
                 >
-                  <div className="flex w-full items-center gap-2">
-                    <h3 className="font-display text-[14.5px] font-semibold text-ink">
+                  <div className="flex w-full items-center gap-1.5">
+                    <h3 className="font-display text-[14px] font-semibold text-ink">
                       {band.name}
                     </h3>
-                    {band.tags?.map((t, j) => (
-                      <span
-                        key={t}
-                        className={cn(
-                          "rounded-full px-2 py-0.5 text-[10px] font-semibold",
-                          band.featured && j === 0
-                            ? "bg-peach text-orange"
-                            : "bg-warm text-muted",
-                        )}
-                      >
-                        {t}
-                      </span>
-                    ))}
+                    {band.tags
+                      ?.filter((_, j) => !(band.featured && j === 0))
+                      .map((t) => (
+                        <span
+                          key={t}
+                          className="text-[10px] font-medium text-faint"
+                        >
+                          {t}
+                        </span>
+                      ))}
                     {selected && (
                       <Check
-                        className="ml-auto size-4 text-orange"
+                        className="ml-auto size-3.5 shrink-0 text-orange"
                         strokeWidth={2.5}
                       />
                     )}
@@ -370,24 +425,51 @@ export function PricingSection() {
                   <Price
                     amount={band.amount === null ? null : rate(band.amount)}
                     cadence={band.cadence}
-                    suffix={band.amount === 0 ? "" : suffix}
+                    small
                   />
 
-                  <p className="mt-2 text-[13px] leading-relaxed text-muted">
+                  <p className="mt-1.5 line-clamp-2 min-h-[2lh] text-[12px] leading-snug text-muted">
                     {band.blurb}
                   </p>
 
+                  <div className="mt-2.5 flex flex-col text-[11px] font-medium leading-snug text-ink-soft">
+                    {band.useCases.map((u) => (
+                      <span
+                        key={u}
+                        className={cn(u === "ppm" && "text-orange")}
+                      >
+                        {useCaseLabels[u]}
+                      </span>
+                    ))}
+                  </div>
+
                   {showLimits && (
-                    <dl className="mt-3 w-full text-[12.5px]">
-                      {band.limits.map((l) => (
+                    <dl className="mt-2.5 w-full text-[11.5px]">
+                      {[
+                        ...band.limits,
+                        { label: "API calls", value: band.apiCalls ?? PENDING },
+                      ].map((l) => (
                         <div
                           key={l.label}
-                          className="flex items-baseline justify-between gap-3 border-b border-line/60 py-[2.5px] last:border-0"
+                          className="flex items-baseline justify-between gap-2 border-b border-line/60 py-[2px] last:border-0"
                         >
                           <dt className="text-muted">{l.label}</dt>
                           <dd className="font-medium text-ink">{l.value}</dd>
                         </div>
                       ))}
+                      <div className="mt-1 flex items-baseline justify-between gap-2 border-t border-line-strong pt-1">
+                        <dt className="font-medium text-ink">AttoForge</dt>
+                        <dd
+                          className={cn(
+                            "font-semibold",
+                            band.attoForge === "No"
+                              ? "font-medium text-faint"
+                              : "text-orange",
+                          )}
+                        >
+                          {band.attoForge}
+                        </dd>
+                      </div>
                     </dl>
                   )}
                 </button>
@@ -397,185 +479,75 @@ export function PricingSection() {
         </div>
 
         <Reveal>
-          <button
-            type="button"
-            onClick={() => setShowLimits((v) => !v)}
-            aria-expanded={showLimits}
-            className="mt-2 flex w-full items-center justify-center gap-1.5 rounded-lg py-1.5 text-[12.5px] font-medium text-faint transition-colors hover:bg-warm hover:text-ink"
-          >
-            {showLimits ? "Hide limits" : "Compare limits"}
-            <ChevronDown
-              className={cn(
-                "size-3.5 transition-transform",
-                showLimits && "rotate-180",
-              )}
-            />
-          </button>
+          <div className="mt-3 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-[13px] text-muted">
+            <span>{platformIncludes}</span>
+            <button
+              type="button"
+              onClick={() => setShowLimits((v) => !v)}
+              aria-expanded={showLimits}
+              className="inline-flex items-center gap-1 font-medium text-ink underline decoration-line-strong underline-offset-4 transition-colors hover:decoration-ink"
+            >
+              {showLimits ? "Hide limits" : "Compare limits"}
+              <ChevronDown
+                className={cn(
+                  "size-3.5 transition-transform",
+                  showLimits && "rotate-180",
+                )}
+              />
+            </button>
+          </div>
         </Reveal>
 
-        <div className="mt-6">
-          <StepHeading step={2} title="Seats" note="How many people you need">
-            Full rate for anyone who changes how the system works, reduced for
-            operators, free for the rest.
-          </StepHeading>
-        </div>
-
-        <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-          {seatTypes.map((seat, i) => (
-            <Reveal key={seat.name} delay={(i % 4) * 0.05}>
-              <div className="flex h-full flex-col rounded-xl border border-line bg-white p-4">
-                <div className="flex flex-wrap items-baseline justify-between gap-x-2">
-                  <h3 className="font-display text-[14.5px] font-semibold text-ink">
-                    {seat.name}
-                  </h3>
-                  {seat.free && (
-                    <span className="font-display text-[14.5px] font-bold text-orange">
-                      Free
-                    </span>
-                  )}
-                </div>
-                {!seat.free && (
-                  <Price
-                    amount={rate(seat.amount)}
-                    cadence={seat.cadence}
-                    suffix={suffix}
-                  />
-                )}
-                <p className="mt-2 text-[13px] leading-relaxed text-muted">
-                  {seat.desc}
-                </p>
-              </div>
-            </Reveal>
-          ))}
-        </div>
-
-        {/* The quote: the arithmetic of the two steps above, live. */}
+        {/* The quote: paid seats plus the platform, live. Free seats need no input. */}
         {showPrices && (
           <Reveal delay={0.1}>
             <div
               id="quote"
-              className="mt-6 grid scroll-mt-24 gap-6 rounded-xl bg-ink px-6 py-6 text-white sm:px-7 lg:grid-cols-[1fr_auto] lg:gap-10"
+              className="mt-6 scroll-mt-24 rounded-xl bg-ink px-5 py-5 text-white sm:px-6"
             >
-              <div>
-                <h2 className="font-display text-[14.5px] font-semibold">
-                  Your quote
-                </h2>
-                <p className="mt-1 text-[13px] text-white/60">
-                  {plan.name} selected. Set your people and the total updates.
-                </p>
-
-                <div className="mt-4 grid gap-x-10 gap-y-5 sm:grid-cols-2">
-                  {[false, true].map((isFree) => (
-                    <div key={String(isFree)} className="flex flex-col gap-4">
-                      {seatTypes.map((seat, i) =>
-                        Boolean(seat.free) !== isFree ? null : (
-                          <div key={seat.name}>
-                            <p className="mb-2 text-[12.5px] text-white/60">
-                              {seat.name}s,{" "}
-                              {seat.free ? (
-                                <span className="text-orange">free</span>
-                              ) : (
-                                `${money(rate(seat.amount))} each`
-                              )}
-                            </p>
-                            <Stepper
-                              label={`${seat.name}s`}
-                              value={counts[i]}
-                              step={seat.stepBy}
-                              min={seat.minCount}
-                              onChange={(n) => setCount(i, n)}
-                            />
-                          </div>
-                        ),
-                      )}
+              <div className="flex flex-wrap items-end gap-x-8 gap-y-4">
+                {seatTypes.map((seat, i) =>
+                  seat.free ? null : (
+                    <div key={seat.name}>
+                      <p className="mb-1.5 text-[12px] text-white/60">
+                        {seat.name}s · {money(rate(seat.amount))}
+                      </p>
+                      <Stepper
+                        label={`${seat.name}s`}
+                        value={counts[i]}
+                        step={seat.stepBy}
+                        min={seat.minCount}
+                        onChange={(n) => setCount(i, n)}
+                      />
                     </div>
-                  ))}
+                  ),
+                )}
+                <div className="pb-1.5 text-[12px] text-white/60">
+                  + {plan.name} platform
+                  <span className="block text-white">
+                    {planRate === null ? PENDING : money(planRate)}
+                  </span>
+                </div>
+
+                <div aria-live="polite" className="ml-auto text-right">
+                  <p className="text-[12px] text-white/60">
+                    {planRate === null ? "Seats per month" : "Per month"}
+                  </p>
+                  <p className="font-display text-[30px] font-bold leading-none tracking-display">
+                    {money(total)}
+                  </p>
                 </div>
               </div>
 
-              <div className="lg:min-w-[300px]">
-                <dl className="text-[13px]">
-                  <div className="flex justify-between gap-4 py-1">
-                    <dt className="text-white/60">{plan.name} capacity</dt>
-                    <dd>{planRate === null ? PENDING : money(planRate)}</dd>
-                  </div>
-                  {lines.map((l) => (
-                    <div
-                      key={l.seat.name}
-                      className="flex justify-between gap-4 py-1"
-                    >
-                      <dt className="text-white/60">
-                        {plural(l.count, l.seat.name)}
-                      </dt>
-                      <dd className={cn(l.seat.free && "text-orange")}>
-                        {l.seat.free ? "Free" : money(l.subtotal)}
-                      </dd>
-                    </div>
-                  ))}
-                </dl>
-
-                <div
-                  aria-live="polite"
-                  className="mt-3 flex items-baseline justify-between gap-4 border-t border-white/15 pt-3"
-                >
-                  <span className="text-[13px] text-white/60">
-                    {planRate === null ? "Seats per month" : "Per month"}
-                  </span>
-                  <span className="font-display text-[30px] font-bold leading-none tracking-display">
-                    {money(total)}
-                  </span>
-                </div>
-                <p className="mt-2 text-[11.5px] text-white/40">
-                  {planRate === null
-                    ? `USD, excluding VAT. ${plan.name} capacity is priced separately; the official quote includes it.`
-                    : "USD, excluding VAT."}
+              <div className="mt-4 flex flex-wrap items-center justify-between gap-x-6 gap-y-3 border-t border-white/15 pt-4">
+                <p className="text-[11.5px] leading-relaxed text-white/45">
+                  {freeSeatNames} are free. {yearly ? "Yearly" : "Monthly"}{" "}
+                  rates, USD excl. VAT
+                  {pricesProvisional && ", provisional until January 2027"}.
                 </p>
-
                 <QuoteRequest build={buildPayload} />
               </div>
-
-              <p className="text-[11.5px] leading-relaxed text-white/40 lg:col-span-2">
-                {yearly
-                  ? "Yearly rates, two months free against monthly."
-                  : "Monthly rates. Yearly saves two months."}{" "}
-                USD, excluding VAT. Regional pricing for developing markets and
-                a startup program may apply.
-              </p>
             </div>
-          </Reveal>
-        )}
-
-        <Reveal delay={0.1}>
-          <div className="mt-6 rounded-xl border border-line bg-warm px-6 py-5">
-            <h2 className="font-display text-[14.5px] font-semibold text-ink">
-              Our approach
-            </h2>
-            <ul className="mt-3 grid gap-2.5 sm:grid-cols-2">
-              {pricingRules.map((r) => (
-                <li key={r} className="flex items-start gap-2.5">
-                  <Check
-                    className="mt-0.5 size-3.5 shrink-0 text-orange"
-                    strokeWidth={2.5}
-                  />
-                  <span className="text-[13px] leading-relaxed text-ink-soft">
-                    {r}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </Reveal>
-
-        {pricesProvisional && (
-          <Reveal>
-            <p className="mt-5 flex items-start gap-2.5 rounded-xl border border-line bg-peach-soft px-4 py-3 text-[13.5px] leading-relaxed text-ink-soft">
-              <span className="mt-[7px] size-1.5 shrink-0 rounded-full bg-orange" />
-              <span>
-                Prices are provisional while Attoset is in closed beta. They are
-                confirmed with the public beta in January 2027, along with
-                add-ons, Atto allowances and a full feature comparison.
-              </span>
-            </p>
           </Reveal>
         )}
       </Container>
