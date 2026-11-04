@@ -58,17 +58,17 @@ export function ContactForm() {
       <div className="grid gap-4 sm:grid-cols-2">
         <div className="flex flex-col gap-1.5">
           <label className="text-[13px] font-medium text-ink-soft">First name</label>
-          <input required name="firstName" autoComplete="given-name" className={inputCls} placeholder="Jane" />
+          <input required name="firstName" autoComplete="given-name" className={inputCls} placeholder="Sami" />
         </div>
         <div className="flex flex-col gap-1.5">
           <label className="text-[13px] font-medium text-ink-soft">Last name</label>
-          <input required name="lastName" autoComplete="family-name" className={inputCls} placeholder="Doe" />
+          <input required name="lastName" autoComplete="family-name" className={inputCls} placeholder="Adams" />
         </div>
       </div>
 
       <div className="flex flex-col gap-1.5">
         <label className="text-[13px] font-medium text-ink-soft">Work email</label>
-        <input required type="email" name="email" autoComplete="email" className={inputCls} placeholder="jane@company.com" />
+        <input required type="email" name="email" autoComplete="email" className={inputCls} placeholder="sami@company.com" />
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2">
@@ -109,14 +109,14 @@ export function ContactForm() {
 
       <div className="flex flex-col gap-1.5">
         <label className="text-[13px] font-medium text-ink-soft">
-          What would you like to build?
+          How can we help?
         </label>
         <textarea
           name="message"
           rows={4}
           maxLength={5000}
           className={cn(inputCls, "resize-none")}
-          placeholder="Tell us about your operations and what you're hoping to streamline…"
+          placeholder="Tell us a bit about yourself and what you'd like to talk about…"
         />
       </div>
 
