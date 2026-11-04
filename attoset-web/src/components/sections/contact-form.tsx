@@ -22,7 +22,7 @@ export function ContactForm() {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...data, page: window.location.pathname }),
+        body: JSON.stringify(data),
       });
       if (!res.ok) throw new Error();
       setSent(true);
@@ -77,15 +77,32 @@ export function ContactForm() {
           <input name="company" autoComplete="organization" className={inputCls} placeholder="Acme Inc." />
         </div>
         <div className="flex flex-col gap-1.5">
+          <label className="text-[13px] font-medium text-ink-soft">Job title</label>
+          <input name="jobTitle" autoComplete="organization-title" className={inputCls} placeholder="Head of Operations" />
+        </div>
+      </div>
+
+      <div className="grid gap-4 sm:grid-cols-2">
+        <div className="flex flex-col gap-1.5">
           <label className="text-[13px] font-medium text-ink-soft">Team size</label>
           <select name="teamSize" className={cn(inputCls, "appearance-none")} defaultValue="">
             <option value="" disabled>
               Select…
             </option>
-            <option>1–10</option>
-            <option>11–50</option>
-            <option>51–200</option>
-            <option>200+</option>
+            <option value="1–10">1–10</option>
+            <option value="11–50">11–50</option>
+            <option value="51–200">51–200</option>
+            <option value="200+">200+</option>
+          </select>
+        </div>
+        <div className="flex flex-col gap-1.5">
+          <label className="text-[13px] font-medium text-ink-soft">I&apos;m interested in</label>
+          <select required name="segment" className={cn(inputCls, "appearance-none")} defaultValue="">
+            <option value="" disabled>
+              Select…
+            </option>
+            <option value="Direct">Using Attoset</option>
+            <option value="Partner">Becoming a partner</option>
           </select>
         </div>
       </div>
