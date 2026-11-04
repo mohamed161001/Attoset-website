@@ -186,7 +186,7 @@ function QuoteRequest({ build }: { build: (email: string) => QuotePayload }) {
     return (
       <p className="flex items-center gap-2 text-[13px] text-white/70">
         <Check className="size-4 shrink-0 text-orange" strokeWidth={2.5} />
-        On its way. We&apos;ll send the official quote to {email}.
+        We&apos;ll send the official quote to {email}.
       </p>
     );
   }
@@ -243,7 +243,7 @@ function QuoteRequest({ build }: { build: (email: string) => QuotePayload }) {
           disabled={busy}
           className="group inline-flex h-9 items-center gap-1.5 rounded-lg bg-white px-4 text-[13px] font-semibold text-ink transition-colors hover:bg-white/90 disabled:opacity-60"
         >
-          {busy ? "Sending" : "Get quote"}
+          {busy ? "Sending…" : "Request official quote"}
           {!busy && (
             <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-0.5" />
           )}

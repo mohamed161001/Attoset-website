@@ -83,7 +83,7 @@ export function ContactForm() {
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2">
-        <div className="flex flex-col gap-1.5">
+        <div className="flex flex-col gap-1.5 sm:col-span-2">
           <label className="text-[13px] font-medium text-ink-soft">Team size</label>
           <select name="teamSize" className={cn(inputCls, "appearance-none")} defaultValue="">
             <option value="" disabled>
@@ -93,16 +93,6 @@ export function ContactForm() {
             <option value="11–50">11–50</option>
             <option value="51–200">51–200</option>
             <option value="200+">200+</option>
-          </select>
-        </div>
-        <div className="flex flex-col gap-1.5">
-          <label className="text-[13px] font-medium text-ink-soft">I&apos;m interested in</label>
-          <select required name="segment" className={cn(inputCls, "appearance-none")} defaultValue="">
-            <option value="" disabled>
-              Select…
-            </option>
-            <option value="Direct">Using Attoset</option>
-            <option value="Partner">Becoming a partner</option>
           </select>
         </div>
       </div>

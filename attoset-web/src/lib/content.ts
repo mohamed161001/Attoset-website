@@ -633,12 +633,11 @@ export const platformIncludes =
   "Every plan includes Atto, MCP and unlimited record history.";
 
 /**
- * Where a quote request goes: the Attoset form that feeds the quote-requests
- * table, whose automation emails the official quote. Paste that form's
- * submission URL here. Until it is set, the page falls back to a prefilled
- * mail to quoteEmail, so a request is never silently dropped.
+ * Where a quote request goes: /api/quote adds it to the Attoset "Leads" table.
+ * If that fails, the page falls back to a prefilled mail to quoteEmail, so a
+ * request is never silently dropped.
  */
-export const quoteEndpoint = "";
+export const quoteEndpoint = "/api/quote";
 export const quoteEmail = "contact@attoset.com";
 
 // Job applications and CVs: kept out of contact@ so sales enquiries aren't buried.

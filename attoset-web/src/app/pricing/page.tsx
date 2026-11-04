@@ -27,7 +27,7 @@ export default function PricingPage() {
             Seats and <span className="grad-text">platform</span>
           </>
         }
-        description="Add your seats, pick your platform, get an instant quote."
+        description="Add your seats, pick your platform, and request an official quote."
       />
       <PricingSection />
       <FAQ

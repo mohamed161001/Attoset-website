@@ -43,7 +43,7 @@ export function CTA() {
                   href="/contact"
                   className="inline-flex h-11 items-center gap-2 rounded-full border border-white/40 px-6 text-sm font-semibold text-white transition-colors hover:bg-white/10"
                 >
-                  Talk to sales
+                  Contact us
                 </a>
               </div>
             </div>
