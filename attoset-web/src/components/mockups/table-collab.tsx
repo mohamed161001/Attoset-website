@@ -25,7 +25,7 @@ const team = [
   { name: "Sara", color: "#A21CE0", from: "#D29BF2", to: "#A21CE0" },
 ];
 
-// Every field (column) type AttoSet supports, grouped by category.
+// Every field (column) type Attoset supports, grouped by category.
 const fieldGroups: { group: string; types: { name: string; icon: LucideIcon }[] }[] = [
   {
     group: "Text & numbers",

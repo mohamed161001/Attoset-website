@@ -1,6 +1,6 @@
-# AttoSet Web — Engineering Guide
+# Attoset Web — Engineering Guide
 
-Marketing site for AttoSet (AI-powered Work OS). Project context: [`../CLAUDE.md`](../CLAUDE.md). Brand + design system: [`.claude/skills/attoset-brand/SKILL.md`](.claude/skills/attoset-brand/SKILL.md).
+Marketing site for Attoset (AI-powered Work OS). Project context: [`../CLAUDE.md`](../CLAUDE.md). Brand + design system: [`.claude/skills/attoset-brand/SKILL.md`](.claude/skills/attoset-brand/SKILL.md).
 
 > ⚠️ This is **Next.js 16** — APIs and conventions differ from older versions. When unsure, read the bundled docs in `node_modules/next/dist/docs/` before writing code.
 

@@ -1,11 +1,11 @@
 ---
 name: attoset-brand
-description: AttoSet brand + design system. Use whenever building, editing, or reviewing any AttoSet website UI, component, page, copy, or visual asset to keep colors, typography, spacing, motion, and tone on-brand.
+description: Attoset brand + design system. Use whenever building, editing, or reviewing any Attoset website UI, component, page, copy, or visual asset to keep colors, typography, spacing, motion, and tone on-brand.
 ---
 
-# AttoSet Brand & Design System
+# Attoset Brand & Design System
 
-Apply this on every UI/visual/copy task for the AttoSet site.
+Apply this on every UI/visual/copy task for the Attoset site.
 
 ## 1. Personality
 Modern · intelligent · bold · premium · minimalistic · enterprise-ready.
