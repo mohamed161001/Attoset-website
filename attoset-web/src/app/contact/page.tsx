@@ -4,6 +4,7 @@ import { Container } from "@/components/ui/container";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { Reveal } from "@/components/ui/reveal";
 import { LinkedInIcon } from "@/components/ui/social-icons";
+import { ContactForm } from "@/components/sections/contact-form";
 import { pageMeta } from "@/lib/seo";
 
 export const metadata: Metadata = pageMeta({
@@ -79,6 +80,18 @@ export default function ContactPage() {
                 Connect on LinkedIn
               </a>
             </p>
+          </Reveal>
+        </div>
+
+        {/* Form — every message lands in the Attoset "Website Leads" table */}
+        <div className="mx-auto mt-16 max-w-xl">
+          <Reveal delay={0.1}>
+            <div className="mb-6 flex items-center gap-4">
+              <span className="h-px flex-1 bg-line" />
+              <span className="text-[13px] font-medium text-muted">Or send us a message</span>
+              <span className="h-px flex-1 bg-line" />
+            </div>
+            <ContactForm />
           </Reveal>
         </div>
 
