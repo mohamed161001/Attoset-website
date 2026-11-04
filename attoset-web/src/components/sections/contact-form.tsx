@@ -74,7 +74,7 @@ export function ContactForm() {
       <div className="grid gap-4 sm:grid-cols-2">
         <div className="flex flex-col gap-1.5">
           <label className="text-[13px] font-medium text-ink-soft">Company</label>
-          <input name="company" autoComplete="organization" className={inputCls} placeholder="Acme Inc." />
+          <input required name="company" autoComplete="organization" className={inputCls} placeholder="Acme Inc." />
         </div>
         <div className="flex flex-col gap-1.5">
           <label className="text-[13px] font-medium text-ink-soft">Job title</label>

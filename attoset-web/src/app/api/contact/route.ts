@@ -65,15 +65,16 @@ export async function POST(req: Request) {
 
   const name = `${clean(body.firstName, 80)} ${clean(body.lastName, 80)}`.trim();
   const email = clean(body.email, 254);
+  const company = clean(body.company, 120);
   const segmentId = SEGMENTS[clean(body.segment, 20)];
-  if (!name || !EMAIL_RE.test(email) || !segmentId) {
+  if (!name || !EMAIL_RE.test(email) || !company || !segmentId) {
     return NextResponse.json({ ok: false, error: "invalid" }, { status: 400 });
   }
 
   const values: [string, unknown][] = [
     [COLUMNS.name, name],
     [COLUMNS.email, email],
-    [COLUMNS.company, clean(body.company, 120) || null],
+    [COLUMNS.company, company],
     [COLUMNS.jobTitle, clean(body.jobTitle, 120) || null],
     [COLUMNS.segment, segmentId],
     [COLUMNS.message, clean(body.message, 5000) || null],
