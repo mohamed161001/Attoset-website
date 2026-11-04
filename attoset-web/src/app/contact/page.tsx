@@ -27,7 +27,7 @@ export default function ContactPage() {
       <div className="bg-grid mask-fade-b pointer-events-none absolute inset-x-0 top-0 h-[460px] opacity-40" />
 
       <Container className="relative">
-        {/* Hero — email is the focal point */}
+        {/* Hero */}
         <div className="mx-auto max-w-2xl text-center">
           <Reveal>
             <Eyebrow>Contact</Eyebrow>
@@ -41,33 +41,47 @@ export default function ContactPage() {
           <Reveal delay={0.1}>
             <p className="mx-auto mt-6 max-w-md text-pretty text-lg leading-relaxed text-muted">
               Tell us what you&apos;re working on and we&apos;ll show you how
-              Attoset brings it all into one intelligent system. We&apos;re one
-              email away.
+              Attoset brings it all into one intelligent system.
             </p>
           </Reveal>
 
-          {/* Highlighted email */}
+        </div>
+
+        {/* Form — every message lands in the Attoset "Website Leads" table */}
+        <div className="mx-auto mt-12 max-w-xl">
           <Reveal delay={0.16}>
+            <ContactForm />
+          </Reveal>
+        </div>
+
+        {/* Email and social, under the form */}
+        <div className="mx-auto mt-16 max-w-xl text-center">
+          <Reveal delay={0.1}>
+            <div className="mb-6 flex items-center gap-4">
+              <span className="h-px flex-1 bg-line" />
+              <span className="text-[13px] font-medium text-muted">Or email us</span>
+              <span className="h-px flex-1 bg-line" />
+            </div>
             <a
               href="mailto:contact@attoset.com"
-              className="group mx-auto mt-10 inline-flex items-center gap-4 rounded-2xl border border-line bg-white px-6 py-5 shadow-card transition-all hover:-translate-y-0.5 hover:border-orange/30 hover:shadow-float"
+              className="group mx-auto inline-flex max-w-full items-center gap-3 rounded-2xl border border-line bg-white px-5 py-5 shadow-card transition-all hover:-translate-y-0.5 hover:border-orange/30 hover:shadow-float sm:gap-4 sm:px-6"
             >
-              <span className="flex size-12 items-center justify-center rounded-xl bg-orange text-white shadow-orange">
+              <span className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-orange text-white shadow-orange">
                 <Mail className="size-5" strokeWidth={1.9} />
               </span>
-              <span className="text-left">
+              <span className="min-w-0 text-left">
                 <span className="block text-[11px] font-semibold uppercase tracking-[0.14em] text-faint">
                   Email us
                 </span>
-                <span className="grad-text block text-lg font-bold sm:text-xl">
+                <span className="grad-text block text-base font-bold sm:text-xl">
                   contact@attoset.com
                 </span>
               </span>
-              <ArrowRight className="size-5 text-faint transition-transform group-hover:translate-x-0.5 group-hover:text-orange" />
+              <ArrowRight className="hidden size-5 shrink-0 text-faint sm:block transition-transform group-hover:translate-x-0.5 group-hover:text-orange" />
             </a>
           </Reveal>
 
-          <Reveal delay={0.22}>
+          <Reveal delay={0.16}>
             <p className="mt-5 text-sm text-muted">
               Prefer social?{" "}
               <a
@@ -80,18 +94,6 @@ export default function ContactPage() {
                 Connect on LinkedIn
               </a>
             </p>
-          </Reveal>
-        </div>
-
-        {/* Form — every message lands in the Attoset "Website Leads" table */}
-        <div className="mx-auto mt-16 max-w-xl">
-          <Reveal delay={0.1}>
-            <div className="mb-6 flex items-center gap-4">
-              <span className="h-px flex-1 bg-line" />
-              <span className="text-[13px] font-medium text-muted">Or send us a message</span>
-              <span className="h-px flex-1 bg-line" />
-            </div>
-            <ContactForm />
           </Reveal>
         </div>
 
