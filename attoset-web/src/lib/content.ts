@@ -59,6 +59,12 @@ export const trustCenterHref =
   "https://trust.attoset.com/trust/attoset/overview";
 export const statusHref = "https://status.attoset.com";
 
+/**
+ * Hide every Trust Center link (footer + Security page card) while the Probo
+ * trust center is out of date. Flip to true to show them again.
+ */
+export const showTrustCenter = false;
+
 export const trustCenter = {
   title: "See how we protect your data",
   description:

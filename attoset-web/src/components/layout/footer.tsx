@@ -2,7 +2,12 @@ import Link from "next/link";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { LinkedInIcon } from "@/components/ui/social-icons";
-import { ctaHref, statusHref, trustCenterHref } from "@/lib/content";
+import {
+  ctaHref,
+  showTrustCenter,
+  statusHref,
+  trustCenterHref,
+} from "@/lib/content";
 import { CookieSettingsButton } from "@/components/consent/consent-manager";
 import { Logo } from "./logo";
 
@@ -32,7 +37,9 @@ const columns: { title: string; links: FooterLink[] }[] = [
   {
     title: "Trust",
     links: [
-      { label: "Trust Center", href: trustCenterHref, external: true },
+      ...(showTrustCenter
+        ? [{ label: "Trust Center", href: trustCenterHref, external: true }]
+        : []),
       { label: "Security", href: "/security" },
       { label: "Privacy Policy", href: "/privacy" },
     ],
@@ -132,7 +139,9 @@ export function Footer() {
         <div className="mt-12 flex flex-col items-center justify-between gap-3 border-t border-line pt-8 text-sm text-faint sm:flex-row">
           <p>
             © {new Date().getFullYear()} Attoset. All rights reserved.
-            <span aria-hidden className="mx-2">·</span>
+            <span aria-hidden className="mx-2">
+              ·
+            </span>
             <CookieSettingsButton className="transition-colors hover:text-orange" />
           </p>
           <span className="inline-flex items-center gap-2 text-sm font-medium">
