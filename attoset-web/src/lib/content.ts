@@ -611,10 +611,6 @@ export const MONTHLY_MULTIPLIER = 1.2;
 export const monthlyRate = (yearly: number) =>
   Math.round(yearly * MONTHLY_MULTIPLIER);
 
-/** What every plan has, so it isn't repeated on each card. */
-export const platformIncludes =
-  "Every plan includes Atto, MCP and unlimited record history.";
-
 /**
  * Where a quote request goes: /api/quote adds it to the Attoset "Leads" table.
  * If that fails, the page falls back to a prefilled mail to quoteEmail, so a

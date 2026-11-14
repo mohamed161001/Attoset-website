@@ -6,7 +6,6 @@ import { Container } from "@/components/ui/container";
 import { Reveal } from "@/components/ui/reveal";
 import {
   platformPlans,
-  platformIncludes,
   advancedFeatures,
   seatTypes,
   showPrices,
@@ -474,7 +473,6 @@ export function PricingSection() {
 
         <Reveal>
           <div className="mt-3 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-[13px] text-muted">
-            <span>{platformIncludes}</span>
             <button
               type="button"
               onClick={() => setShowLimits((v) => !v)}
