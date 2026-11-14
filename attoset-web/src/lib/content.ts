@@ -512,18 +512,9 @@ export const showPrices = true;
  */
 export const pricesProvisional = true;
 
-/** The two ways teams use Attoset. Each plan is tagged with the ones it supports. */
-export type UseCase = "operations" | "ppm";
-
-export const useCaseLabels: Record<UseCase, string> = {
-  operations: "Operations",
-  ppm: "Portfolio management",
-};
-
 /** What the workspace costs — one platform fee, which includes API and MCP usage. */
 export type PlatformPlan = {
   name: string;
-  useCases: UseCase[];
   /**
    * Monthly USD. Formatted for display and summed by the estimator.
    * null while a plan's price is still being set: the card reads "In the works"
@@ -535,94 +526,80 @@ export type PlatformPlan = {
   blurb: string;
   /** Included API calls, as shown, e.g. "50,000 / mo". null while it is being set. */
   apiCalls: string | null;
-  /** AttoForge access, shown as the last, highlighted limit: it is what the higher prices buy. */
-  attoForge: string;
   /** Amounts that differ by plan. API calls are appended from apiCalls. */
   limits: { label: string; value: string }[];
+  /**
+   * What the higher plans add, one value per advancedFeatures entry and in the
+   * same order. null means the plan does not have it.
+   */
+  advanced: (string | null)[];
   tags?: string[];
+  /** The plan the estimator starts on. */
   featured?: boolean;
 };
+
+/** Shown under the limits as their own group, on every card so the rows line up. */
+export const advancedFeatures = ["Pivots", "AttoForge"];
 
 export const platformPlans: PlatformPlan[] = [
   {
     name: "Free",
-    useCases: ["operations"],
     amount: 0,
     cadence: "/ mo",
     apiCalls: "1,000 / mo",
+    featured: true,
     blurb: "Free for good. For a solo user or a small team.",
     limits: [
-      { label: "Rows per table", value: "5,000" },
+      { label: "Total records", value: "5,000" },
       { label: "Storage", value: "10 GB" },
-      { label: "Automation runs", value: "250 / mo" },
-      { label: "Atto credits", value: "2,500 / mo" },
+      { label: "Automation runs", value: "500 / mo" },
+      { label: "Atto credits", value: "5,000 / mo" },
     ],
-    attoForge: "No",
+    advanced: [null, null],
   },
   {
     name: "Starter",
-    useCases: ["operations"],
-    amount: 39,
+    amount: 100,
     cadence: "/ mo",
     apiCalls: "50,000 / mo",
-    tags: ["Start here"],
-    featured: true,
-    blurb: "More rows, storage and runs for a growing team.",
+    blurb: "More records, storage and runs for a growing team.",
     limits: [
-      { label: "Rows per table", value: "25,000" },
+      { label: "Total records", value: "100,000" },
       { label: "Storage", value: "100 GB" },
       { label: "Automation runs", value: "2,500 / mo" },
       { label: "Atto credits", value: "20,000 / mo" },
     ],
-    attoForge: "No",
+    advanced: [null, null],
   },
   {
     name: "Growth",
-    useCases: ["operations"],
-    amount: 149,
+    amount: 249,
     cadence: "/ mo",
     apiCalls: "250,000 / mo",
     tags: ["Coming soon"],
     blurb: "SSO, audit export and room for many processes.",
     limits: [
-      { label: "Rows per table", value: "50,000" },
+      { label: "Total records", value: "500,000" },
       { label: "Storage", value: "1 TB" },
       { label: "Automation runs", value: "25,000 / mo" },
       { label: "Atto credits", value: "100,000 / mo" },
     ],
-    attoForge: "Add-on",
-  },
-  {
-    name: "Pro",
-    useCases: ["operations", "ppm"],
-    amount: 449,
-    cadence: "/ mo",
-    apiCalls: "500,000 / mo",
-    tags: ["Coming soon"],
-    blurb: "Run a portfolio, with AttoForge built in.",
-    limits: [
-      { label: "Rows per table", value: "75,000" },
-      { label: "Storage", value: "5 TB" },
-      { label: "Automation runs", value: "50,000 / mo" },
-      { label: "Atto credits", value: "175,000 / mo" },
-    ],
-    attoForge: "1 blueprint",
+    advanced: ["Included", "Add-on"],
   },
   {
     name: "Scale",
-    useCases: ["operations", "ppm"],
-    amount: 1000,
+    amount: 900,
     cadence: "/ mo",
     apiCalls: "Unlimited",
     tags: ["Coming soon"],
-    blurb: "Full capacity and every app, including AttoForge.",
+    blurb: "Advanced repeatable operations and portfolio management.",
     limits: [
-      { label: "Rows per table", value: "250,000" },
+      { label: "Total records", value: "Unlimited" },
       { label: "Storage", value: "Unlimited" },
       { label: "Automation runs", value: "Unlimited" },
       { label: "Atto credits", value: "250,000 / mo" },
     ],
-    attoForge: "Unlimited",
+    advanced: ["Included", "Unlimited"],
   },
 ];
 

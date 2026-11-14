@@ -7,7 +7,7 @@ import { Reveal } from "@/components/ui/reveal";
 import {
   platformPlans,
   platformIncludes,
-  useCaseLabels,
+  advancedFeatures,
   seatTypes,
   showPrices,
   pricesProvisional,
@@ -379,16 +379,11 @@ export function PricingSection() {
           />
         </div>
 
-        {/* Compact cards in one row; scrolls sideways when it does not fit. */}
-        <div className="-mx-4 mt-4 flex snap-x snap-mandatory gap-2.5 overflow-x-auto px-4 pb-2 [scrollbar-width:thin] sm:mx-0 sm:px-0">
+        <div className="mt-4 grid gap-2.5 sm:grid-cols-2 lg:grid-cols-4">
           {platformPlans.map((band, i) => {
             const selected = i === planIndex;
             return (
-              <Reveal
-                key={band.name}
-                delay={i * 0.05}
-                className="w-[200px] shrink-0 snap-start xl:w-auto xl:flex-1"
-              >
+              <Reveal key={band.name} delay={i * 0.05}>
                 <button
                   type="button"
                   onClick={() => setPlanIndex(i)}
@@ -404,16 +399,14 @@ export function PricingSection() {
                     <h3 className="font-display text-[14px] font-semibold text-ink">
                       {band.name}
                     </h3>
-                    {band.tags
-                      ?.filter((_, j) => !(band.featured && j === 0))
-                      .map((t) => (
-                        <span
-                          key={t}
-                          className="text-[10px] font-medium text-faint"
-                        >
-                          {t}
-                        </span>
-                      ))}
+                    {band.tags?.map((t) => (
+                      <span
+                        key={t}
+                        className="text-[10px] font-medium text-faint"
+                      >
+                        {t}
+                      </span>
+                    ))}
                     {selected && (
                       <Check
                         className="ml-auto size-3.5 shrink-0 text-orange"
@@ -432,17 +425,6 @@ export function PricingSection() {
                     {band.blurb}
                   </p>
 
-                  <div className="mt-2.5 flex flex-col text-[11px] font-medium leading-snug text-ink-soft">
-                    {band.useCases.map((u) => (
-                      <span
-                        key={u}
-                        className={cn(u === "ppm" && "text-orange")}
-                      >
-                        {useCaseLabels[u]}
-                      </span>
-                    ))}
-                  </div>
-
                   {showLimits && (
                     <dl className="mt-2.5 w-full text-[11.5px]">
                       {[
@@ -457,19 +439,31 @@ export function PricingSection() {
                           <dd className="font-medium text-ink">{l.value}</dd>
                         </div>
                       ))}
-                      <div className="mt-1 flex items-baseline justify-between gap-2 border-t border-line-strong pt-1">
-                        <dt className="font-medium text-ink">AttoForge</dt>
-                        <dd
-                          className={cn(
-                            "font-semibold",
-                            band.attoForge === "No"
-                              ? "font-medium text-faint"
-                              : "text-orange",
-                          )}
-                        >
-                          {band.attoForge}
-                        </dd>
+                      <div className="mt-1.5 border-t border-line-strong pt-1.5 text-[10.5px] font-medium text-faint">
+                        Advanced features
                       </div>
+                      {advancedFeatures.map((label, j) => (
+                        <div
+                          key={label}
+                          className="flex items-baseline justify-between gap-2 border-b border-line/60 py-[2px] last:border-0"
+                        >
+                          <dt className="text-muted">{label}</dt>
+                          <dd
+                            className={
+                              band.advanced[j]
+                                ? "font-semibold text-orange"
+                                : "text-faint"
+                            }
+                          >
+                            {band.advanced[j] ?? (
+                              <>
+                                <span aria-hidden>–</span>
+                                <span className="sr-only">Not included</span>
+                              </>
+                            )}
+                          </dd>
+                        </div>
+                      ))}
                     </dl>
                   )}
                 </button>
@@ -487,7 +481,7 @@ export function PricingSection() {
               aria-expanded={showLimits}
               className="inline-flex items-center gap-1 font-medium text-ink underline decoration-line-strong underline-offset-4 transition-colors hover:decoration-ink"
             >
-              {showLimits ? "Hide limits" : "Compare limits"}
+              {showLimits ? "Hide comparison" : "Compare plans"}
               <ChevronDown
                 className={cn(
                   "size-3.5 transition-transform",
