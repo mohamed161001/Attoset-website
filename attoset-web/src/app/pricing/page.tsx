@@ -11,7 +11,7 @@ import { pricingFaqs } from "@/lib/content";
 export const metadata: Metadata = pageMeta({
   title: "Pricing",
   description:
-    "A platform fee for your workspace, plus a price per seat. You only pay for what each seat can do. AI agents, visitors and external operators are free.",
+    "A platform fee for your workspace, plus a price per seat. You only pay for what each seat can do. AI agents, visitors and external seats are free.",
   path: "/pricing",
 });
 

@@ -674,7 +674,7 @@ export const seatTypes: SeatType[] = [
     stepBy: 1,
   },
   {
-    name: "Operator",
+    name: "Light seat",
     amount: 7.5,
     cadence: "/ user / mo",
     desc: "Updates records, answers automated requests.",
@@ -692,9 +692,9 @@ export const seatTypes: SeatType[] = [
     stepBy: 5,
   },
   {
-    name: "External operator",
+    name: "External seat",
     amount: 0,
-    desc: "Operator access for clients, suppliers and contractors, at no charge.",
+    desc: "Light-seat access for clients, suppliers and contractors, at no charge.",
     free: true,
     defaultCount: 5,
     minCount: 0,
