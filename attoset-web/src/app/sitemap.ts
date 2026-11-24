@@ -51,6 +51,12 @@ const routes: Route[] = [
     lastModified: "2026-09-20",
   },
   {
+    path: "/integrations/claude",
+    priority: 0.6,
+    changeFrequency: "monthly",
+    lastModified: "2026-11-24",
+  },
+  {
     path: "/about",
     priority: 0.6,
     changeFrequency: "monthly",

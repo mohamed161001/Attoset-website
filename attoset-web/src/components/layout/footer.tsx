@@ -21,6 +21,7 @@ const columns: { title: string; links: FooterLink[] }[] = [
       { label: "Atto AI", href: "/product#atto" },
       { label: "AttoForge", href: "/#autoforge" },
       { label: "Security", href: "/security" },
+      { label: "Claude connector", href: "/integrations/claude" },
       { label: "Pricing", href: "/pricing" },
     ],
   },
