@@ -64,6 +64,20 @@ export default function SecurityPage() {
               </Reveal>
             ))}
           </div>
+
+          <Reveal>
+            <div id="report" className="mt-8 scroll-mt-28 rounded-3xl border border-line bg-white p-7">
+              <h2 className="font-display text-[15px] font-semibold text-ink">Report a vulnerability</h2>
+              <p className="mt-2 max-w-2xl text-[13.5px] leading-relaxed text-muted">
+                Found a security issue in Attoset, including our MCP connector? Email{" "}
+                <a href="mailto:security@attoset.com" className="font-medium text-ink underline underline-offset-4 hover:text-orange">
+                  security@attoset.com
+                </a>{" "}
+                with the steps to reproduce it. Please give us a chance to fix it before sharing it publicly, and don&apos;t
+                access data that isn&apos;t yours while testing.
+              </p>
+            </div>
+          </Reveal>
         </Container>
       </section>
 

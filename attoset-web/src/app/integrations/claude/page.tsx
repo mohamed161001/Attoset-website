@@ -287,6 +287,10 @@ const sections: { id: string; title: string; body: React.ReactNode }[] = [
         <a href="/contact" className={link}>
           contact page
         </a>
+        . To report a security issue, email{" "}
+        <a href="mailto:security@attoset.com" className={link}>
+          security@attoset.com
+        </a>
         . Claude is a product of Anthropic.
       </p>
     ),
